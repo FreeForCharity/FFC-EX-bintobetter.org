@@ -160,19 +160,21 @@ If you want to use a custom domain:
 
 1. **Add CNAME file** to `html-site/` directory:
 
-1. **CNAME Files** - The domain is configured in two locations:
-   - `html-site/CNAME` - **Production deployment** (deployed to GitHub Pages)
-   - `public/CNAME` - Development reference (for Next.js builds, not deployed)
+   **CRITICAL: CNAME File Location**
+   - `html-site/CNAME` - **ONLY location for CNAME** (deployed to GitHub Pages)
+   - **DO NOT** create a CNAME file at the repository root
+   
+   **Why?** When GitHub Pages deploys, it serves files from the uploaded artifact directory. A CNAME at the repository root causes GitHub to serve root-level files (like README.md) instead of the deployed artifact content. The CNAME must be inside the `html-site/` directory so it gets included in the deployment artifact.
 
-   Both files should contain:
+   The file should contain:
 
    ```
-   ffcworkingsite2.org
+   bintobetter.org
    ```
 
 2. **Configure DNS records** at your domain provider:
 
-   For apex domain (ffcworkingsite2.org):
+   For apex domain (bintobetter.org):
    - **Type**: A or ALIAS (depending on DNS provider)
    - **Name**: @ (root domain)
    - **Value**: GitHub Pages IP addresses:
@@ -188,14 +190,15 @@ If you want to use a custom domain:
 
 3. **GitHub Pages Settings**:
    - Navigate to repository Settings → Pages
-   - Custom domain should show: `ffcworkingsite2.org`
+   - Custom domain should show: `bintobetter.org`
    - HTTPS should be automatically enabled
 
 4. **Important Notes**:
    - The `html-site/CNAME` file is critical for deployment
    - Without this file, GitHub Pages loses custom domain configuration on each deployment
-   - The deployment workflow deploys `html-site/` directory, not `public/`
+   - The deployment workflow deploys `html-site/` directory only
    - Custom domain works independently of the basePath configuration
+   - See note above about CNAME file location requirements
 
 ### DNS Propagation
 
