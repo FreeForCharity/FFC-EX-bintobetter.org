@@ -18,8 +18,8 @@ This document explains how the Free For Charity website is deployed to GitHub Pa
 
 The Free For Charity website is deployed to GitHub Pages as a static HTML site. The site is accessible at:
 
-- **GitHub Pages URL**: https://freeforcharity.github.io/FFC-IN-Single_Page_Template_HTML/
-- **Custom Domain**: (If configured via CNAME file)
+- **Custom Domain**: https://bintobetter.org/
+- **GitHub Pages URL**: https://freeforcharity.github.io/FFC-EX-bintobetter.org/ (redirects to custom domain)
 
 ### Technology Stack
 
@@ -49,9 +49,11 @@ html-site/               # Production website
 
 ### Asset Path Handling
 
-The HTML static site uses paths with the basePath prefix (e.g., `/FFC-IN-Single_Page_Template_HTML/favicon.ico`) which ensures assets load correctly when deployed to the GitHub Pages subpath.
+The HTML static site uses root-relative paths (e.g., `/favicon.ico`, `/css/styles.css`) which work correctly when deployed to the custom apex domain (https://bintobetter.org/).
 
-All HTML files have been pre-configured with the correct basePath for GitHub Pages deployment.
+**Important**: The site is configured for deployment to the custom domain. All asset paths use root-relative paths without a basePath prefix.
+
+All HTML files have been pre-configured with the correct paths for custom domain deployment.
 
 ---
 
@@ -107,8 +109,8 @@ While automated deployment is recommended, manual deployment is straightforward.
 1. **Clone the repository** (if not already done):
 
    ```bash
-   git clone https://github.com/FreeForCharity/FFC-IN-Single_Page_Template_HTML.git
-   cd FFC-IN-Single_Page_Template_HTML
+   git clone https://github.com/FreeForCharity/FFC-EX-bintobetter.org.git
+   cd FFC-EX-bintobetter.org
    ```
 
 2. **Make your changes** to files in the `html-site/` directory:
@@ -256,9 +258,10 @@ curl -I https://yourdomain.org
 **Cause**: Incorrect asset paths
 
 **Solution**:
-1. Verify all asset paths include the basePath: `/FFC-IN-Single_Page_Template_HTML/`
+1. Verify all asset paths use root-relative paths: `/css/`, `/images/`, etc.
 2. Check browser console for 404 errors
 3. Ensure files exist in the `html-site/` directory
+4. Verify the custom domain (bintobetter.org) is properly configured
 
 #### Issue: 404 Page Not Found
 

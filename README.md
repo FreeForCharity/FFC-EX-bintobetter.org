@@ -8,7 +8,7 @@ This repository contains the **BinToBetter** website built with pure HTML, CSS, 
 
 - 🌐 **[Live Site](https://bintobetter.org/)** - Production website
 - 📂 **[HTML Site Files](./html-site/)** - All website files
-- ♻️ **[GitHub Repository](https://github.com/FreeForCharity/bintobetter.org)** - Source code
+- ♻️ **[GitHub Repository](https://github.com/FreeForCharity/FFC-EX-bintobetter.org)** - Source code
 
 ---
 
@@ -118,8 +118,8 @@ No build process or dependencies required! Simply open the HTML files in your br
 
 ```bash
 # Clone the repository
-git clone https://github.com/FreeForCharity/bintobetter.org.git
-cd bintobetter.org
+git clone https://github.com/FreeForCharity/FFC-EX-bintobetter.org.git
+cd FFC-EX-bintobetter.org
 
 # Open in browser
 cd html-site
