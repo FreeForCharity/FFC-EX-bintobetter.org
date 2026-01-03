@@ -92,7 +92,7 @@ ls -la html-site/
 
 ## Related Issues
 
-This issue was previously addressed in PR #10 ("Fix GitHub Pages deployment - remove root CNAME causing README to be served"), but the root CNAME file was re-added at some point, causing the problem to recur.
+This issue was previously addressed in PR #10 ("Fix GitHub Pages deployment - remove root CNAME causing README to be served") on 2026-01-02, but the root CNAME file was re-added after that merge, causing the problem to recur.
 
 ## Prevention
 
