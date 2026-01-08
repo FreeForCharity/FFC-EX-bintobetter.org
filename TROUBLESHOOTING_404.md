@@ -2,11 +2,44 @@
 
 ## Problem Description
 
-When navigating to `https://bintobetter.org`, users see a 404 error page that says:
-- **"Site not found - GitHub Pages"**
-- **"There isn't a GitHub Pages site here."**
+When navigating to `https://bintobetter.org`, users may see:
+- **"Site not found - GitHub Pages"** error, OR
+- **README.md content** instead of the BinToBetter website
 
-This document provides step-by-step troubleshooting to resolve this issue.
+This document provides step-by-step troubleshooting to resolve these issues.
+
+---
+
+## ⚠️ CRITICAL ISSUE: Auto-Created Root CNAME File
+
+**IF YOU SEE THE README INSTEAD OF THE WEBSITE**, the most common cause is an auto-created CNAME file in the repository root.
+
+### What Happens
+
+When you configure a custom domain in **Settings** → **Pages** → **Custom domain**, GitHub automatically:
+1. Creates a `CNAME` file in the **repository root**
+2. Commits it with message "Create CNAME"
+3. This causes GitHub Pages to serve files from the root (including README.md) instead of from `html-site/`
+
+### Quick Fix
+
+```bash
+# Delete the auto-created root CNAME file
+git pull origin main
+git rm CNAME
+git commit -m "Remove auto-created root CNAME (conflicts with html-site/CNAME)"
+git push origin main
+```
+
+Or use GitHub UI:
+1. Go to repository root
+2. Click on `CNAME` file
+3. Click trash icon to delete
+4. Commit with message "Remove root CNAME"
+
+### Prevention
+
+The repository now includes `/CNAME` in `.gitignore` to prevent this file from being committed in the future. However, GitHub may still try to create it, so you may need to delete it again if the issue recurs.
 
 ---
 

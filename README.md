@@ -95,23 +95,36 @@ If you see a **404 "Site not found - GitHub Pages"** error when visiting https:/
 
 **Quick Fix:**
 
-1. **Verify GitHub Pages is enabled:**
+1. **Check for root CNAME file (MOST COMMON ISSUE):**
+   - If you see "README" content instead of the website, there's likely a CNAME file in the repository root
+   - GitHub auto-creates this when you configure custom domain in Settings → Pages
+   - **FIX:** Delete the root CNAME file:
+     ```bash
+     git pull origin main
+     git rm CNAME  # Delete root CNAME
+     git commit -m "Remove auto-created root CNAME"
+     git push origin main
+     ```
+   - The CNAME should ONLY exist in `html-site/CNAME`, not in the root
+
+2. **Verify GitHub Pages is enabled:**
    - Go to **Settings** → **Pages**
    - Source should be: **GitHub Actions**
    - Custom domain should be: `bintobetter.org`
 
-2. **Trigger a deployment:**
+3. **Trigger a deployment:**
    - Go to **Actions** tab
    - Click "Deploy to GitHub Pages" workflow
    - Click **Run workflow** → select `main` branch → **Run workflow**
 
-3. **Wait and verify:**
+4. **Wait and verify:**
    - Wait 1-2 minutes for deployment to complete
    - Visit https://bintobetter.org in incognito mode
 
 **For detailed troubleshooting:**
 - Run the verification script: `bash verify-deployment.sh`
 - See [TROUBLESHOOTING_404.md](./TROUBLESHOOTING_404.md) for comprehensive troubleshooting guide
+- See [GITHUB_PAGES_SETUP.md](./GITHUB_PAGES_SETUP.md) for setup instructions
 - See [DEPLOYMENT.md](./DEPLOYMENT.md) for full deployment documentation
 
 ### ⚠️ Custom Domain Dependency

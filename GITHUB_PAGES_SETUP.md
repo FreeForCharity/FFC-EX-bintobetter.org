@@ -26,6 +26,25 @@ If you're seeing a 404 error at https://bintobetter.org/, follow these steps to 
      - A green checkmark ✅ will appear when verified
      - A warning about DNS may appear initially - this is normal if DNS is already configured
 
+   **⚠️ CRITICAL: GitHub will auto-create a CNAME file**
+   
+   When you save the custom domain, GitHub automatically creates a `CNAME` file in the **repository root** and commits it. This will **BREAK** the deployment because it causes GitHub Pages to serve the README.md instead of the html-site content.
+   
+   **You MUST delete this auto-created CNAME file:**
+   
+   After GitHub creates the CNAME commit, immediately:
+   - The repository already has `/CNAME` in `.gitignore` to prevent this
+   - But if you see a "Create CNAME" commit on main branch, you need to delete it:
+     ```bash
+     git pull origin main
+     git rm CNAME
+     git commit -m "Remove auto-created root CNAME (conflicts with html-site/CNAME)"
+     git push origin main
+     ```
+   - Or use the GitHub UI: delete the CNAME file from the root directory
+   
+   The CNAME file **MUST** only exist in `html-site/CNAME`, not in the repository root.
+
 4. **Enable HTTPS:**
    - After domain verification, a checkbox labeled "Enforce HTTPS" will appear
    - Check the **"Enforce HTTPS"** box
