@@ -1,57 +1,6 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <!-- BasePath detection must run FIRST for GitHub Pages support -->
-    <script>
-/**
- * BasePath Detection for GitHub Pages Deployment
- * 
- * This script detects whether the site is being served from:
- * 1. Custom domain (bintobetter.org) - uses root path "/"
- * 2. GitHub Pages subdirectory (freeforcharity.github.io/FFC-EX-bintobetter.org/) - uses "/FFC-EX-bintobetter.org/"
- * 
- * It must run BEFORE any resources are loaded to set the correct base path.
- */
-(function() {
-  'use strict';
-  
-  // Detect if we're on GitHub Pages subdirectory
-  const hostname = window.location.hostname;
-  const pathname = window.location.pathname;
-  
-  // GitHub Pages pattern: username.github.io/repository-name/
-  const isGitHubPages = hostname.endsWith('.github.io');
-  
-  let basePath = '/';
-  
-  if (isGitHubPages) {
-    // Extract repository name from pathname
-    // pathname will be like "/FFC-EX-bintobetter.org/" or "/FFC-EX-bintobetter.org/index.html"
-    const pathSegments = pathname.split('/').filter(segment => segment);
-    if (pathSegments.length > 0) {
-      basePath = '/' + pathSegments[0] + '/';
-    }
-  }
-  
-  // Set base path as a global variable for use in other scripts
-  window.BASE_PATH = basePath;
-  
-  // Create and inject base tag if not on custom domain
-  if (basePath !== '/') {
-    const baseTag = document.createElement('base');
-    baseTag.href = window.location.origin + basePath;
-    
-    // Insert at the beginning of head, before any other elements
-    const head = document.head || document.getElementsByTagName('head')[0];
-    if (head.firstChild) {
-      head.insertBefore(baseTag, head.firstChild);
-    } else {
-      head.appendChild(baseTag);
-    }
-  }
-})();
-    </script>
-    
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cookie Policy | Free For Charity</title>
