@@ -30,49 +30,23 @@ test.describe('Footer Social Links', () => {
     // Navigate to the homepage
     await page.goto('/')
 
-    // Verify Facebook link is present
-    const facebookLink = page.locator(`footer a[href*="${testConfig.socialLinks.facebook.url}"]`)
-    await expect(facebookLink).toBeVisible()
-    await expect(facebookLink).toHaveAttribute(
-      'aria-label',
-      testConfig.socialLinks.facebook.ariaLabel
-    )
-
-    // Verify X (Twitter) link is present
-    const twitterLink = page.locator(`footer a[href*="${testConfig.socialLinks.twitter.url}"]`)
-    await expect(twitterLink).toBeVisible()
-    await expect(twitterLink).toHaveAttribute(
-      'aria-label',
-      testConfig.socialLinks.twitter.ariaLabel
-    )
-
-    // Verify LinkedIn link is present
-    const linkedInLink = page.locator(`footer a[href*="${testConfig.socialLinks.linkedin.url}"]`)
-    await expect(linkedInLink).toBeVisible()
-    await expect(linkedInLink).toHaveAttribute(
-      'aria-label',
-      testConfig.socialLinks.linkedin.ariaLabel
-    )
-
-    // Verify GitHub link is present
-    const githubLink = page.locator(`footer a[href*="${testConfig.socialLinks.github.url}"]`)
-    await expect(githubLink).toBeVisible()
-    await expect(githubLink).toHaveAttribute('aria-label', testConfig.socialLinks.github.ariaLabel)
+    // Verify Instagram link is present
+    const instagramLink = page.locator(`footer a[href*="${testConfig.socialLinks.instagram.url}"]`)
+    await expect(instagramLink).toBeVisible()
+    await expect(instagramLink).toHaveAttribute('aria-label', testConfig.socialLinks.instagram.ariaLabel)
   })
 
-  test('should have exactly 4 social media icons', async ({ page }) => {
+  test('should have exactly 1 social media icon', async ({ page }) => {
     // Navigate to the homepage
     await page.goto('/')
 
     // Count all social media links in the footer
     // They are identified by having target="_blank" and being in the footer's social links section
 
-    // We should have exactly 4 social icons: Facebook, X (Twitter), LinkedIn, GitHub
-    // Note: This count might be higher due to other external links in footer
-    // So let's be more specific and count only links with aria-label containing social platform names
+    // Count only links with known social platform aria-labels
     const socialMediaLinks = page.locator(
-      `footer a[aria-label="${testConfig.socialLinks.facebook.ariaLabel}"], footer a[aria-label="${testConfig.socialLinks.twitter.ariaLabel}"], footer a[aria-label="${testConfig.socialLinks.linkedin.ariaLabel}"], footer a[aria-label="${testConfig.socialLinks.github.ariaLabel}"]`
+      `footer a[aria-label="${testConfig.socialLinks.instagram.ariaLabel}"]`
     )
-    await expect(socialMediaLinks).toHaveCount(4)
+    await expect(socialMediaLinks).toHaveCount(1)
   })
 })
