@@ -1,5 +1,6 @@
 import { defineConfig, devices } from '@playwright/test'
 import { execFileSync } from 'child_process'
+import { existsSync } from 'fs'
 
 /**
  * Finds the system Chromium browser executable.
@@ -20,20 +21,63 @@ import { execFileSync } from 'child_process'
  * @returns {string | undefined} Path to the Chromium executable, or undefined if not found or unsupported OS.
  */
 function findChromiumExecutable(): string | undefined {
+  if (process.platform === 'win32') {
+    const whereCandidates = ['chrome.exe', 'msedge.exe']
+    for (const candidate of whereCandidates) {
+      try {
+        const result = execFileSync('where', [candidate], {
+          encoding: 'utf-8',
+          stdio: ['pipe', 'pipe', 'ignore'],
+        })
+          .split(/\r?\n/)
+          .map((line) => line.trim())
+          .filter(Boolean)
+
+        for (const foundPath of result) {
+          if (existsSync(foundPath)) {
+            return foundPath
+          }
+        }
+      } catch {
+        // Ignore and try next candidate
+      }
+    }
+
+    const programFiles = [process.env.PROGRAMFILES, process.env['PROGRAMFILES(X86)']].filter(
+      (v): v is string => !!v,
+    )
+    const localAppData = process.env.LOCALAPPDATA
+
+    const commonPaths: Array<string | undefined> = [
+      ...programFiles.map((root) => `${root}\\Google\\Chrome\\Application\\chrome.exe`),
+      ...programFiles.map((root) => `${root}\\Microsoft\\Edge\\Application\\msedge.exe`),
+      localAppData ? `${localAppData}\\Google\\Chrome\\Application\\chrome.exe` : undefined,
+    ]
+
+    for (const candidate of commonPaths) {
+      if (candidate && existsSync(candidate)) {
+        return candidate
+      }
+    }
+
+    return undefined
+  }
+
   const browserNames = ['chromium', 'chromium-browser', 'google-chrome', 'google-chrome-stable']
   for (const name of browserNames) {
     try {
-      const path = execFileSync('which', [name], {
+      const foundPath = execFileSync('which', [name], {
         encoding: 'utf-8',
         stdio: ['pipe', 'pipe', 'ignore'], // Suppress stderr
       }).trim()
-      if (path) {
-        return path
+      if (foundPath) {
+        return foundPath
       }
     } catch {
       // Ignore and try next browser name
     }
   }
+
   // If none found, return undefined to use Playwright's browser
   return undefined
 }
