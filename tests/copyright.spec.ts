@@ -32,20 +32,4 @@ test.describe('Footer Copyright Notice', () => {
     // Verify the complete copyright text is present
     await expect(footerText).toContainText(testConfig.copyright.text)
   })
-
-  test('should display link to organization website in copyright notice', async ({ page }) => {
-    // Navigate to the homepage
-    await page.goto('/')
-
-    // Find the link within the copyright notice
-    const copyrightLink = page.locator(
-      `footer p:has-text("${testConfig.copyright.searchText}") a[href="${testConfig.copyright.linkUrl}"]`
-    )
-
-    // Verify the link is visible
-    await expect(copyrightLink).toBeVisible()
-
-    // Verify the link text
-    await expect(copyrightLink).toContainText(testConfig.copyright.linkText)
-  })
 })

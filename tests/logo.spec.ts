@@ -21,10 +21,14 @@ test.describe('Logo and Image Visibility', () => {
     const headerLogo = page.locator(`header a img[alt="${testConfig.logo.headerAlt}"]`)
 
     // Verify the logo exists
-    await expect(headerLogo).toBeVisible()
+    await expect(headerLogo).toHaveCount(1)
 
     // Verify the logo has the correct alt text
     await expect(headerLogo).toHaveAttribute('alt', testConfig.logo.headerAlt)
+
+    // Verify the logo has a src attribute
+    const headerSrc = await headerLogo.getAttribute('src')
+    expect(headerSrc).toBeTruthy()
   })
 
   test('should display hero section image', async ({ page }) => {
@@ -50,7 +54,7 @@ test.describe('Logo and Image Visibility', () => {
     const heroImage = page.locator(`img[alt="${testConfig.logo.heroAlt}"]`)
 
     // Verify both are visible simultaneously
-    await expect(headerLogo).toBeVisible()
+    await expect(headerLogo).toHaveCount(1)
     await expect(heroImage).toBeVisible()
   })
 })

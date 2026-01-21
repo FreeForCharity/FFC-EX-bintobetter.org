@@ -50,14 +50,8 @@
     <link rel="manifest" href="/site.webmanifest" />
 
     <!-- Preconnect to external domains -->
-    <link rel="preconnect" href="https://www.googletagmanager.com" />
-    <link rel="preconnect" href="https://ffcsites.org" />
-    <link rel="preconnect" href="https://www.zeffy.com" />
-    <link rel="preconnect" href="https://widgets.guidestar.org" />
-    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
-    <link rel="dns-prefetch" href="https://ffcsites.org" />
-    <link rel="dns-prefetch" href="https://www.zeffy.com" />
-    <link rel="dns-prefetch" href="https://www.idealist.org" />
+    <link rel="preconnect" href="https://www.instagram.com" />
+    <link rel="dns-prefetch" href="https://www.instagram.com" />
 
     <!-- Preload critical image -->
     <link
@@ -78,31 +72,8 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="/css/styles.css" />
 
-    <!-- Google Tag Manager -->
-    <script>
-      ;(function (w, d, s, l, i) {
-        w[l] = w[l] || []
-        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' })
-        var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s),
-          dl = l != 'dataLayer' ? '&l=' + l : ''
-        j.async = true
-        j.src = 'https://www.googletagmanager.com/gtag/js?id=' + i + dl
-        f.parentNode.insertBefore(j, f)
-      })(window, document, 'script', 'dataLayer', 'GTM-XXXXXXX')
-    </script>
   </head>
   <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript
-      ><iframe
-        src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX"
-        height="0"
-        width="0"
-        style="display: none; visibility: hidden"
-      ></iframe
-    ></noscript>
-
     <!-- Header / Navigation -->
     <header id="header" class="header">
       <div class="header-container">
@@ -111,19 +82,23 @@
             <img
               src="/images/logo.webp"
               alt="BinToBetter Logo"
+              width="200"
               height="50"
             />
           </a>
         </div>
 
-        <nav class="desktop-nav">
+        <nav class="desktop-nav" aria-label="Primary navigation">
           <a href="/#hero" class="nav-link">Home</a>
-          <a href="/#mission" class="nav-link">Mission</a>
-          <a href="/#programs" class="nav-link">Programs</a>
-          <a href="/#volunteer" class="nav-link">Volunteer</a>
-          <a href="/#donate" class="nav-link">Donate</a>
-          <a href="/#faq" class="nav-link">FAQ</a>
-          <a href="/#team" class="nav-link">Team</a>
+          <a href="/#about" class="nav-link">About</a>
+          <a href="/#partners" class="nav-link">Partners</a>
+          <a href="/#corporate-partners" class="nav-link">Corporate Partners</a>
+          <a href="/#bounce-back" class="nav-link">Bounce Back</a>
+          <a href="/#tech-to-treasure" class="nav-link">Tech to Treasure</a>
+          <a href="/#eco-fillament" class="nav-link">Eco-Fillament</a>
+          <a href="/#team" class="nav-link">Officers & Team</a>
+          <a href="/#contact" class="nav-link">Contact</a>
+          <a href="/#donate" class="nav-link nav-link-cta">Donate</a>
         </nav>
 
         <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle mobile menu">
@@ -138,18 +113,17 @@
           <button class="mobile-menu-close" id="mobileMenuClose" aria-label="Close mobile menu">
             ×
           </button>
-          <nav class="mobile-nav">
+          <nav class="mobile-nav" aria-label="Mobile navigation">
             <a href="/#hero" class="mobile-nav-link">Home</a>
-            <a href="/#mission" class="mobile-nav-link">Mission</a>
-            <a href="/#programs" class="mobile-nav-link"
-              >Programs</a
-            >
-            <a href="/#volunteer" class="mobile-nav-link"
-              >Volunteer</a
-            >
+            <a href="/#about" class="mobile-nav-link">About</a>
+            <a href="/#partners" class="mobile-nav-link">Partners</a>
+            <a href="/#corporate-partners" class="mobile-nav-link">Corporate Partners</a>
+            <a href="/#bounce-back" class="mobile-nav-link">Bounce Back</a>
+            <a href="/#tech-to-treasure" class="mobile-nav-link">Tech to Treasure</a>
+            <a href="/#eco-fillament" class="mobile-nav-link">Eco-Fillament</a>
+            <a href="/#team" class="mobile-nav-link">Officers & Team</a>
+            <a href="/#contact" class="mobile-nav-link">Contact</a>
             <a href="/#donate" class="mobile-nav-link">Donate</a>
-            <a href="/#faq" class="mobile-nav-link">FAQ</a>
-            <a href="/#team" class="mobile-nav-link">Team</a>
           </nav>
         </div>
       </div>
@@ -157,7 +131,7 @@
 
     <!-- Main Content -->
     <main>
-      <!-- Hero Section -->
+      <!-- Hero Section (Home tab) -->
       <section id="hero" class="hero-section">
         <div class="hero-background">
           <div class="hero-layer hero-layer-blue"></div>
@@ -173,17 +147,17 @@
             <p class="hero-subtitle">
               Turning waste into opportunity.
             </p>
-            <a href="#programs" class="btn btn-primary btn-large">Our Programs</a>
+            <a href="#projects-preview" class="btn btn-primary btn-large">Explore Our Projects</a>
             <div class="hero-buttons">
               <a href="#donate" class="btn btn-secondary">Donate</a>
-              <a href="#volunteer" class="btn btn-secondary">Get Involved</a>
+              <a href="#contact" class="btn btn-secondary">Get Involved</a>
             </div>
           </div>
 
           <div class="hero-image">
             <div class="hero-image-container">
               <img
-                src="/images/figma-hero-img.webp"
+                src="/images/pdf/page-17-xref-69.png"
                 alt="Hero image"
                 loading="eager"
               />
@@ -192,12 +166,10 @@
         </div>
       </section>
 
-      <!-- Mission Section -->
+      <!-- Mission statement (Home tab) -->
       <section id="mission" class="mission-section">
         <div class="container">
-          <h2 class="section-title">
-            Our Mission
-          </h2>
+          <h2 class="section-title">Turning Waste into Opportunity</h2>
           <p class="mission-description">
             At BinToBetter, we believe that waste isn't just trash; it's opportunity. Every year, countless items with value and potential end up in landfills simply because they no longer serve their original purpose. Our mission is to change that narrative.
           </p>
@@ -207,44 +179,59 @@
           <p class="mission-description">
             Through education, partnerships, and hands-on initiatives, BinToBetter empowers people to rethink waste and become part of a more sustainable, circular future. Together, we can turn what would've been thrown away into something better for people, for communities, and for the planet.
           </p>
-
-          <div class="mission-video">
-            <video
-              controls
-              playsinline
-              preload="metadata"
-              poster="/videos/mission-video-poster.webp"
-              aria-label="BinToBetter mission video"
-              title="Learn about BinToBetter's mission to reduce waste and empower communities"
-            >
-              <source src="/videos/mission-video.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
-          </div>
         </div>
         <div class="section-divider"></div>
       </section>
 
-      <!-- Results 2023 Section -->
-      <section id="results" class="results-section">
+      <!-- Projects Preview (Home tab) -->
+      <section id="projects-preview" class="programs-section">
         <div class="container">
-          <h2 class="section-title">Our Impact</h2>
-          <div class="results-grid">
-            <div class="result-card">
-              <div class="result-number" data-target="10000">0</div>
-              <div class="result-label">Tennis balls repurposed</div>
+          <h2 class="section-title">Projects Preview</h2>
+          <p class="section-description">
+            Below are snapshots of our three main projects. Click “View More” on each card to dive deeper into the details.
+          </p>
+
+          <div class="programs-grid">
+            <div class="program-card">
+              <img
+                src="/images/pdf/page-18-xref-72.png"
+                alt="Bounce Back project"
+                class="program-icon program-icon-photo"
+                loading="lazy"
+              />
+              <h3>Bounce Back</h3>
+              <p>
+                Collects used tennis balls from clubs and repurposes them for schools (chair legs to reduce noise), animal shelters, and assisted living centers (walker feet).
+              </p>
+              <a href="/#bounce-back" class="btn btn-secondary btn-small">View More</a>
             </div>
-            <div class="result-card">
-              <div class="result-number" data-target="500">0</div>
-              <div class="result-label">Pounds of e-waste recycled</div>
+
+            <div class="program-card">
+              <img
+                src="/images/pdf/page-18-xref-73.png"
+                alt="Tech to Treasure project"
+                class="program-icon program-icon-photo"
+                loading="lazy"
+              />
+              <h3>Tech to Treasure</h3>
+              <p>
+                Collects old devices and turns them into educational tools before responsibly recycling all parts through an e‑waste program.
+              </p>
+              <a href="/#tech-to-treasure" class="btn btn-secondary btn-small">View More</a>
             </div>
-            <div class="result-card">
-              <div class="result-number" data-target="50">0</div>
-              <div class="result-label">Schools & organizations served</div>
-            </div>
-            <div class="result-card">
-              <div class="result-number" data-target="100">0</div>
-              <div class="result-label">Youth volunteers engaged</div>
+
+            <div class="program-card">
+              <img
+                src="/images/pdf/page-19-xref-76.png"
+                alt="Eco-Fillament project"
+                class="program-icon program-icon-photo"
+                loading="lazy"
+              />
+              <h3>Eco‑Fillament</h3>
+              <p>
+                Repurposes plastic bottles into 3D printer filament used for tools donated to students with special needs.
+              </p>
+              <a href="/#eco-fillament" class="btn btn-secondary btn-small">View More</a>
             </div>
           </div>
         </div>
@@ -257,7 +244,7 @@
           <h2 class="section-title">What People Say</h2>
 
           <div class="testimonials-wrapper">
-            <!-- Testimonial 1 - Allie's Doggie Day Camp -->
+            <!-- Testimonial 1 -->
             <div class="testimonial-card active" data-testimonial="0">
               <div class="testimonial-quotes">
                 <img
@@ -273,11 +260,15 @@
                   aria-hidden="true"
                 />
               </div>
-              <h3 class="testimonial-heading">Allie's Doggie Day Camp</h3>
+              <h3 class="testimonial-heading">Blacow Elementary School</h3>
               <p class="testimonial-text">
-                Thank you so much for dropping off the balls at the Doggie Day Camp! The dogs absolutely love them, and I truly appreciate it as well. Whether they're playing or just need something to chew on when they're feeling stressed, those balls bring them so much joy. Your thoughtful contribution has made a big difference in supporting the pups here. We're incredibly grateful for your kindness and generosity. Thank you again, and we wish you all the best. Have a wonderful day!
+                Thank you very much for your donation of 140 gently used tennis balls to my third grade Spanish immersion classroom at Blacow Elementary School. Cutting each individual ball so that it can fit each student leg chair must have been a lot of work! We are so appreciative of your time and effort in giving the tennis balls a new second life instead of throwing them into the landfill.
+                <br /><br />
+                Your donation has been well received by my students. Their chairs are way gentler on the waxed floors and is saving the floors from being scratched. Most importantly classroom activity transitions are so much more quiet as the students get up from or come to sit in their chairs.
+                <br /><br />
+                Much appreciation for your thoughtfulness. Thank you, thank you!
               </p>
-              <p class="testimonial-name">Allie @ Allie's Doggie Day Camp!</p>
+              <p class="testimonial-name">— Andrea MacKenzie, 3rd grade Spanish Immersion Teacher, Blacow Elementary</p>
             </div>
 
             <!-- Testimonial 2 -->
@@ -296,12 +287,11 @@
                   aria-hidden="true"
                 />
               </div>
-              <h3 class="testimonial-heading">Local Elementary School</h3>
+              <h3 class="testimonial-heading">Allie’s Doggie Day Camp</h3>
               <p class="testimonial-text">
-                The tennis ball chair covers from BinToBetter have made a huge difference in our 
-                classrooms—they reduce noise and protect our floors while teaching students about recycling.
+                Thank you so much for dropping off the balls at the doggy day camp! The dogs absolutely love them, and I truly appreciate it as well. Whether they’re playing or just need something to chew on when they’re feeling stressed, those balls bring them so much joy. Your thoughtful contribution has made a big difference in supporting the pups here. We’re incredibly grateful for your kindness and generosity. Thank you again, and we wish you all the best.
               </p>
-              <p class="testimonial-name">School Administrator</p>
+              <p class="testimonial-name">— Allie, owner of Allie’s Doggie Day Camp</p>
             </div>
 
             <!-- Testimonial 3 -->
@@ -320,12 +310,13 @@
                   aria-hidden="true"
                 />
               </div>
-              <h3 class="testimonial-heading">Youth Volunteer</h3>
+              <h3 class="testimonial-heading">Irvington High School</h3>
               <p class="testimonial-text">
-                Participating in BinToBetter's e-waste workshops taught me so much about electronics 
-                and environmental responsibility. It's inspiring to be part of the solution!
+                My experience with Bin to Better has been extremely positive. The team was very thoughtful and communicated clearly throughout the entire process. The donated tennis balls have made a noticeable difference in my classroom by significantly reducing noise from chairs/desks.
+                <br /><br />
+                This has helped create a calmer and more focused learning environment where students can concentrate better and transitions are much smoother. This is especially helpful when we are moving the chairs around for group work. It is a simple solution that has had a real and positive impact on daily classroom learning.
               </p>
-              <p class="testimonial-name">Student Leader</p>
+              <p class="testimonial-name">— Grace Shin, Irvington High School Teacher</p>
             </div>
 
             <!-- Testimonial 4 -->
@@ -344,12 +335,34 @@
                   aria-hidden="true"
                 />
               </div>
-              <h3 class="testimonial-heading">Senior Community Center</h3>
+              <h3 class="testimonial-heading">Oliveira Elementary</h3>
               <p class="testimonial-text">
-                The walker covers made from recycled tennis balls are practical and help our seniors 
-                move around safely. Thank you BinToBetter for thinking of us!
+                Bin to Better did a great service to my classroom! They personally came to help me install the tennis balls on the chair legs, and now the classroom is much quieter and more productive. The floors are safer and protected from the chairs scraping against them, and the students were so surprised to see how the tennis balls could be repurposed into something new! I would highly recommend them to any classroom.
               </p>
-              <p class="testimonial-name">Community Coordinator</p>
+              <p class="testimonial-name">— Brandon Lee, Oliveira Elementary TK Teacher</p>
+            </div>
+
+            <!-- Testimonial 5 -->
+            <div class="testimonial-card" data-testimonial="4">
+              <div class="testimonial-quotes">
+                <img
+                  src="/svgs/quote-left.svg"
+                  alt=""
+                  class="quote-left"
+                  aria-hidden="true"
+                />
+                <img
+                  src="/svgs/quote-right.svg"
+                  alt=""
+                  class="quote-right"
+                  aria-hidden="true"
+                />
+              </div>
+              <h3 class="testimonial-heading">Bringhurst Elementary</h3>
+              <p class="testimonial-text">
+                Adding tennis balls to our chair legs has made an immediate difference in our third-grade classroom. The reduced noise has helped students focus during reading and small-group work, and transitions are smoother because the room stays calm. It’s a simple change with a big impact on learning.
+              </p>
+              <p class="testimonial-name">— Yuji Yang, Dual Language English and Mandarin Teacher, Bringhurst Elementary</p>
             </div>
 
             <!-- Navigation Arrows -->
@@ -383,33 +396,36 @@
               data-index="3"
               aria-label="Go to testimonial 4"
             ></button>
+            <button
+              class="testimonial-dot"
+              data-index="4"
+              aria-label="Go to testimonial 5"
+            ></button>
           </div>
         </div>
         <div class="section-divider"></div>
       </section>
 
-      <!-- Volunteer Section -->
-      <section id="volunteer" class="volunteer-section">
+      <!-- Follow Us (Home tab) -->
+      <section id="follow" class="volunteer-section">
         <div class="container">
-          <h2 class="section-title">Get Involved</h2>
-
+          <h2 class="section-title">Follow Us on Social</h2>
           <div class="volunteer-content">
             <div class="volunteer-info">
               <p>
-                Join our youth-led team in making a real environmental impact. Whether you're 
-                collecting tennis balls, leading e-waste workshops, or helping with community 
-                outreach, your contributions create lasting change for our environment and community.
+                Stay updated on our latest activities by following us on Instagram:
+                <a href="https://www.instagram.com/bintobetter/" target="_blank" rel="noopener noreferrer"
+                  >https://www.instagram.com/bintobetter/</a
+                >
               </p>
-              <a
-                href="#contact"
-                class="btn btn-primary"
-                >Contact Us to Volunteer</a
-              >
+              <p>
+                We post regular updates, project milestones, and community stories.
+              </p>
             </div>
             <div class="volunteer-image">
               <img
-                src="/images/Volunteer-with-Us.webp"
-                alt="Volunteer with BinToBetter"
+                src="/images/pdf/page-17-xref-69.png"
+                alt="BinToBetter Instagram preview"
                 loading="lazy"
               />
             </div>
@@ -418,47 +434,352 @@
         <div class="section-divider"></div>
       </section>
 
-      <!-- Events Section -->
-      <section id="events" class="events-section">
+      <!-- About tab -->
+      <section id="about" class="volunteer-section about-section">
         <div class="container">
-          <h2 class="section-title">Upcoming Events</h2>
-          <p class="section-description">
-            Join us for collection drives, e-waste workshops, and community events. Stay connected 
-            to learn about upcoming opportunities to make a difference.
-          </p>
-
-          <div class="events-widget events-placeholder">
-            <div class="events-cta-content">
-              <h3 class="events-cta-title">Contact Us for Event Information</h3>
-              <p class="events-cta-text">
-                Interested in participating in our tennis ball collections, e-waste workshops, or 
-                community outreach events? Reach out to learn about upcoming opportunities.
+          <h2 class="section-title">About</h2>
+          <div class="volunteer-content">
+            <div class="volunteer-info">
+              <h3 class="subsection-title">Our Mission &amp; Vision</h3>
+              <p>
+                At Bin to Better, we believe that waste isn’t just trash, it’s an opportunity. Countless items with value end up in landfills each year simply because they no longer serve their original purpose. We are committed to changing that narrative by promoting reuse, responsible recycling and the circular economy.
               </p>
-              <a href="#contact" class="btn btn-primary">Contact Us</a>
+              <p>
+                Our goal is to empower individuals and communities to rethink waste and realize that what seems like rubbish can become a resource for someone else. By connecting people with excess to those with needs, we bridge gaps and foster a culture of giving and sustainability.
+              </p>
+
+              <h3 class="subsection-title">Origin Story</h3>
+              <p>
+                Two high school students founded Bin to Better, Lalit Sreekar Batchu and Rohan Sashank Babbellapati, who witnessed firsthand the scale of everyday waste. Rohan, an avid tennis player on his school team, noticed how quickly tennis balls were discarded after just a few uses, even though they remained perfectly usable in other contexts. He approached Lalit with the idea of starting an organization that could repurpose these items. Together they launched Bin to Better to give new purpose to what others might throw away.
+              </p>
+
+              <h3 class="subsection-title">Our Approach</h3>
+              <ul class="bullet-list">
+                <li><strong>Education:</strong> Through workshops and outreach we teach communities about the importance of reuse, recycling and sustainability.</li>
+                <li><strong>Partnerships:</strong> We collaborate with tennis clubs, schools, animal shelters and other organizations to collect unused materials and distribute them to those in need.</li>
+                <li><strong>Hands‑on Initiatives:</strong> Our projects provide tangible ways for volunteers to participate, collecting tennis balls, disassembling electronics or repurposing plastic waste into building materials.</li>
+              </ul>
+            </div>
+            <div class="volunteer-image">
+              <img
+                src="/images/pdf/page-20-xref-79.png"
+                alt="BinToBetter about tab imagery"
+                loading="lazy"
+              />
             </div>
           </div>
         </div>
         <div class="section-divider"></div>
       </section>
 
-      <!-- Donate Section -->
+      <!-- Partners tab -->
+      <section id="partners" class="faq-section partners-section">
+        <div class="container">
+          <h2 class="section-title">Partners</h2>
+          <p class="section-description">
+            Our mission wouldn’t be possible without the support of our partners. We collaborate with tennis clubs, academies, schools and animal shelters to collect materials and ensure they are put to good use.
+          </p>
+
+          <div class="directory-grid">
+            <div class="directory-card">
+              <h3>Tennis Clubs &amp; Academies</h3>
+              <ul>
+                <li>Mission Hills Swim and Racquet Club</li>
+                <li>Los Gatos Swim and Racquet Club</li>
+                <li>NorCal Tennis Academy</li>
+                <li>Mountain View Tennis</li>
+                <li>Lifetime Activities – Santa Clara &amp; Sunnyvale</li>
+                <li>Kim Grant Tennis Academy</li>
+                <li>Cupertino Hills Swim &amp; Racquet Club</li>
+                <li>Kona Kai Swim &amp; Racquet Club</li>
+                <li>San José Swim &amp; Racquet Club</li>
+              </ul>
+            </div>
+            <div class="directory-card">
+              <h3>Animal Shelters &amp; Pet Services</h3>
+              <ul>
+                <li>Allie’s Doggie Day Camp</li>
+                <li>Lucky Buddies Pet Sitting</li>
+                <li>Furrtropolis</li>
+                <li>A Pet Villa Dog Boarding and Grooming</li>
+              </ul>
+            </div>
+          </div>
+
+          <p class="section-description">
+            Interested in partnering with us? Contact us at <a href="mailto:bintobetter@gmail.com">bintobetter@gmail.com</a> to learn how your organization can join the movement.
+          </p>
+
+          <div class="image-grid">
+            <img src="/images/pdf/page-21-xref-82.png" alt="Partner logo" loading="lazy" />
+            <img src="/images/pdf/page-21-xref-84.png" alt="Partner logo" loading="lazy" />
+            <img src="/images/pdf/page-22-xref-87.png" alt="Partner logo" loading="lazy" />
+            <img src="/images/pdf/page-22-xref-88.png" alt="Partner logo" loading="lazy" />
+            <img src="/images/pdf/page-23-xref-91.png" alt="Partner logo" loading="lazy" />
+            <img src="/images/pdf/page-23-xref-92.png" alt="Partner logo" loading="lazy" />
+            <img src="/images/pdf/page-23-xref-94.png" alt="Partner logo" loading="lazy" />
+            <img src="/images/pdf/page-24-xref-97.png" alt="Partner logo" loading="lazy" />
+            <img src="/images/pdf/page-24-xref-99.png" alt="Partner logo" loading="lazy" />
+            <img src="/images/pdf/page-25-xref-102.png" alt="Partner logo" loading="lazy" />
+            <img src="/images/pdf/page-26-xref-105.png" alt="Partner logo" loading="lazy" />
+            <img src="/images/pdf/page-26-xref-106.png" alt="Partner logo" loading="lazy" />
+          </div>
+        </div>
+        <div class="section-divider"></div>
+      </section>
+
+      <!-- Corporate Partners tab -->
+      <section id="corporate-partners" class="faq-section corporate-partners-section">
+        <div class="container">
+          <h2 class="section-title">Corporate Partners</h2>
+          <p class="section-description">
+            Bin to Better works with mission-aligned businesses that support our programs through sponsorships, in-kind contributions, and community partnerships. Corporate partners help us expand our impact, reach more communities, and scale our sustainability and education initiatives.
+          </p>
+
+          <div class="directory-grid">
+            <div class="directory-card">
+              <h3>Business Partners</h3>
+              <ul>
+                <li>Sun Dragon Computers</li>
+              </ul>
+              <p class="directory-note">
+                Interested in becoming a corporate partner? Contact us at
+                <a href="mailto:outreach@bintobetter.org">outreach@bintobetter.org</a> to learn how your organization can support Bin to Better and be featured as a partner.
+              </p>
+            </div>
+          </div>
+
+          <div class="image-grid">
+            <img src="/images/pdf/page-27-xref-110.png" alt="Sun Dragon Computers" loading="lazy" />
+          </div>
+        </div>
+        <div class="section-divider"></div>
+      </section>
+
+      <!-- Projects tab (detailed) -->
+      <section id="bounce-back" class="mission-section project-detail-section">
+        <div class="container">
+          <h2 class="section-title">Bounce Back Project</h2>
+          <h3 class="subsection-title">The Focus of Our Efforts</h3>
+          <p class="mission-description">
+            Nearly all of the 330 million tennis balls produced each year end up in landfills, where they can take more than 400 years to decompose. The Bounce Back Project reduces waste by finding creative ways to give used tennis balls a second life.
+          </p>
+
+          <h3 class="subsection-title">What We Do</h3>
+          <ul class="bullet-list">
+            <li><strong>Collection:</strong> Every month our team collects between 3,000 and 5,000 used balls from local clubs.</li>
+            <li><strong>Reuse:</strong> Balls are donated to schools (chair legs), animal shelters (enrichment toys), and assisted living centers (walker feet).</li>
+            <li><strong>Impact:</strong> Since launching just over a year ago we have collected more than 100,000 tennis balls and donated over 30,000 to organizations that can use them effectively.</li>
+            <li><strong>Get Involved:</strong> Clubs interested in participating can visit the Partners page or contact us directly to arrange a pickup.</li>
+          </ul>
+
+          <div class="image-grid image-grid-project">
+            <img src="/images/pdf/page-28-xref-114.png" alt="Bounce Back project photo" loading="lazy" />
+            <img src="/images/pdf/page-29-xref-117.png" alt="Bounce Back project photo" loading="lazy" />
+            <img src="/images/pdf/page-30-xref-120.png" alt="Bounce Back project photo" loading="lazy" />
+            <img src="/images/pdf/page-31-xref-123.png" alt="Bounce Back project photo" loading="lazy" />
+          </div>
+        </div>
+        <div class="section-divider"></div>
+      </section>
+
+      <section id="tech-to-treasure" class="mission-section project-detail-section">
+        <div class="container">
+          <h2 class="section-title">Tech to Treasure</h2>
+          <h3 class="subsection-title">A Device’s Second Chance</h3>
+          <p class="mission-description">
+            Millions of electronics are discarded each year, often without proper recycling, contributing to growing e‑waste and environmental harm. Tech to Treasure addresses this issue while inspiring the next generation of innovators.
+          </p>
+
+          <h3 class="subsection-title">What We Do</h3>
+          <ul class="bullet-list">
+            <li><strong>Collection &amp; Education:</strong> We gather unused devices and transform them into educational tools through free, interactive workshops.</li>
+            <li><strong>Hands‑On Learning:</strong> Students disassemble devices to learn about RAM, memory, circuit boards and power systems.</li>
+            <li><strong>Responsible Recycling:</strong> After sessions, all parts are responsibly recycled through Best Buy’s e‑waste program.</li>
+          </ul>
+          <p class="section-description">
+            Students interested should join our Discord to get involved for future events:
+            <a href="https://tinyurl.com/b2bdisc" target="_blank" rel="noopener noreferrer">https://tinyurl.com/b2bdisc</a>
+          </p>
+          <div class="image-grid image-grid-project">
+            <img src="/images/pdf/page-32-xref-126.png" alt="Tech to Treasure imagery" loading="lazy" />
+          </div>
+        </div>
+        <div class="section-divider"></div>
+      </section>
+
+      <section id="eco-fillament" class="mission-section project-detail-section">
+        <div class="container">
+          <h2 class="section-title">Eco‑Fillament</h2>
+          <h3 class="subsection-title">The New Building Blocks of Society</h3>
+          <p class="mission-description">
+            Eco‑Fillament repurposes plastic waste (collected from trash cleanups in local parks) into 3D printer filament used to develop toys and tools for kids with special needs. It’s a simple yet effective way to keep plastic out of landfills and give it a second life.
+          </p>
+          <p class="section-description">
+            If you are interested in attending volunteering events (you will get volunteer hours) to cleanup our parks, please join our Discord:
+            <a href="https://tinyurl.com/b2bdisc" target="_blank" rel="noopener noreferrer">https://tinyurl.com/b2bdisc</a>
+          </p>
+          <div class="image-grid image-grid-project">
+            <img src="/images/pdf/page-32-xref-127.png" alt="Eco‑Fillament imagery" loading="lazy" />
+          </div>
+        </div>
+        <div class="section-divider"></div>
+      </section>
+
+      <!-- Officers & Team tab -->
+      <section id="team" class="team-section">
+        <div class="container">
+          <h2 class="section-title">Officers &amp; Team</h2>
+          <p class="section-description">
+            Our organization is led by a dedicated group of students and volunteers. The officers work together across various teams to ensure the success of each program.
+          </p>
+
+          <div class="directory-grid directory-grid-wide">
+            <div class="directory-card">
+              <h3>Executives</h3>
+              <ul>
+                <li>Lalit Batchu (Co-Founder and Co-Prez), American High School Grade 11, Fun Fact: My full name has 6 words!</li>
+                <li>Rohan Babbellapati (Co-Founder and Co-Prez), American High School Grade 10, Fun Fact: I can solve a Rubik’s cube in under 15 seconds!</li>
+                <li>Pradyun Kanuparthi (Vice President), Mission San Jose High School Grade 11, Fun Fact: I start on varsity basketball</li>
+              </ul>
+            </div>
+
+            <div class="directory-card">
+              <h3>Outreach</h3>
+              <ul>
+                <li>Harmonie Lee (Outreach Director), American High School Grade 10, Fun Fact: I get Chick-fil-A every week</li>
+                <li>Clovis Zhang (Outreach Lead), American High School Grade 10, Fun Fact: I’m addicted to Pokémon Go</li>
+                <li>Krishan Ranjan (Outreach Lead), American High School Grade 10, Fun Fact: I’ve visited over 15 states in the US</li>
+              </ul>
+            </div>
+
+            <div class="directory-card">
+              <h3>Eco‑Fillament</h3>
+              <ul>
+                <li>Saket Sandru (Eco-Filament Director), American High School Grade 10, Fun Fact: I broke the bone in the human body thats hardest to heal</li>
+                <li>Nameh Gupta (Eco-Filament Lead), American High School Grade 10, Fun Fact: I like gardening in my free time.</li>
+                <li>Atiksh Jain (Eco-Filament Lead), American High School Grade 9, Fun Fact: I have traveled to 15 countries.</li>
+              </ul>
+            </div>
+
+            <div class="directory-card">
+              <h3>Fundraising</h3>
+              <ul>
+                <li>Vihaan Sanghvi (Fundraising Director), American High School Grade 10, Fun Fact: I love traveling</li>
+                <li>Abhay Shankar (Fundraising Lead), Mission San Jose High School Grade 11, Fun Fact: I have a labradoodle named Milo</li>
+                <li>Yuva Chandrachood (Fundraising Lead), American High School Grade 10, Fun Fact: I am 6’1</li>
+                <li>Hala Amer (Fundraising Lead), American High School Grade 10, Fun Fact: I recently built a 3D printer.</li>
+              </ul>
+            </div>
+
+            <div class="directory-card">
+              <h3>Tech to Treasure</h3>
+              <ul>
+                <li>Preston Hu (Tech to Treasure Director), Mission San Jose High School Grade 11, Fun Fact: I do card magic!</li>
+                <li>Anwen Li (Tech to Treasure Lead), American High School Grade 9, Fun Fact: I can speak 4 languages</li>
+                <li>Deenadarrshan Sathiyamoorthi (Tech to Treasure Lead), American High School Grade 10, Fun Fact: I like to play basketball</li>
+                <li>Sunny Yang (Tech to Treasure Lead), American High School Grade 10, Fun Fact: I have two cats.</li>
+                <li>Abhi Ghosh (Tech to Treasure Lead), American High School Grade 9, Fun Fact: I like to build computers!</li>
+              </ul>
+            </div>
+
+            <div class="directory-card">
+              <h3>Bounce Back</h3>
+              <ul>
+                <li>Hala Amer (Bounce Back Lead), American High School Grade 10, Fun Fact: I recently built a 3D printer.</li>
+                <li>Clovis Zhang (Bounce Back Lead), American High School Grade 10, Fun Fact: I’m addicted to Pokémon Go</li>
+              </ul>
+            </div>
+
+            <div class="directory-card">
+              <h3>Media &amp; Administrative</h3>
+              <ul>
+                <li>Pradyun Kanuparthi (Marketing Director), Mission San Jose High School Grade 11, Fun Fact: I start on varsity basketball</li>
+                <li>William Lam (Scriptwriter), Mission San Jose High School Grade 11, Fun Fact: I run track and field</li>
+                <li>Zerek Kao (Scriptwriter), Mission San Jose High School Grade 11, Fun Fact: I get no minutes on varsity basketball</li>
+                <li>Shreshta Parampalli (Speaker), Mission San Jose High School Grade 11, Fun Fact: I start on varsity basketball</li>
+                <li>Advaith Dhumal Rao (Video Editor), Mission San Jose High School Grade 11, Fun Fact: I was ranked number 1 in the nation for cricket in my age group last year</li>
+              </ul>
+            </div>
+
+            <div class="directory-card">
+              <h3>Public Relations</h3>
+              <ul>
+                <li>Linhan (Publicist), American High School Grade 9, Fun Fact: I can count to 100 in Chinese in one breath.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="section-divider"></div>
+      </section>
+
+      <!-- Contact Us tab -->
+      <section id="contact" class="donate-section contact-section">
+        <div class="container">
+          <h2 class="section-title">Contact Us</h2>
+          <p class="section-description">
+            We would love to hear from you! Whether you have questions, want to donate materials or are interested in volunteering, please get in touch.
+          </p>
+
+          <div class="directory-grid">
+            <div class="directory-card">
+              <h3>Get in touch</h3>
+              <ul class="contact-info">
+                <li>
+                  <span class="contact-icon">📧</span>
+                  <a href="mailto:outreach@bintobetter.org">outreach@bintobetter.org</a>
+                </li>
+                <li>
+                  <span class="contact-icon">📸</span>
+                  <a href="https://www.instagram.com/bintobetter" target="_blank" rel="noopener noreferrer">@bintobetter</a>
+                </li>
+                <li>
+                  <span class="contact-icon">💬</span>
+                  <a href="https://tinyurl.com/b2bdisc" target="_blank" rel="noopener noreferrer">Join our Discord</a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="directory-card">
+              <h3>Contact form</h3>
+              <form class="contact-form" id="contactForm">
+                <label>
+                  Your name
+                  <input type="text" name="name" autocomplete="name" />
+                </label>
+                <label>
+                  Your email
+                  <input type="email" name="email" autocomplete="email" />
+                </label>
+                <label>
+                  Message
+                  <textarea name="message" rows="5"></textarea>
+                </label>
+                <button type="submit" class="btn btn-primary">Send Email</button>
+                <p class="form-help">Submitting opens your email client to send a message to outreach@bintobetter.org.</p>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="section-divider"></div>
+      </section>
+
+      <!-- Donate tab -->
       <section id="donate" class="donate-section">
         <div class="container">
-          <h2 class="section-title">Support BinToBetter</h2>
+          <h2 class="section-title">Donate</h2>
 
           <div class="donate-content">
             <!-- Left side: Description and pointing hands image -->
             <div class="donate-text-column">
               <p class="donate-description">
-                Your donation helps us expand our recycling programs, purchase equipment for 
-                e-waste workshops, and reach more schools and communities with our environmental 
-                education initiatives.
+                Your support helps us turn waste into opportunity. Donations allow us to expand our collection efforts, develop new projects and reach more communities.
               </p>
               <!-- Pointing hands image - flipped horizontally to point toward the form on the right -->
               <div class="donate-image-container">
                 <img
-                  src="/images/support-bintobetter.webp"
-                  alt="support BinToBetter"
+                  src="/images/pdf/page-19-xref-76.png"
+                  alt="Support BinToBetter"
                   class="donate-image"
                   loading="lazy"
                 />
@@ -470,11 +791,20 @@
               <div class="donate-form-wrapper donate-contact-wrapper">
                 <h3 class="donate-contact-title">Make a Difference</h3>
                 <p class="donate-contact-text">
-                  Contact us to learn about donation options and how you can support our 
-                  waste reduction and recycling programs.
+                  If you’d like to contribute, please visit:
+                  <a href="https://charity.pledgeit.org/bintobetter" target="_blank" rel="noopener noreferrer"
+                    >https://charity.pledgeit.org/bintobetter</a
+                  >
+                  <br /><br />
+                  Every contribution, no matter the size, helps build a cleaner, more sustainable future.
                 </p>
-                <a href="#contact" class="btn btn-primary donate-contact-btn">
-                  Contact Us to Donate
+                <a
+                  href="https://charity.pledgeit.org/bintobetter"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn btn-primary donate-contact-btn"
+                >
+                  Donate Now
                 </a>
               </div>
             </div>
@@ -482,247 +812,10 @@
         </div>
         <div class="section-divider"></div>
       </section>
-
-      <!-- Why It Matters Section -->
-      <section id="impact" class="impact-section">
-        <div class="container">
-          <h2 class="section-title">Why Recycling Matters</h2>
-
-          <div class="endowment-grid">
-            <!-- Feature 1: Environmental Impact -->
-            <div class="endowment-card">
-              <div class="endowment-icon">
-                <img
-                  src="/svgs/environmental-impact.svg"
-                  alt="Environmental Impact"
-                  width="60"
-                  height="60"
-                />
-              </div>
-              <h3 class="endowment-card-title">Environmental Impact</h3>
-              <p class="endowment-card-text">
-                Every tennis ball and piece of e-waste we recycle is diverted from landfills, 
-                reducing pollution and conserving resources for future generations.
-              </p>
-            </div>
-
-            <!-- Feature 2: Community Benefits -->
-            <div class="endowment-card">
-              <div class="endowment-icon">
-                <img
-                  src="/svgs/community-benefits.svg"
-                  alt="Community Benefits"
-                  width="60"
-                  height="60"
-                />
-              </div>
-              <h3 class="endowment-card-title">Community Benefits</h3>
-              <p class="endowment-card-text">
-                We provide schools and seniors with free practical tools made from recycled materials, 
-                while teaching youth valuable lessons about sustainability.
-              </p>
-            </div>
-
-            <!-- Feature 3: Youth Leadership -->
-            <div class="endowment-card">
-              <div class="endowment-icon">
-                <img
-                  src="/svgs/youth-leadership.svg"
-                  alt="Youth Leadership"
-                  width="60"
-                  height="60"
-                />
-              </div>
-              <h3 class="endowment-card-title">Youth Leadership</h3>
-              <p class="endowment-card-text">
-                Our youth-led model empowers students to take action on environmental issues, 
-                developing leadership skills and environmental stewardship.
-              </p>
-            </div>
-
-            <!-- Feature 4: Hands-On Learning -->
-            <div class="endowment-card">
-              <div class="endowment-icon">
-                <img
-                  src="/svgs/hands-on-learning.svg"
-                  alt="Hands-On Learning"
-                  width="60"
-                  height="60"
-                />
-              </div>
-              <h3 class="endowment-card-title">Hands-On Learning</h3>
-              <p class="endowment-card-text">
-                Through workshops and collection drives, participants gain practical experience 
-                in recycling, waste reduction, and environmental problem-solving.
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="section-divider"></div>
-      </section>
-
-      <!-- Programs Section -->
-      <section id="programs" class="programs-section">
-        <div class="container">
-          <h2 class="section-title">Programs</h2>
-          <p class="section-subtitle">Bringing Change</p>
-
-          <div class="programs-grid">
-            <div class="program-card">
-              <img
-                src="/svgs/tennis-ball-recycling.svg"
-                alt="The Bounce Back Project"
-                class="program-icon"
-              />
-              <h3>The Bounce Back Project</h3>
-              <p>Nearly all 330 million tennis balls produced each year end up in landfills, taking over 400 years to decompose. The Bounce Back Project collects used balls from tennis clubs and academies and repurposes them for schools, animal shelters, and assisted living centers.</p>
-              <a href="#donate" class="btn btn-secondary btn-small">Support This Project</a>
-            </div>
-
-            <div class="program-card">
-              <img
-                src="/svgs/e-waste-workshops.svg"
-                alt="Tech to Treasure"
-                class="program-icon"
-              />
-              <h3>Tech to Treasure</h3>
-              <p>Millions of electronics are discarded each year, often improperly. Tech to Treasure collects old devices and uses them to teach students about tech before recycling all pieces through Best Buy's e-waste program.</p>
-              <a href="#volunteer" class="btn btn-secondary btn-small">Get Involved</a>
-            </div>
-
-            <div class="program-card">
-              <img
-                src="/svgs/plastic-repurposing.svg"
-                alt="Eco-Blox"
-                class="program-icon"
-              />
-              <h3>Eco-Blox</h3>
-              <p>Eco-Blox repurposes non-recyclable plastic waste into sturdy building blocks for use in construction and community projects. It's a simple, effective way to keep plastic out of landfills and give it a second life. We plan to take this project on in the near future.</p>
-              <a href="#donate" class="btn btn-secondary btn-small">Support This Project</a>
-            </div>
-          </div>
-        </div>
-        <div class="section-divider"></div>
-      </section>
-
-      <!-- FAQ Section -->
-      <section id="faq" class="faq-section">
-        <div class="container">
-          <h2 class="section-title">Frequently Asked Questions</h2>
-
-          <div class="faq-list">
-            <div class="faq-item">
-              <button class="faq-question">
-                <span>What is BinToBetter?</span>
-                <span class="faq-toggle">+</span>
-              </button>
-              <div class="faq-answer">
-                <p>
-                  BinToBetter is a youth-led nonprofit organization dedicated to reducing community waste 
-                  by transforming used tennis balls, e-waste, and hard-to-recycle plastics into valuable 
-                  tools for schools, seniors, and students.
-                </p>
-              </div>
-            </div>
-
-            <div class="faq-item">
-              <button class="faq-question">
-                <span>What do you do with tennis balls?</span>
-                <span class="faq-toggle">+</span>
-              </button>
-              <div class="faq-answer">
-                <p>
-                  We collect used tennis balls and cut them to create protective covers for walker legs and 
-                  chair legs. These covers reduce noise in classrooms and assisted living facilities while 
-                  protecting floors from damage.
-                </p>
-              </div>
-            </div>
-
-            <div class="faq-item">
-              <button class="faq-question">
-                <span>How can I donate tennis balls or e-waste?</span>
-                <span class="faq-toggle">+</span>
-              </button>
-              <div class="faq-answer">
-                <p>
-                  Contact us through our website to arrange drop-off or pickup. We accept used tennis balls, 
-                  electronic devices, and hard-to-recycle plastics. Check our events page for collection drives.
-                </p>
-              </div>
-            </div>
-
-            <div class="faq-item">
-              <button class="faq-question">
-                <span>How can youth get involved?</span>
-                <span class="faq-toggle">+</span>
-              </button>
-              <div class="faq-answer">
-                <p>
-                  Join us for volunteer opportunities including tennis ball collection, e-waste workshops, 
-                  and community outreach events. We welcome students passionate about environmental 
-                  sustainability and hands-on learning.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="section-divider"></div>
-      </section>
-
-      <!-- Team Section -->
-      <section id="team" class="team-section">
-        <div class="container">
-          <h2 class="section-title">Our Youth-Led Team</h2>
-          <p class="section-description">
-            BinToBetter is powered by dedicated youth leaders and volunteers passionate about 
-            environmental sustainability and community service.
-          </p>
-
-          <!-- Team grid -->
-          <div class="team-grid team-grid-top">
-            <div class="team-member">
-              <div class="team-member-image">
-                <img
-                  src="/images/member1.webp"
-                  alt="Team Member"
-                  loading="lazy"
-                />
-              </div>
-              <h3 class="team-member-name">Youth Leaders</h3>
-              <p class="team-member-role">Program Coordinators</p>
-            </div>
-
-            <div class="team-member">
-              <div class="team-member-image">
-                <img
-                  src="/images/member2.webp"
-                  alt="Team Member"
-                  loading="lazy"
-                />
-              </div>
-              <h3 class="team-member-name">Volunteers</h3>
-              <p class="team-member-role">Community Outreach</p>
-            </div>
-
-            <div class="team-member">
-              <div class="team-member-image">
-                <img
-                  src="/images/member3.webp"
-                  alt="Team Member"
-                  loading="lazy"
-                />
-              </div>
-              <h3 class="team-member-name">Students</h3>
-              <p class="team-member-role">Environmental Educators</p>
-            </div>
-          </div>
-        </div>
-      </section>
     </main>
 
     <!-- Footer -->
-    <footer class="footer" id="contact">
+    <footer class="footer">
       <div class="footer-container">
         <div class="footer-column">
           <h3>About BinToBetter</h3>
@@ -739,25 +832,15 @@
           <h3>Quick Links</h3>
           <ul class="footer-links">
             <li><a href="/#hero">Home</a></li>
-            <li><a href="/#mission">Mission</a></li>
-            <li><a href="/#programs">Programs</a></li>
-            <li><a href="/#volunteer">Get Involved</a></li>
+            <li><a href="/#about">About</a></li>
             <li><a href="/#donate">Donate</a></li>
-            <li><a href="/#faq">FAQ</a></li>
-            <li><a href="/#team">Team</a></li>
-          </ul>
-
-          <h4>Policies</h4>
-          <ul class="footer-links">
-            <li>
-              <a href="/privacy-policy.html">Privacy Policy</a>
-            </li>
-            <li>
-              <a href="/cookie-policy.html">Cookie Policy</a>
-            </li>
-            <li>
-              <a href="/terms-of-service.html">Terms of Service</a>
-            </li>
+            <li><a href="/#partners">Partners</a></li>
+            <li><a href="/#corporate-partners">Corporate Partners</a></li>
+            <li><a href="/#bounce-back">Bounce Back</a></li>
+            <li><a href="/#tech-to-treasure">Tech to Treasure</a></li>
+            <li><a href="/#eco-fillament">Eco‑Fillament</a></li>
+            <li><a href="/#team">Officers &amp; Team</a></li>
+            <li><a href="/#contact">Contact</a></li>
           </ul>
         </div>
 
@@ -766,24 +849,12 @@
           <ul class="contact-info">
             <li>
               <span class="contact-icon">📧</span>
-              <a href="mailto:info@bintobetter.org">info@bintobetter.org</a>
-            </li>
-            <li>
-              <span class="contact-icon">📍</span>
-              <span>California, USA</span>
+              <a href="mailto:outreach@bintobetter.org">outreach@bintobetter.org</a>
             </li>
           </ul>
 
           <h4>Follow Us</h4>
           <div class="social-links">
-            <a
-              href="https://www.facebook.com/bintobetter"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Facebook"
-            >
-              <span class="social-icon">f</span>
-            </a>
             <a
               href="https://www.instagram.com/bintobetter"
               target="_blank"
@@ -791,14 +862,6 @@
               aria-label="Instagram"
             >
               <span class="social-icon">IG</span>
-            </a>
-            <a
-              href="https://github.com/FreeForCharity/FFC-EX-bintobetter.org"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="GitHub"
-            >
-              <span class="social-icon">GH</span>
             </a>
           </div>
         </div>
@@ -808,117 +871,6 @@
         <p>&copy; <span id="currentYear">2024</span> BinToBetter. All rights reserved.</p>
       </div>
     </footer>
-
-    <!-- Cookie Consent Banner -->
-    <div id="cookieConsent" class="cookie-consent" role="region" aria-label="Cookie consent notice">
-      <div class="cookie-consent-content">
-        <div class="cookie-consent-text">
-          <h3>We Value Your Privacy</h3>
-          <p>
-            We use cookies to improve your experience on our site, analyze traffic, and enable
-            certain features. By clicking "Accept All", you consent to our use of cookies for
-            analytics and marketing purposes. You can manage your preferences or decline
-            non-essential cookies.
-          </p>
-          <div class="cookie-consent-links">
-            <a href="/privacy-policy.html">Privacy Policy</a>
-            <a href="/cookie-policy.html">Cookie Policy</a>
-          </div>
-        </div>
-        <div class="cookie-consent-buttons">
-          <button id="cookieRejectAll" class="btn btn-secondary">Decline All</button>
-          <button id="cookieCustomize" class="btn btn-secondary">Customize</button>
-          <button id="cookieAcceptAll" class="btn btn-primary">Accept All</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Cookie Preferences Modal -->
-    <div
-      id="cookiePreferences"
-      class="cookie-modal"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="cookie-preferences-title"
-    >
-      <div class="cookie-modal-content">
-        <button
-          class="cookie-modal-close"
-          id="cookieModalClose"
-          aria-label="Close cookie preferences"
-        >
-          &times;
-        </button>
-        <h2 id="cookie-preferences-title">Cookie Preferences</h2>
-        <p class="cookie-modal-description">
-          We use cookies to enhance your browsing experience and analyze our traffic. You can choose
-          which types of cookies you allow.
-        </p>
-
-        <div class="cookie-preference-item">
-          <div class="cookie-preference-header">
-            <h3>Necessary Cookies</h3>
-            <span class="cookie-preference-status">Always Active</span>
-          </div>
-          <p>
-            These cookies are essential for the website to function properly. They enable basic
-            features like page navigation and access to secure areas. The website cannot function
-            properly without these cookies.
-          </p>
-        </div>
-
-        <div class="cookie-preference-item">
-          <div class="cookie-preference-header">
-            <h3>Functional Cookies</h3>
-            <span class="cookie-preference-status">Always Active</span>
-          </div>
-          <p>
-            These cookies enable enhanced functionality and features that are essential for our core
-            services. This includes our donation processing and application form systems which
-            require cookies to function properly.
-          </p>
-          <p class="cookie-preference-services">
-            Services: Zeffy (Donation Processing), Microsoft Forms (Application Forms - may include
-            HubSpot analytics)
-          </p>
-        </div>
-
-        <div class="cookie-preference-item">
-          <div class="cookie-preference-header">
-            <h3>Analytics Cookies</h3>
-            <label class="cookie-toggle">
-              <input type="checkbox" id="cookieAnalytics" aria-label="Enable analytics cookies" />
-              <span class="cookie-toggle-slider"></span>
-            </label>
-          </div>
-          <p>
-            These cookies help us understand how visitors interact with our website by collecting
-            and reporting information anonymously. We use Google Analytics and Microsoft Clarity.
-          </p>
-          <p class="cookie-preference-services">Services: Google Analytics, Microsoft Clarity</p>
-        </div>
-
-        <div class="cookie-preference-item">
-          <div class="cookie-preference-header">
-            <h3>Marketing Cookies</h3>
-            <label class="cookie-toggle">
-              <input type="checkbox" id="cookieMarketing" aria-label="Enable marketing cookies" />
-              <span class="cookie-toggle-slider"></span>
-            </label>
-          </div>
-          <p>
-            These cookies are used to track visitors across websites. The intention is to display
-            ads that are relevant and engaging for the individual user.
-          </p>
-          <p class="cookie-preference-services">Services: Meta Pixel (Facebook)</p>
-        </div>
-
-        <div class="cookie-modal-buttons">
-          <button id="cookieSavePreferences" class="btn btn-primary">Save Preferences</button>
-          <button id="cookieCancelPreferences" class="btn btn-secondary">Cancel</button>
-        </div>
-      </div>
-    </div>
 
     <!-- JavaScript -->
     <script src="/js/main.js"></script>

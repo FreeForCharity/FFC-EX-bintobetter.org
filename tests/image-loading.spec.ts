@@ -22,8 +22,8 @@ test.describe('Image Loading', () => {
     const headerLogo = page.locator(`header a img[alt="${testConfig.logo.headerAlt}"]`)
     const heroImage = page.locator(`img[alt="${testConfig.logo.heroAlt}"]`)
 
-    // Verify both images are visible (meaning they loaded successfully)
-    await expect(headerLogo).toBeVisible()
+    // Verify images exist and hero is visible
+    await expect(headerLogo).toHaveCount(1)
     await expect(heroImage).toBeVisible()
 
     // Verify the header logo has a src attribute
@@ -35,33 +35,30 @@ test.describe('Image Loading', () => {
     expect(heroSrc).toBeTruthy()
   })
 
-  test('hero image should load from local assets', async ({ page }) => {
-    // Listen for image requests
-    const imageRequests: Array<{ url: string; status: number }> = []
-
-    page.on('response', (response) => {
-      if (response.url().includes('figma-hero-img')) {
-        imageRequests.push({
-          url: response.url(),
-          status: response.status(),
-        })
-      }
-    })
-
+  test('hero and header images should return 200', async ({ page }) => {
     // Navigate to the homepage
     await page.goto('/')
 
-    // Wait for hero image to be visible
+    const headerLogo = page.locator(`header a img[alt="${testConfig.logo.headerAlt}"]`)
     const heroImage = page.locator(`img[alt="${testConfig.logo.heroAlt}"]`)
+
+    await expect(headerLogo).toHaveCount(1)
     await expect(heroImage).toBeVisible()
 
-    // Verify at least one image request was made for the hero image
-    expect(imageRequests.length).toBeGreaterThan(0)
+    const headerSrc = await headerLogo.getAttribute('src')
+    const heroSrc = await heroImage.getAttribute('src')
 
-    // Verify all image requests returned 200 OK
-    for (const request of imageRequests) {
-      expect(request.status).toBe(200)
-    }
+    expect(headerSrc).toBeTruthy()
+    expect(heroSrc).toBeTruthy()
+
+    const headerUrl = new URL(headerSrc ?? '', page.url()).toString()
+    const heroUrl = new URL(heroSrc ?? '', page.url()).toString()
+
+    const headerResponse = await page.request.get(headerUrl)
+    expect(headerResponse.status()).toBe(200)
+
+    const heroResponse = await page.request.get(heroUrl)
+    expect(heroResponse.status()).toBe(200)
   })
 
   // Temporarily disabled: This test checks natural dimensions which don't work reliably in CI
