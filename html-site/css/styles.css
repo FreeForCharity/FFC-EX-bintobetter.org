@@ -147,6 +147,34 @@ main section[id] {
   scroll-margin-top: var(--header-scroll-offset);
 }
 
+/* =====================================
+   Section Bridges (Visual Separation)
+   ===================================== */
+
+main > section {
+  position: relative;
+}
+
+main > section:not(.hero-section)::before,
+main > section:not(.hero-section)::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 32px;
+  pointer-events: none;
+}
+
+main > section:not(.hero-section)::before {
+  top: 0;
+  background: linear-gradient(to bottom, rgba(74, 124, 89, 0.12), rgba(74, 124, 89, 0));
+}
+
+main > section:not(.hero-section)::after {
+  bottom: 0;
+  background: linear-gradient(to top, rgba(74, 124, 89, 0.08), rgba(74, 124, 89, 0));
+}
+
 .section-title {
   font-family: var(--font-faustina);
   font-size: 32px;
@@ -529,6 +557,22 @@ main section[id] {
 .team-section,
 .donate-section {
   padding: var(--section-padding-y) 0;
+}
+
+.mission-section,
+.project-detail-section {
+  background-color: var(--color-surface-2);
+}
+
+.faq-section,
+.donate-section,
+.contact-section {
+  background-color: var(--color-white);
+}
+
+.partners-section,
+.corporate-partners-section {
+  background-color: var(--color-surface);
 }
 
 .programs-section,
