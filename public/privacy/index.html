@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting to Privacy Policy — Bin to Better</title>
+    <!--
+      /privacy was the original route and may be linked from elsewhere. It moved
+      to /privacy-policy so the footer satisfies the Free For Charity
+      post-deploy compliance smoke, which looks for that exact path. Same
+      constraint as public/workshop/: a static export cannot call redirect() and
+      GitHub Pages cannot send a 301, so this is a meta refresh plus a canonical
+      link, with a visible link for anyone whose browser blocks the refresh.
+    -->
+    <meta http-equiv="refresh" content="0; url=/privacy-policy/" />
+    <link rel="canonical" href="https://bintobetter.org/privacy-policy/" />
+    <meta name="robots" content="noindex, follow" />
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f5f5ee;
+        color: #0b1410;
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+        text-align: center;
+        padding: 2rem;
+      }
+      a {
+        color: #0c2418;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      This page moved to
+      <a href="/privacy-policy/">our Privacy Policy</a>.
+    </p>
+  </body>
+</html>
