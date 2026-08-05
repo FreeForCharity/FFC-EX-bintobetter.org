@@ -10,8 +10,11 @@
       constraint as public/workshop/: a static export cannot call redirect() and
       GitHub Pages cannot send a 301, so this is a meta refresh plus a canonical
       link, with a visible link for anyone whose browser blocks the refresh.
+      The target is relative (../privacy-policy/, not /privacy-policy/) so this
+      still resolves correctly under NEXT_PUBLIC_BASE_PATH on project-page
+      deployments.
     -->
-    <meta http-equiv="refresh" content="0; url=/privacy-policy/" />
+    <meta http-equiv="refresh" content="0; url=../privacy-policy/" />
     <link rel="canonical" href="https://bintobetter.org/privacy-policy/" />
     <meta name="robots" content="noindex, follow" />
     <style>
@@ -35,7 +38,7 @@
   <body>
     <p>
       This page moved to
-      <a href="/privacy-policy/">our Privacy Policy</a>.
+      <a href="../privacy-policy/">our Privacy Policy</a>.
     </p>
   </body>
 </html>

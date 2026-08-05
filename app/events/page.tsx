@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { Section } from "@/components/ui/Section";
@@ -265,12 +266,12 @@ export default function Events() {
               </p>
 
               <div className="mt-10 flex flex-wrap gap-3">
-                <a
+                <Link
                   href="/get-involved"
                   className="inline-flex items-center rounded-[3px] bg-court px-5 py-2.5 text-sm font-medium text-ink transition-[filter] hover:brightness-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-court"
                 >
                   Join Interest List
-                </a>
+                </Link>
                 <a
                   href="mailto:outreach@bintobetter.org?subject=Event%20Sponsorship"
                   className="inline-flex items-center rounded-[3px] border border-paper/30 px-5 py-2.5 text-sm font-medium text-paper transition-colors hover:border-court hover:text-court focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-paper"

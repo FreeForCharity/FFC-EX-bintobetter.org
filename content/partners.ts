@@ -9,14 +9,14 @@
  * here rendered each logo twice on the same page.
  */
 export const partnerLogos: { src: string; name?: string }[] = [
-  { src: "/partners-logos/page-21-xref-82.png", name: "Partner logo pending confirmation" },
+  { src: "/partners-logos/page-21-xref-82.png" },
   { src: "/partners-logos/page-21-xref-84.png", name: "Los Gatos Swim and Racquet Club" },
   { src: "/partners-logos/page-22-xref-87.png", name: "NorCal Tennis Academy" },
   { src: "/partners-logos/page-22-xref-88.png", name: "Mountain View Tennis" },
   { src: "/partners-logos/page-23-xref-91.png", name: "Lifetime Activities" },
   { src: "/partners-logos/page-23-xref-92.png", name: "Kim Grant Tennis Academy" },
   { src: "/partners-logos/page-23-xref-94.png", name: "Cupertino Hills Swim and Racquet Club" },
-  { src: "/partners-logos/page-24-xref-97.png", name: "Partner logo pending confirmation" },
+  { src: "/partners-logos/page-24-xref-97.png" },
   { src: "/partners-logos/page-24-xref-99.png", name: "Kona Kai Swim and Racquet Club" },
   { src: "/partners-logos/page-25-xref-102.png", name: "Allie's Doggie Day Camp" },
   { src: "/partners-logos/page-26-xref-105.png", name: "Lucky Buddies Pet Sitting" },

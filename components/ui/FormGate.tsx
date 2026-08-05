@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useRef, useState } from "react";
+import Link from "next/link";
 import { site, MIN_UNSUPERVISED_AGE } from "@/content/site";
 
 /**
@@ -127,12 +128,12 @@ export function FormGate({
               </div>
               <p className="mt-5 text-xs leading-relaxed text-ink/50">
                 What we do with what you send is set out in our{" "}
-                <a
+                <Link
                   href="/privacy-policy/"
                   className="underline underline-offset-4 hover:text-ink"
                 >
                   Privacy Policy
-                </a>
+                </Link>
                 .
               </p>
             </>

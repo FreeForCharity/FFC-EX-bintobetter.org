@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { Section } from "@/components/ui/Section";
@@ -70,12 +71,12 @@ export default function EcoFilamentPage() {
             </div>
 
             <div className="flex flex-wrap gap-3">
-              <a
+              <Link
                 href="/get-involved"
                 className="inline-flex items-center rounded-[3px] border border-ink/25 px-5 py-2.5 text-sm font-medium text-ink transition-colors hover:border-ink hover:bg-ink/[0.03] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
               >
                 View Volunteer Options
-              </a>
+              </Link>
               <DiscordButton href="https://tinyurl.com/b2bdisc">
                 Join Discord, 13+
               </DiscordButton>
