@@ -29,17 +29,7 @@ export const whyPartner: string[] = [
   "Show visible community commitment through collection and reuse programs.",
 ];
 
-/**
- * `logo` is optional: a partner with no supplied artwork renders as a wordmark
- * rather than a broken image. Drop a file in public/partners-logos/ and set
- * `logo` to swap it in — nothing else needs to change.
- */
-export const corporatePartners: { name: string; logo?: string; note: string; href?: string }[] = [
-  {
-    name: "Free For Charity",
-    href: "https://freeforcharity.org",
-    note: "Free For Charity is Bin to Better's fiscal sponsor, providing our 501(c)(3) status (EIN 46-2471893) along with the hosting, infrastructure, and nonprofit back-office support that let a student-led team spend its time on programs instead of paperwork.",
-  },
+export const corporatePartners: { name: string; logo: string; note: string }[] = [
   {
     name: "Sun Dragon Computers",
     logo: "/partners-logos/sun-dragon-computers.png",

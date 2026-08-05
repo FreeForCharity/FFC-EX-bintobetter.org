@@ -5,7 +5,6 @@ import path from "node:path";
 import PrivacyPolicy from "@/app/privacy-policy/page";
 import TermsOfService from "@/app/terms-of-service/page";
 import { cookiePolicy, privacySections, termsSections } from "@/content/legal";
-import { fiscalSponsor } from "@/content/site";
 
 describe("legal pages", () => {
   it("privacy policy covers cookies, youth data, and photo removal", () => {
@@ -15,17 +14,49 @@ describe("legal pages", () => {
     expect(screen.getByRole("heading", { name: /photographs/i })).toBeInTheDocument();
   });
 
-  // Twice over: once in the "Who we are" section, once in the footer that every
-  // page carries. Both are wanted, so this asserts presence, not uniqueness.
-  it("terms name the fiscal sponsor and EIN", () => {
-    render(<TermsOfService />);
-    expect(screen.getAllByText(new RegExp(fiscalSponsor.ein)).length).toBeGreaterThan(0);
+  // The terms point at PledgeIt's checkout for tax wording rather than naming a
+  // sponsoring entity or EIN, which the site is not in a position to assert.
+  it("terms defer tax details to the donation processor", () => {
+    const { container } = render(<TermsOfService />);
+    expect(screen.getByRole("heading", { name: /who we are/i })).toBeInTheDocument();
+    expect(container.textContent).toMatch(/PledgeIt/);
+    expect(container.textContent).not.toMatch(/EIN|501\(c\)/i);
   });
 
   it("every section renders at least one paragraph", () => {
     for (const section of [...privacySections, ...termsSections]) {
       expect(section.body.length).toBeGreaterThan(0);
     }
+  });
+
+  /**
+   * The donate page states that PledgeIt's checkout may show a fiscal sponsor
+   * or payment recipient other than Bin to Better. Naming a *different* entity
+   * anywhere in the rendered site would contradict that and mislead a donor
+   * checking tax-deductible status, so no sponsoring organisation or tax ID may
+   * appear in the page layer at all. LICENSE is exempt: it is the repository's
+   * copyright notice, not website content.
+   */
+  it("names no sponsoring entity or tax ID anywhere in the rendered site", () => {
+    const banned = /Free For Charity|freeforcharity|46-2471893|\bEIN\b|501\(c\)/i;
+
+    const offenders: string[] = [];
+    const walk = (dir: string) => {
+      for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+        const full = path.join(dir, entry.name);
+        if (entry.isDirectory()) walk(full);
+        else if (/\.tsx?$/.test(entry.name)) {
+          // This test file names the strings it bans.
+          if (full === __filename) continue;
+          if (banned.test(fs.readFileSync(full, "utf8"))) offenders.push(full);
+        }
+      }
+    };
+    for (const r of ["app", "components", "content", "lib"]) {
+      walk(path.join(process.cwd(), r));
+    }
+
+    expect(offenders).toEqual([]);
   });
 
   /**

@@ -93,36 +93,19 @@ export default function Partners() {
             <div className="mt-6 flex flex-col gap-10 border border-ink/10 rounded-[3px] p-8 md:flex-row md:items-center">
               {/* Logo — large and prominent */}
               <div className="flex shrink-0 items-center justify-center md:w-80">
-                {partner.logo ? (
-                  <Image
-                    src={partner.logo}
-                    alt={partner.name}
-                    width={360}
-                    height={200}
-                    className="max-w-full object-contain"
-                  />
-                ) : (
-                  <span className="font-display text-2xl font-bold text-ink/70 text-center text-balance">
-                    {partner.name}
-                  </span>
-                )}
+                <Image
+                  src={partner.logo}
+                  alt={partner.name}
+                  width={360}
+                  height={200}
+                  className="max-w-full object-contain"
+                />
               </div>
 
               {/* Text */}
               <div className="flex-1">
                 <h3 className="font-display text-2xl font-bold text-ink">
-                  {partner.href ? (
-                    <a
-                      href={partner.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="underline underline-offset-4 decoration-ink/25 transition-colors hover:decoration-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
-                    >
-                      {partner.name}
-                    </a>
-                  ) : (
-                    partner.name
-                  )}
+                  {partner.name}
                 </h3>
                 <p className="mt-4 text-sm leading-relaxed text-ink/60 italic">
                   {/* Linkify the contact email only when the note actually

@@ -19,21 +19,6 @@ export const site = {
 };
 
 /**
- * Bin to Better does not hold its own IRS determination — it operates under
- * Free For Charity's. Donors verifying tax-deductible status look up the
- * sponsor's EIN, not ours, so the footer states whose EIN it is rather than
- * printing a bare number that would read as Bin to Better's own.
- *
- * VERIFY BEFORE DEPLOY: this asserts a sponsorship relationship and a tax ID in
- * public. Confirm both against the current FFC agreement.
- */
-export const fiscalSponsor = {
-  name: "Free For Charity",
-  ein: "46-2471893",
-  url: "https://freeforcharity.org",
-};
-
-/**
  * The minimum age to use a service we link out to but do not control.
  * Discord's own terms set 13; COPPA draws the same line for collecting personal
  * information without verifiable parental consent.

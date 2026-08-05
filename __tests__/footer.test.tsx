@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { Footer } from "@/components/layout/Footer";
-import { fiscalSponsor } from "@/content/site";
 
 describe("Footer", () => {
   it("shows the Bin to Better copyright", () => {
@@ -32,12 +31,11 @@ describe("Footer", () => {
     );
   });
 
-  it("attributes the fiscal sponsor and its EIN so donors can verify status", () => {
-    render(<Footer />);
-    expect(screen.getByText(new RegExp(fiscalSponsor.ein))).toBeInTheDocument();
-    expect(screen.getByRole("link", { name: fiscalSponsor.name })).toHaveAttribute(
-      "href",
-      fiscalSponsor.url
-    );
+  // Donations run through PledgeIt, whose checkout names the payment
+  // recipient. A sponsoring entity or EIN asserted in the footer would be a tax
+  // claim the site cannot stand behind, so the footer must stay silent on both.
+  it("claims no sponsoring entity or tax ID", () => {
+    const { container } = render(<Footer />);
+    expect(container.textContent).not.toMatch(/EIN|501\(c\)|fiscally sponsored/i);
   });
 });

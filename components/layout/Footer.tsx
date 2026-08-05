@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { site, fiscalSponsor } from "@/content/site";
+import { site } from "@/content/site";
 import { navLinks, programLinks } from "@/content/nav";
 
 export function Footer() {
@@ -88,7 +88,7 @@ export function Footer() {
       {/*
         Policy links live in their own row rather than the Explore column so
         they are present in every footer regardless of how Explore is edited.
-        The Free For Charity post-deploy smoke asserts a footer containing
+        The upstream post-deploy compliance smoke asserts a footer containing
         /privacy-policy and /terms-of-service — see post-deploy-smoke.yml.
       */}
       <div className="border-t border-paper/10 px-6 py-6">
@@ -109,26 +109,14 @@ export function Footer() {
             ))}
           </ul>
 
-          <p>{site.copyright}</p>
-
           {/*
-            Bin to Better has no IRS determination of its own, so a bare EIN
-            here would misread as ours. Naming the sponsor is what actually
-            lets a donor verify tax-deductible status.
+            No sponsoring-entity or tax-identification line here on purpose. Donations run
+            through PledgeIt, whose checkout names the payment recipient; a
+            second, possibly different entity stated in the footer would be a
+            tax claim we cannot stand behind. /terms-of-service points at the
+            checkout language instead.
           */}
-          <p className="max-w-xl leading-relaxed">
-            A fiscally sponsored project of{" "}
-            <a
-              href={fiscalSponsor.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="underline underline-offset-4 transition-colors hover:text-court focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-court"
-            >
-              {fiscalSponsor.name}
-            </a>
-            , a 501(c)(3) nonprofit. EIN {fiscalSponsor.ein}. Donations are
-            received and receipted by {fiscalSponsor.name}.
-          </p>
+          <p>{site.copyright}</p>
         </div>
       </div>
     </footer>

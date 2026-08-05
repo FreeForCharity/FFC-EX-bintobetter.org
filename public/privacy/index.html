@@ -5,8 +5,8 @@
     <title>Redirecting to Privacy Policy — Bin to Better</title>
     <!--
       /privacy was the original route and may be linked from elsewhere. It moved
-      to /privacy-policy so the footer satisfies the Free For Charity
-      post-deploy compliance smoke, which looks for that exact path. Same
+      to /privacy-policy so the footer satisfies the upstream post-deploy
+      compliance smoke, which looks for that exact path. Same
       constraint as public/workshop/: a static export cannot call redirect() and
       GitHub Pages cannot send a 301, so this is a meta refresh plus a canonical
       link, with a visible link for anyone whose browser blocks the refresh.

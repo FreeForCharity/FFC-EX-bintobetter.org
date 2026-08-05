@@ -1,9 +1,9 @@
-import { site, fiscalSponsor, MIN_UNSUPERVISED_AGE } from "@/content/site";
+import { site, MIN_UNSUPERVISED_AGE } from "@/content/site";
 
 /**
  * Copy for /privacy-policy and /terms-of-service.
  *
- * Route names are deliberately the long forms. The Free For Charity post-deploy
+ * Route names are deliberately the long forms. The upstream post-deploy
  * smoke (post-deploy-smoke.yml) asserts the footer links `/privacy-policy` and
  * `/terms-of-service|/tos`; `/privacy` alone fails that check. The old path is
  * kept alive as a meta-refresh stub in public/privacy/.
@@ -67,7 +67,7 @@ export const termsSections: LegalSection[] = [
   {
     heading: "Who we are",
     body: [
-      `Bin to Better is a student-led environmental initiative operating under the fiscal sponsorship of ${fiscalSponsor.name} (EIN ${fiscalSponsor.ein}). Donations are received and receipted by ${fiscalSponsor.name}; verify our tax-exempt status using that EIN.`,
+      `Bin to Better is a student-led environmental initiative. Donations are processed through PledgeIt, and the checkout page may show a fiscal sponsor or payment recipient other than Bin to Better. Read the checkout and receipt language for the tax details that apply to your gift — we deliberately do not restate them here, because the processor's wording governs, not ours.`,
     ],
   },
   {
