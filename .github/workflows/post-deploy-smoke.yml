@@ -352,6 +352,7 @@ jobs:
               { name: 'givebutter', hosts: ['givebutter.com'] },
               { name: 'donorbox', hosts: ['donorbox.org'] },
               { name: 'venmo', hosts: ['venmo.com'] },
+              { name: 'pledgeit', hosts: ['pledgeit.org'] },
             ];
             const donationSurfaces = await page.evaluate((providers) => {
               const out = [];
