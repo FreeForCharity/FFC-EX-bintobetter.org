@@ -1,5 +1,9 @@
 # Threat Model
 
+**Applies to:** bintobetter.org
+**Authoritative source for architecture and contracts:** [AGENTS.md](./AGENTS.md)
+**Last reviewed:** August 2026
+
 This document outlines the security threat model for the Free For Charity website, identifying potential security risks, trust boundaries, and mitigation strategies for our technology stack.
 
 ## Overview
@@ -24,13 +28,23 @@ The Bin to Better website (bintobetter.org) is a Next.js static export deployed 
 3. **Development Pipeline**
    - GitHub repository
    - npm package dependencies
-   - Automated testing (Jest, Playwright)
+   - Automated testing (Vitest + Testing Library; Playwright in the post-deploy smoke)
    - Code scanning (CodeQL)
    - Dependabot security updates
 
 4. **Third-Party Integrations**
-   - Google Analytics (via Google Tag Manager)
-   - External assets (images, fonts)
+   - Google Analytics 4, fired inside a Google Tag Manager container
+   - PledgeIt (donations), Google Forms, Discord — all outbound links only;
+     they load nothing on this site
+   - **No** external assets. Fonts are self-hosted by `next/font`, partner
+     logos are served from this origin, and there are no iframes. GTM is the
+     only third-party origin the page contacts.
+
+5. **DNS**
+   - Cloudflare, authoritative **DNS only** (`proxied=false`)
+   - Cloudflare is **not** in the request path, so its WAF, rate limiting, bot
+     management and caching provide **no** protection here. Do not count them
+     as mitigations — see CLOUDFLARE_SETUP.md.
 
 ## Trust Boundaries
 
@@ -325,10 +339,17 @@ The Bin to Better website (bintobetter.org) is a Next.js static export deployed 
 
 **Mitigations**:
 
-- ✅ Cookie consent banner
-- ✅ Privacy policy published
-- ✅ No PII intentionally collected
-- ✅ Google Analytics configured for privacy
+- ✅ Consent banner, with a hybrid posture: Google Consent Mode denies
+  `analytics_storage` by default in the UK/EEA/Switzerland (prior opt-in) and
+  grants it elsewhere with a decline available
+- ✅ Advertising and personalisation signals (`ad_storage`, `ad_user_data`,
+  `ad_personalization`) denied unconditionally in every region
+- ✅ Privacy policy published, and enforced against the code — a test fails if
+  the copy and the configured tags disagree in either direction
+- ✅ No PII intentionally collected; the site has no forms or server of its own
+- ✅ Declining clears `_ga`/`_gid`/`_gat` at both the host and the parent domain
+- ✅ Post-deploy smoke independently records every third-party origin and every
+  cookie the live page sets, and fails if storage occurs without a consent UI
 - ⚠️ Regular privacy policy reviews
 
 **Residual Risk**: Low

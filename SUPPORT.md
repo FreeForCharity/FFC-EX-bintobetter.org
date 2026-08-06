@@ -1,5 +1,9 @@
 # Support
 
+**Applies to:** bintobetter.org
+**Authoritative source for architecture and contracts:** [AGENTS.md](./AGENTS.md)
+**Last reviewed:** August 2026
+
 This document explains how to get help with the Bin to Better website.
 
 The site is built and maintained by **Free For Charity (FFC)**, Bin to Better's
@@ -15,7 +19,7 @@ If you have general questions about this website or Free For Charity's services:
 
 - **Email**: clarkemoyer@freeforcharity.org
 - **Phone**: 520-222-8104 (text preferred)
-- **Website**: [freeforcharity.org](https://ffcworkingsite1.org)
+- **Website**: [Free For Charity](https://ffcworkingsite1.org)
 
 ### For Technical Issues
 
@@ -42,10 +46,10 @@ We will respond within 48 hours and work with you to address the issue.
 
 ## 📚 Documentation
 
-- **[Quick Start Guide](./QUICK_START.md)** - Get set up in 5 minutes
+- **[README.md](./README.md)** - Project overview and quick start
 - **[README](./README.md)** - Project overview and features
 - **[CONTRIBUTING.md](./CONTRIBUTING.md)** - How to contribute
-- **[TESTING.md](./TESTING.md)** - Testing guide
+- **[AGENTS.md](./AGENTS.md)** - Structural and compliance contracts
 - **[DEPLOYMENT.md](./DEPLOYMENT.md)** - Deployment instructions
 
 ## 🤝 Community Support
@@ -71,7 +75,7 @@ Free For Charity offers various services to nonprofits:
 
 ## 🔗 Additional Resources
 
-- **Organization Website**: [ffcworkingsite1.org](https://ffcworkingsite1.org)
+- **Free For Charity**: [ffcworkingsite1.org](https://ffcworkingsite1.org) — Bin to Better's digital infrastructure partner
 - **GitHub Organization**: [@FreeForCharity](https://github.com/FreeForCharity)
 - **EIN**: 46-2471893 (501(c)(3) nonprofit)
 

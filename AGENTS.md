@@ -170,7 +170,41 @@ them when `eslint-config-next` ships support — do not simply un-pin.
 
 ---
 
-## 6. House style
+## 6. Where the documentation lives
+
+This file is authoritative for architecture, structure and compliance contracts.
+Where another document disagrees with it, this one wins and the other is a bug —
+please fix it in the same pull request rather than working around it.
+
+| Document | Covers | Do **not** use it for |
+| --- | --- | --- |
+| **AGENTS.md** (this file) | Structure, contracts, deployment model, agent rules | — |
+| `CLAUDE.md` | Pointer to this file | Anything else |
+| `.github/copilot-instructions.md` | Short orientation for agents | Detail — it defers here |
+| `README.md` | What the project is, the FFC relationship, quick start | Deep architecture |
+| `DEPLOYMENT.md` | Build → GitHub Pages pipeline, domains, rollback | DNS records |
+| `CLOUDFLARE_SETUP.md` | DNS posture (DNS-only) and how to change records | Proxy/CDN tuning — it does not apply |
+| `GITHUB_PAGES_SETUP.md` | Pages settings on the GitHub side | The build itself |
+| `EXTERNAL_DEPENDENCIES.md` | Third-party services and what they store | Package versions — read `package.json` |
+| `SECURITY.md` | Reporting process and security practices | Threat analysis |
+| `THREAT-MODEL.md` | Threat analysis and mitigations | Reporting process |
+| `CONTRIBUTING.md` | Human contribution workflow, style, review | Structural contracts |
+| `GOVERNANCE.md`, `MAINTAINERS.md`, `CONTRIBUTORS.md`, `CODE_OF_CONDUCT.md`, `SUPPORT.md` | People and process | Anything technical |
+| `CHANGELOG.md` | Release history | Current state |
+
+Operational documents carry a header naming this file as authoritative and the
+date they were last reviewed. If you change how the system works, update the
+affected document in the same pull request and move its review date. A
+structural change that leaves documentation stale is what produced the mess
+these rules exist to prevent.
+
+Documents that described a superseded implementation were removed rather than
+left to rot; git history retains them. If you find yourself writing a
+"MIGRATION_STEPS" or "FIX_SUMMARY" document, prefer a good commit message and a
+pull request description — those stay attached to the change instead of drifting
+away from it.
+
+## 7. House style
 
 - Copy belongs in `src/content/`, not inline in JSX, so text can be corrected
   without touching markup.

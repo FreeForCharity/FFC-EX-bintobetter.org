@@ -1,5 +1,9 @@
 # Contributing to Free For Charity
 
+**Applies to:** bintobetter.org
+**Authoritative source for architecture and contracts:** [AGENTS.md](./AGENTS.md)
+**Last reviewed:** August 2026
+
 Thank you for your interest in contributing to Bin to Better! This document provides guidelines and instructions for contributing to the project.
 
 ## Table of Contents
@@ -533,7 +537,7 @@ Example:
 - Write tests for all new components and utilities
 - Place tests in `__tests__` directory, mirroring the source structure
 - Name test files: `ComponentName.test.tsx` or `utilityName.test.ts`
-- Use **Jest** and **React Testing Library**
+- Use **Vitest** and **React Testing Library**
 - Aim for meaningful test coverage, not just high percentages
 
 #### Writing Good Tests
@@ -671,7 +675,7 @@ git commit --no-verify -m "your message"
 2. **Update documentation** if needed:
    - Update README.md for new features
    - Add JSDoc comments to new functions
-   - Update TESTING.md for new test approaches
+   - Update the Testing section of this document for new test approaches
 
 3. **Verify the build works**:
 
@@ -776,9 +780,9 @@ For sensitive matters, contact the maintainers directly:
 ## Additional Resources
 
 - [README.md](./README.md) - Project overview and setup
-- [TESTING.md](./TESTING.md) - Testing documentation
+- [AGENTS.md](./AGENTS.md) - Structural and compliance contracts
 - [SECURITY.md](./SECURITY.md) - Security policies and procedures
-- [SITE_IMPROVEMENTS.md](./SITE_IMPROVEMENTS.md) - Planned improvements and roadmap
+- [CHANGELOG.md](./CHANGELOG.md) - Release history
 - [Microsoft Learn: Contribute to an open-source project on GitHub](https://learn.microsoft.com/en-us/training/modules/contribute-open-source/) - Training module for contributing to open source
 
 ---

@@ -1,5 +1,9 @@
 # Deployment Guide
 
+**Applies to:** bintobetter.org
+**Authoritative source for architecture and contracts:** [AGENTS.md](./AGENTS.md)
+**Last reviewed:** August 2026
+
 This document explains how the Bin to Better website (bintobetter.org) is deployed to GitHub Pages.
 
 ## Table of Contents

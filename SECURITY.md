@@ -1,5 +1,9 @@
 # Security Documentation
 
+**Applies to:** bintobetter.org
+**Authoritative source for architecture and contracts:** [AGENTS.md](./AGENTS.md)
+**Last reviewed:** August 2026
+
 This document outlines the security measures implemented in the Free For Charity web application repository to protect code quality, maintain integrity, and ensure safe collaboration.
 
 ## Branch Protection Rules
@@ -202,7 +206,7 @@ The repository uses automated quality checks to ensure code quality and security
 - Steps include:
   - Code formatting check (Prettier)
   - Linting (ESLint)
-  - Unit tests (Jest)
+  - Unit tests (Vitest)
   - Static site build with proper basePath configuration
   - End-to-end tests (Playwright)
 - Must pass before merging
@@ -474,7 +478,7 @@ npm audit fix --force
 If you have questions about these security measures or need help setting up your development environment:
 
 - Check the [README.md](./README.md) for general project information
-- Review [TESTING.md](./TESTING.md) for testing guidelines
+- Review [CONTRIBUTING.md](./CONTRIBUTING.md#testing) for testing guidelines
 - Open a GitHub Discussion for questions
 - Contact the repository maintainers
 
