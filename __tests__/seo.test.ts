@@ -1,9 +1,30 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi, afterEach } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
 import sitemap from "@/app/sitemap";
-import robots from "@/app/robots";
 import { site, isProductionSite, PRODUCTION_URL } from "@/content/site";
+
+/**
+ * `content/site.ts` resolves its origin from NEXT_PUBLIC_SITE_URL at import
+ * time, so any test asserting on that origin has to set the variable itself
+ * rather than read whatever the ambient environment happens to have. The
+ * preview deployment sets NEXT_PUBLIC_SITE_URL, which previously turned this
+ * suite red there for no reason. Re-importing under a stubbed env pins the
+ * behaviour under test to the case it names.
+ */
+async function siteModuleWith(url: string | undefined) {
+  vi.stubEnv("NEXT_PUBLIC_SITE_URL", url);
+  vi.resetModules();
+  return {
+    site: await import("@/content/site"),
+    robots: (await import("@/app/robots")).default,
+  };
+}
+
+afterEach(() => {
+  vi.unstubAllEnvs();
+  vi.resetModules();
+});
 
 // Every directory under app/ that renders a page. Derived from the filesystem so
 // a new page that never gets added to the sitemap fails this test instead of
@@ -70,15 +91,27 @@ describe("seo", () => {
     }
   });
 
-  it("defaults to the production origin so a missing env var cannot mispoint production", () => {
-    expect(site.url).toBe(PRODUCTION_URL);
-    expect(isProductionSite()).toBe(true);
+  it("defaults to the production origin so a missing env var cannot mispoint production", async () => {
+    const { site: fresh } = await siteModuleWith(undefined);
+    expect(fresh.site.url).toBe(fresh.PRODUCTION_URL);
+    expect(fresh.isProductionSite()).toBe(true);
   });
 
-  it("robots allows crawling and references the sitemap on production", () => {
-    const r = robots();
-    expect(r.sitemap).toBe(`${site.url}/sitemap.xml`);
+  it("robots allows crawling and references the sitemap on production", async () => {
+    const { site: fresh, robots: freshRobots } = await siteModuleWith(undefined);
+    const r = freshRobots();
+    expect(r.sitemap).toBe(`${fresh.site.url}/sitemap.xml`);
     expect(r.rules).toMatchObject({ allow: "/" });
+  });
+
+  // The other half of the same switch: a preview origin must be disallowed
+  // outright and must advertise no sitemap, or it competes with production for
+  // ranking. Previously untested because the suite only ever ran unstubbed.
+  it("robots disallows crawling and omits the sitemap on a preview origin", async () => {
+    const { robots: freshRobots } = await siteModuleWith("https://bin2b.vercel.app");
+    const r = freshRobots();
+    expect(r.sitemap).toBeUndefined();
+    expect(r.rules).toMatchObject({ disallow: "/" });
   });
 
   it("treats any non-production origin as a test deployment", () => {

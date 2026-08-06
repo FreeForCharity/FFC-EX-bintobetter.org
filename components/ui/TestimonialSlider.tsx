@@ -16,7 +16,12 @@ interface TestimonialSliderProps {
 export function TestimonialSlider({ items }: TestimonialSliderProps) {
   const [current, setCurrent] = useState(0);
   const reduced = usePrefersReducedMotion();
-  const [paused, setPaused] = useState(false);
+  // `hovered` is incidental (pointer/focus is over the carousel); `playing` is
+  // the visitor's explicit choice via the pause control. WCAG 2.2.2 requires
+  // the second: hover-to-pause is not a mechanism a keyboard or touch user can
+  // rely on, and the rotation starts automatically and lasts more than 5s.
+  const [hovered, setHovered] = useState(false);
+  const [playing, setPlaying] = useState(true);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const goTo = useCallback(
@@ -29,27 +34,37 @@ export function TestimonialSlider({ items }: TestimonialSliderProps) {
   const prev = () => goTo(current - 1);
   const next = useCallback(() => goTo(current + 1), [current, goTo]);
 
+  const rotating = playing && !hovered && !reduced;
+
   useEffect(() => {
-    if (reduced || paused) return;
+    if (!rotating) return;
     intervalRef.current = setInterval(next, 6000);
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [reduced, paused, next]);
+  }, [rotating, next]);
 
   const item = items[current];
+  if (!item) return null;
 
   return (
     <section
       aria-roledescription="carousel"
       aria-label="Testimonials"
       className="relative"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocus={() => setPaused(true)}
-      onBlur={() => setPaused(false)}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onFocus={() => setHovered(true)}
+      onBlur={() => setHovered(false)}
     >
-      <div className="border border-ink/8 bg-paper px-8 py-10 rounded-md">
+      {/* ARIA APG carousel pattern: announce slide changes only while rotation
+          is stopped. A live region that fires during auto-rotation talks over
+          the visitor every 6 seconds. */}
+      <div
+        className="border border-ink/8 bg-paper px-8 py-10 rounded-md"
+        aria-live={rotating ? "off" : "polite"}
+        aria-atomic="true"
+      >
         <blockquote>
           <p className="text-lg leading-relaxed text-ink/80 sm:text-xl">
             &ldquo;{item.quote}&rdquo;
@@ -119,6 +134,43 @@ export function TestimonialSlider({ items }: TestimonialSliderProps) {
             />
           </svg>
         </button>
+
+        {/* WCAG 2.2.2 (Pause, Stop, Hide). Hidden when prefers-reduced-motion
+            is set, because nothing is rotating for it to stop. */}
+        {!reduced && (
+          <button
+            onClick={() => setPlaying((p) => !p)}
+            aria-label={
+              playing ? "Pause testimonial rotation" : "Resume testimonial rotation"
+            }
+            aria-pressed={!playing}
+            className="ml-auto rounded-[3px] border border-ink/20 p-2 text-ink transition-colors hover:border-court hover:text-court focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-court"
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 16 16"
+              fill="none"
+              aria-hidden="true"
+            >
+              {playing ? (
+                <path
+                  d="M6 3v10M10 3v10"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+              ) : (
+                <path
+                  d="M5 3l8 5-8 5V3z"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+              )}
+            </svg>
+          </button>
+        )}
       </div>
     </section>
   );

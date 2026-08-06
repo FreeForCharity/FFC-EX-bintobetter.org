@@ -26,6 +26,19 @@ export const site = {
 export const MIN_UNSUPERVISED_AGE = 13;
 
 /**
+ * Path prefix the site is served under. Empty on the apex domain; "/<repo>" on
+ * a GitHub project page. next.config.ts feeds the same variable to `basePath`,
+ * so absolute URLs built for the sitemap and robots have to include it or they
+ * point one directory too high on project-page deployments.
+ */
+export const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
+/** Absolute URL for a route, accounting for origin and basePath. */
+export function absoluteUrl(route: string): string {
+  return `${site.url}${BASE_PATH}${route}`;
+}
+
+/**
  * True only on the live site. Test and preview deployments serve the same
  * content, so they are kept out of search results entirely rather than
  * competing with production for it — see app/robots.ts and app/layout.tsx.

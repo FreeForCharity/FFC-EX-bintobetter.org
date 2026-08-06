@@ -31,6 +31,23 @@ describe("Footer", () => {
     );
   });
 
+  /**
+   * The compliance smoke locates the page footer to check its policy links.
+   * TestimonialSlider renders a <footer> inside a <blockquote> for quote
+   * attribution, which appears earlier in the DOM on the homepage — so a probe
+   * selecting by tag alone finds that one instead and reports a footer with
+   * zero links. An explicit contentinfo role is what disambiguates them, and
+   * it is load-bearing for the deploy gate, not cosmetic.
+   */
+  it("exposes the page footer as the contentinfo landmark", () => {
+    render(<Footer />);
+    const landmark = screen.getByRole("contentinfo");
+    expect(landmark.tagName.toLowerCase()).toBe("footer");
+    expect(
+      landmark.querySelectorAll('a[href="/privacy-policy"], a[href="/terms-of-service"]')
+    ).toHaveLength(2);
+  });
+
   // Donations run through PledgeIt, whose checkout names the payment
   // recipient. A sponsoring entity or EIN asserted in the footer would be a tax
   // claim the site cannot stand behind, so the footer must stay silent on both.

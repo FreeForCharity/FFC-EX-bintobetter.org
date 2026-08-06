@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { site, isProductionSite } from "@/content/site";
+import { absoluteUrl, isProductionSite } from "@/content/site";
 
 // Required under `output: export` — the file is written once at build time.
 export const dynamic = "force-static";
@@ -14,6 +14,6 @@ export default function robots(): MetadataRoute.Robots {
 
   return {
     rules: { userAgent: "*", allow: "/" },
-    sitemap: `${site.url}/sitemap.xml`,
+    sitemap: absoluteUrl("/sitemap.xml"),
   };
 }
