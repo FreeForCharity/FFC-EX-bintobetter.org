@@ -1,6 +1,10 @@
 # Contributing to Free For Charity
 
-Thank you for your interest in contributing to Free For Charity! This document provides guidelines and instructions for contributing to the project.
+**Applies to:** bintobetter.org
+**Authoritative source for architecture and contracts:** [AGENTS.md](./AGENTS.md)
+**Last reviewed:** August 2026
+
+Thank you for your interest in contributing to Bin to Better! This document provides guidelines and instructions for contributing to the project.
 
 ## Table of Contents
 
@@ -150,7 +154,7 @@ You can choose among available AI models using Copilot's model selector feature.
 
 ### What is a Fresh Review?
 
-A fresh review is a comprehensive evaluation of the live Free For Charity website from a new user's perspective. As a new reviewer, your first contribution will be to:
+A fresh review is a comprehensive evaluation of the live Bin to Better website from a new user's perspective. As a new reviewer, your first contribution will be to:
 
 1. **Explore the live application** thoroughly
 2. **Document your findings** - both positive and negative
@@ -168,9 +172,9 @@ This approach helps you:
 
 #### Step 1: Visit the Live Site
 
-Start by exploring the live Free For Charity website:
+Start by exploring the live Bin to Better website:
 
-- **Production Site:** [https://ffcworkingsite1.org](https://ffcworkingsite1.org)
+- **Production Site:** [https://bintobetter.org](https://bintobetter.org)
 - **GitHub Pages:** [https://freeforcharity.github.io/FFC_Single_Page_Template/](https://freeforcharity.github.io/FFC_Single_Page_Template/)
 
 #### Step 2: Comprehensive Evaluation
@@ -333,7 +337,7 @@ Starting your contribution journey with a fresh review:
 
 ### Ready to Review?
 
-1. Visit [https://ffcworkingsite1.org](https://ffcworkingsite1.org)
+1. Visit [https://bintobetter.org](https://bintobetter.org)
 2. Explore thoroughly and take notes
 3. [Create your review issue](https://github.com/FreeForCharity/FFC_Single_Page_Template/issues/new?assignees=&labels=documentation%2Creview%2Conboarding&template=reviewer-onboarding.md)
 4. Report individual issues you discover
@@ -520,7 +524,7 @@ Example:
 
 - One component per file
 - Name files using **PascalCase** for components: `MyComponent.tsx`
-- Name files using **camelCase** for utilities: `assetPath.ts`
+- Name files using **camelCase** for utilities: `usePrefersReducedMotion.ts`
 - Keep related files together in directories
 - Use `index.tsx` for directory exports when appropriate
 
@@ -533,7 +537,7 @@ Example:
 - Write tests for all new components and utilities
 - Place tests in `__tests__` directory, mirroring the source structure
 - Name test files: `ComponentName.test.tsx` or `utilityName.test.ts`
-- Use **Jest** and **React Testing Library**
+- Use **Vitest** and **React Testing Library**
 - Aim for meaningful test coverage, not just high percentages
 
 #### Writing Good Tests
@@ -671,7 +675,7 @@ git commit --no-verify -m "your message"
 2. **Update documentation** if needed:
    - Update README.md for new features
    - Add JSDoc comments to new functions
-   - Update TESTING.md for new test approaches
+   - Update the Testing section of this document for new test approaches
 
 3. **Verify the build works**:
 
@@ -776,9 +780,9 @@ For sensitive matters, contact the maintainers directly:
 ## Additional Resources
 
 - [README.md](./README.md) - Project overview and setup
-- [TESTING.md](./TESTING.md) - Testing documentation
+- [AGENTS.md](./AGENTS.md) - Structural and compliance contracts
 - [SECURITY.md](./SECURITY.md) - Security policies and procedures
-- [SITE_IMPROVEMENTS.md](./SITE_IMPROVEMENTS.md) - Planned improvements and roadmap
+- [CHANGELOG.md](./CHANGELOG.md) - Release history
 - [Microsoft Learn: Contribute to an open-source project on GitHub](https://learn.microsoft.com/en-us/training/modules/contribute-open-source/) - Training module for contributing to open source
 
 ---

@@ -1,6 +1,6 @@
 # Maintainers
 
-This document lists the maintainers of the Free For Charity website repository, their roles, and areas of responsibility.
+This document lists the maintainers of the Bin to Better website repository (bintobetter.org), their roles, and areas of responsibility.
 
 ## Project Leadership
 

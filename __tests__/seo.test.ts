@@ -30,7 +30,7 @@ afterEach(() => {
 // a new page that never gets added to the sitemap fails this test instead of
 // silently going unindexed.
 function pageRoutes(): string[] {
-  const appDir = path.join(process.cwd(), "app");
+  const appDir = path.join(process.cwd(), "src", "app");
   const routes = ["/"];
   for (const entry of fs.readdirSync(appDir, { withFileTypes: true })) {
     if (!entry.isDirectory()) continue;
@@ -61,7 +61,7 @@ describe("seo", () => {
     const html = fs.readFileSync(redirectFile, "utf8");
     expect(html).toContain('http-equiv="refresh"');
     expect(html).toContain("/tech-to-treasure/");
-    expect(fs.existsSync(path.join(process.cwd(), "app", "workshop"))).toBe(false);
+    expect(fs.existsSync(path.join(process.cwd(), "src", "app", "workshop"))).toBe(false);
   });
 
   // /privacy moved to /privacy-policy so the footer satisfies the Free For
@@ -76,7 +76,7 @@ describe("seo", () => {
     const html = fs.readFileSync(stub, "utf8");
     expect(html).toContain('http-equiv="refresh"');
     expect(html).toContain("/privacy-policy/");
-    expect(fs.existsSync(path.join(process.cwd(), "app", "privacy"))).toBe(false);
+    expect(fs.existsSync(path.join(process.cwd(), "src", "app", "privacy"))).toBe(false);
   });
 
   it("every sitemap URL ends in a slash, matching the exported pages", () => {

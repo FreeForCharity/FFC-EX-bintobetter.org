@@ -1,6 +1,10 @@
 # GitHub Pages Setup Guide
 
-## Quick Start: Enable GitHub Pages for BinToBetter
+**Applies to:** bintobetter.org
+**Authoritative source for architecture and contracts:** [AGENTS.md](./AGENTS.md)
+**Last reviewed:** August 2026
+
+## Quick Start: Enable GitHub Pages for Bin to Better
 
 If you're seeing a 404 error at https://bintobetter.org/, follow these steps to enable and deploy GitHub Pages.
 
@@ -28,7 +32,7 @@ If you're seeing a 404 error at https://bintobetter.org/, follow these steps to 
 
    **⚠️ CRITICAL: GitHub will auto-create a CNAME file**
    
-   When you save the custom domain, GitHub automatically creates a `CNAME` file in the **repository root** and commits it. This will **BREAK** the deployment because it causes GitHub Pages to serve the README.md instead of the html-site content.
+   When you save the custom domain, GitHub automatically creates a `CNAME` file in the **repository root** and commits it. This will **BREAK** the deployment because it causes GitHub Pages to serve repository root files instead of the built site.
    
    **You MUST delete this auto-created CNAME file:**
    
@@ -38,12 +42,12 @@ If you're seeing a 404 error at https://bintobetter.org/, follow these steps to 
      ```bash
      git pull origin main
      git rm CNAME
-     git commit -m "Remove auto-created root CNAME (conflicts with html-site/CNAME)"
+     git commit -m "Remove auto-created root CNAME (conflicts with public/CNAME)"
      git push origin main
      ```
    - Or use the GitHub UI: delete the CNAME file from the root directory
    
-   The CNAME file **MUST** only exist in `html-site/CNAME`, not in the repository root.
+   The CNAME file **MUST** only exist at `public/CNAME`. Next copies `public/` into `out/` at build time, so it reaches the deployment artifact from there.
 
 4. **Enable HTTPS:**
    - After domain verification, a checkbox labeled "Enforce HTTPS" will appear
@@ -90,7 +94,7 @@ If you just want to deploy the current state:
 2. **Wait for completion:**
    - The workflow typically takes 1-2 minutes
    - You'll see two jobs:
-     - "Build for GitHub Pages" - Packages the html-site directory
+     - "Build for GitHub Pages" - Runs `npm ci && npm run build` and packages `out/`
      - "Deploy to GitHub Pages" - Deploys to GitHub Pages
    - When complete, both jobs will show green checkmarks ✅
 
@@ -112,7 +116,7 @@ If you just want to deploy the current state:
    - The site should load correctly
 
 3. **Verify functionality:**
-   - Homepage should display BinToBetter branding
+   - Homepage should display Bin to Better branding
    - Navigation menu should work
    - Images and CSS should load correctly
    - Click through to test pages:
@@ -185,7 +189,7 @@ This is NOT a GitHub Pages configuration issue. This is an asset path issue.
 **Fix:**
 1. Verify CNAME file contains correct domain:
    ```bash
-   cat html-site/CNAME
+   cat public/CNAME
    # Should output: bintobetter.org
    ```
 
@@ -230,8 +234,9 @@ Create four A records pointing to GitHub Pages:
 3. Go to **DNS** → **Records**
 4. Click **Add record**
 5. Add the A records as shown above
-6. Set Proxy status to **Proxied** (orange cloud icon)
-7. See `CLOUDFLARE_SETUP.md` for additional Cloudflare configuration
+6. Set Proxy status to **DNS only** (grey cloud icon). This site is deliberately
+   **not** proxied through Cloudflare — see `CLOUDFLARE_SETUP.md` for why, and
+   prefer the FFC automation workflows over editing records by hand.
 
 **Namecheap:**
 1. Sign in to Namecheap
@@ -313,7 +318,7 @@ If you still have issues after following this guide:
    ```
 
 2. **Check detailed troubleshooting:**
-   - See [TROUBLESHOOTING_404.md](./TROUBLESHOOTING_404.md)
+   - See the GitHub Pages settings check above, and `.github/workflows/deploy.yml` for the deploy path
 
 3. **Review deployment logs:**
    - Go to Actions tab
@@ -333,4 +338,4 @@ If you still have issues after following this guide:
 - [Custom Domain Setup](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site)
 - [GitHub Actions Deployment](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site#publishing-with-a-custom-github-actions-workflow)
 - [Deployment Guide](./DEPLOYMENT.md) - Full deployment documentation
-- [Troubleshooting Guide](./TROUBLESHOOTING_404.md) - Detailed troubleshooting
+- [AGENTS.md](./AGENTS.md) - Deployment model and structural contracts

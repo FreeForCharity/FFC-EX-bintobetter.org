@@ -1,6 +1,10 @@
 # Deployment Guide
 
-This document explains how the Free For Charity website is deployed to GitHub Pages.
+**Applies to:** bintobetter.org
+**Authoritative source for architecture and contracts:** [AGENTS.md](./AGENTS.md)
+**Last reviewed:** August 2026
+
+This document explains how the Bin to Better website (bintobetter.org) is deployed to GitHub Pages.
 
 ## Table of Contents
 
@@ -16,17 +20,19 @@ This document explains how the Free For Charity website is deployed to GitHub Pa
 
 ## Overview
 
-The Free For Charity website is deployed to GitHub Pages as a static HTML site. The site is accessible at:
+The site is a Next.js **static export** (`output: "export"`) deployed to GitHub Pages. It is accessible at:
 
 - **Custom Domain**: https://bintobetter.org/
 - **GitHub Pages URL**: https://freeforcharity.github.io/FFC-EX-bintobetter.org/ (redirects to custom domain)
 
 ### Technology Stack
 
-- **Production**: Pure HTML, CSS, and vanilla JavaScript
-- **Hosting**: GitHub Pages (subpath deployment)
-- **CI/CD**: GitHub Actions
-- **No Build Process**: Files are served directly from the repository
+- **Production**: Next.js 16 (App Router), TypeScript, Tailwind CSS
+- **Output**: static export to `out/` — no server, no runtime
+- **Hosting**: GitHub Pages, custom apex domain
+- **CI/CD**: GitHub Actions (`ci.yml`, `deploy.yml`, `post-deploy-smoke.yml`)
+- **Build required**: `npm ci && npm run build` — the repository does **not**
+  contain pre-rendered HTML
 
 ---
 
@@ -35,25 +41,28 @@ The Free For Charity website is deployed to GitHub Pages as a static HTML site. 
 ### Repository Structure
 
 ```
-html-site/               # Production website
-├── index.html          # Main homepage
-├── css/                # Stylesheets
-│   └── styles.css     # All site styles
-├── js/                 # JavaScript files
-│   └── main.js        # Site functionality
-├── images/             # Image assets
-├── svgs/               # SVG icons
-├── videos/             # Video files
-└── *.html              # Policy pages
+src/                     # The site. See AGENTS.md — this location is a contract.
+├── app/                 # Routes (App Router)
+├── components/          # UI, layout, motion, analytics, consent
+├── content/             # Typed copy modules — text lives here, not in JSX
+└── lib/                 # Helpers and analytics config
+public/                  # Static assets, CNAME, redirect stubs (root, per Next)
+__tests__/               # Tests (root — FFC automation scans it there)
+out/                     # Build output. Generated, git-ignored, never edited.
 ```
+
+There is no `html-site/` directory. Earlier revisions of this guide described
+one; that model has not applied since the site became a Next.js application.
 
 ### Asset Path Handling
 
-The HTML static site uses root-relative paths (e.g., `/favicon.ico`, `/css/styles.css`) which work correctly when deployed to the custom apex domain (https://bintobetter.org/).
+Paths are handled by Next's own `basePath`, read from `NEXT_PUBLIC_BASE_PATH` in
+`next.config.ts`. Leave it unset for the apex domain (the current setup); set it
+to `/<repo>` only for a project-page deployment. Absolute URLs in the sitemap and
+robots go through `absoluteUrl()` in `src/content/site.ts`, which applies the
+same prefix.
 
-**Important**: The site is configured for deployment to the custom domain. All asset paths use root-relative paths without a basePath prefix.
-
-All HTML files have been pre-configured with the correct paths for custom domain deployment.
+A hand-rolled `assetPath` helper used to do this. It no longer exists.
 
 ---
 
@@ -76,7 +85,7 @@ The deployment workflow runs automatically when:
 
 1. **Checkout code**: Retrieves the latest code from the repository
 2. **Setup Pages**: Configures GitHub Pages settings
-3. **Upload artifact**: Packages the `./html-site` directory
+3. **Upload artifact**: Packages the `./out` directory produced by `npm run build`
 4. **Deploy to GitHub Pages**: Publishes the HTML static site
 
 **Key features:**
@@ -113,25 +122,20 @@ While automated deployment is recommended, manual deployment is straightforward.
    cd FFC-EX-bintobetter.org
    ```
 
-2. **Make your changes** to files in the `html-site/` directory:
+2. **Install dependencies and make your changes** under `src/`:
 
    ```bash
-   cd html-site
-   # Edit HTML, CSS, or JS files
+   npm ci
+   npm run dev     # http://localhost:3000
    ```
 
-3. **Test locally** (optional but recommended):
+3. **Verify before pushing** — all four must pass:
 
    ```bash
-   # Using Python (usually pre-installed)
-   python3 -m http.server 8000
-   # Visit http://localhost:8000
-
-   # Or using PHP
-   php -S localhost:8000
-
-   # Or using Node.js (if installed)
-   npx http-server -p 8000
+   npm run lint    # clean: no errors and no warnings
+   npm test
+   npm run build   # exports static routes to out/
+   npm audit       # expect 0 vulnerabilities
    ```
 
 4. **Commit and push** changes:
@@ -160,13 +164,13 @@ While automated deployment is recommended, manual deployment is straightforward.
 
 If you want to use a custom domain:
 
-1. **Add CNAME file** to `html-site/` directory:
+1. **CNAME file** lives in `public/`:
 
    **CRITICAL: CNAME File Location**
-   - `html-site/CNAME` - **ONLY location for CNAME** (deployed to GitHub Pages)
+   - `public/CNAME` - **ONLY location for CNAME**. Next copies `public/` into `out/` at build time, so it lands in the deployed artifact.
    - **DO NOT** create a CNAME file at the repository root
    
-   **Why?** When GitHub Pages deploys, it serves files from the uploaded artifact directory. A CNAME at the repository root causes GitHub to serve root-level files (like README.md) instead of the deployed artifact content. The CNAME must be inside the `html-site/` directory so it gets included in the deployment artifact.
+   **Why?** GitHub Pages serves the uploaded artifact. A CNAME at the repository root is not part of that artifact and does not reach the deployment. It must be in `public/` so the build copies it into `out/`. The post-deploy smoke additionally asserts that `public/CNAME` matches the domain actually bound in the Pages API, and fails the deploy if they have drifted apart.
 
    The file should contain:
 
@@ -196,9 +200,9 @@ If you want to use a custom domain:
    - HTTPS should be automatically enabled
 
 4. **Important Notes**:
-   - The `html-site/CNAME` file is critical for deployment
+   - The `public/CNAME` file is critical for deployment
    - Without this file, GitHub Pages loses custom domain configuration on each deployment
-   - The deployment workflow deploys `html-site/` directory only
+   - The deployment workflow deploys the built `out/` directory only
    - Custom domain works independently of the basePath configuration
    - See note above about CNAME file location requirements
 
@@ -260,7 +264,7 @@ curl -I https://yourdomain.org
 **Solution**:
 1. Verify all asset paths use root-relative paths: `/css/`, `/images/`, etc.
 2. Check browser console for 404 errors
-3. Ensure files exist in the `html-site/` directory
+3. Ensure the asset exists in `public/` (or is imported through `next/image`) and appears in `out/` after a build
 4. Verify the custom domain (bintobetter.org) is properly configured
 
 #### Issue: 404 Page Not Found
@@ -270,7 +274,7 @@ curl -I https://yourdomain.org
 **Cause**: Incorrect URL or missing file
 
 **Solution**:
-1. Verify the file exists in `html-site/`
+1. Verify the route exists under `src/app/` and is listed in `src/app/sitemap.ts`
 2. Check that the URL includes the basePath prefix
 3. Ensure file names match exactly (case-sensitive)
 
@@ -296,7 +300,7 @@ curl -I https://yourdomain.org
 1. Check workflow logs in Actions tab
 2. Verify repository has GitHub Pages enabled
 3. Check repository permissions
-4. Ensure `html-site/` directory exists and contains files
+4. Ensure `npm run build` succeeded and `out/` contains the expected files
 
 ### Deployment Logs
 
@@ -313,13 +317,12 @@ To view detailed deployment logs:
 Before pushing to production, test locally:
 
 ```bash
-cd html-site
+# Preview the real static export, exactly as GitHub Pages will serve it
+npm run build
+npx serve@latest out
 
-# Start local server
-python3 -m http.server 8000
-
-# Visit http://localhost:8000 in your browser
-# Test all functionality and links
+# Or the dev server for iteration
+npm run dev
 ```
 
 ---

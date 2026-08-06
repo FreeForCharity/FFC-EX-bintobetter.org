@@ -5,7 +5,7 @@ import { privacySections } from "@/content/legal";
 export const metadata: Metadata = {
   title: "Privacy Policy | Bin to Better",
   description:
-    "What Bin to Better collects, how youth data and photographs are handled, and why this site sets no cookies.",
+    "What Bin to Better collects, how youth data and photographs are handled, and how to turn off the site's analytics cookie.",
 };
 
 export default function PrivacyPolicy() {

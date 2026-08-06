@@ -1,6 +1,6 @@
 # Project Governance
 
-This document outlines the governance model for the Free For Charity website repository, including decision-making processes, maintainer roles, and community participation guidelines.
+This document outlines the governance model for the Bin to Better website repository (bintobetter.org), including decision-making processes, maintainer roles, and community participation guidelines.
 
 ## Overview
 

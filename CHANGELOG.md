@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to the BinToBetter website will be documented in this file.
+All notable changes to the Bin to Better website will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
@@ -11,15 +11,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Updated package.json to reflect BinToBetter project name and description
-- Updated CITATION.cff to reference BinToBetter organization and mission
+- Updated package.json to reflect Bin to Better project name and description
+- Updated CITATION.cff to reference Bin to Better organization and mission
 - Updated version to 1.0.0 to reflect production-ready status
 
 ### Repository History
 
-This repository was created using the Free For Charity website template and converted to serve the BinToBetter nonprofit organization. The template provided a professional, accessible, and performant static HTML website structure that was adapted for BinToBetter's mission of waste reduction and environmental sustainability.
+This repository was created from the Free For Charity website template and adapted to serve Bin to Better. Free For Charity is Bin to Better's digital infrastructure partner, not its fiscal sponsor. The template provided a professional, accessible, and performant static HTML website structure that was adapted for Bin to Better's mission of waste reduction and environmental sustainability.
 
-**BinToBetter** is a youth-led nonprofit organization that transforms used tennis balls, e-waste, and hard-to-recycle plastics into valuable tools for schools, seniors, and students through hands-on recycling initiatives and educational workshops.
+**Bin to Better** is a youth-led nonprofit organization that transforms used tennis balls, e-waste, and hard-to-recycle plastics into valuable tools for schools, seniors, and students through hands-on recycling initiatives and educational workshops.
 
 ## [0.1.0] - 2025-12-11
 

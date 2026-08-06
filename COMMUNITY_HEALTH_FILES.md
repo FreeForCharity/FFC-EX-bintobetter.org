@@ -33,7 +33,7 @@ Our README includes:
 
 - Project description and purpose
 - Quick links to all major documentation
-- Organization information (501(c)(3) nonprofit)
+- The Free For Charity relationship (digital infrastructure partner, **not** fiscal sponsor)
 - CNCF compliance statement
 - Technical stack overview
 
@@ -217,7 +217,7 @@ The repository also includes extensive project-specific documentation:
 - **TESTING.md** - Comprehensive testing guide
 - **DEPLOYMENT.md** - Deployment instructions
 - **QUICK_START.md** - 5-minute setup guide
-- **ADOPTERS.md** - Organizations using this template
+- **AGENTS.md** - Structural and compliance contracts for contributors and AI agents
 - **EXTERNAL_DEPENDENCIES.md** - Third-party services documentation
 
 And many more technical guides and documentation files.

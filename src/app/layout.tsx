@@ -3,6 +3,10 @@ import { Hanken_Grotesk, Inter, DM_Mono, Geist } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { site, isProductionSite } from "@/content/site";
+import GoogleTagManager, {
+  GoogleTagManagerNoScript,
+} from "@/components/google-tag-manager";
+import CookieConsent from "@/components/cookie-consent";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -63,7 +67,12 @@ export default function RootLayout({
       lang="en"
       className={cn(hanken.variable, inter.variable, dmMono.variable, "font-sans", geist.variable)}
     >
-      <body>{children}</body>
+      <GoogleTagManager />
+      <body>
+        <GoogleTagManagerNoScript />
+        {children}
+        <CookieConsent />
+      </body>
     </html>
   );
 }
