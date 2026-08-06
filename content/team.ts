@@ -1,0 +1,231 @@
+export interface TeamMember {
+  name: string;
+  role: string;
+  school: string;
+  fact: string;
+  photo: string;
+  imagePosition?: string;
+}
+
+export interface TeamGroup {
+  category: string;
+  members: TeamMember[];
+}
+
+export const teamGroups: TeamGroup[] = [
+  {
+    category: "Executives",
+    members: [
+      {
+        name: "Lalit Batchu",
+        role: "Co-Founder and Co-President",
+        school: "American High School; Grade 12",
+        fact: "My full name has 6 words!",
+        photo: "/members/Lalit Batchu.webp",
+      },
+      {
+        name: "Rohan Sashank Babbellapati",
+        role: "Co-Founder",
+        school: "American High School; Alumni",
+        fact: "Helped launch Bin to Better after seeing how many usable tennis balls were discarded.",
+        photo: "/members/Rohan Sashank Babbellapati.png",
+      },
+      {
+        name: "Pradyun Kanuparthi",
+        role: "Co-President",
+        school: "Mission San Jose High School; Grade 12",
+        fact: "I start for my varsity basketball team.",
+        photo: "/members/Pradyun Kanuparthi.png",
+      },
+      {
+        name: "Hala Amer",
+        role: "Vice President",
+        school: "American High School; Grade 11",
+        fact: "I recently built a 3D printer.",
+        photo: "/members/Hala Amer.png",
+        imagePosition: "center 40%",
+      },
+    ],
+  },
+  {
+    category: "Eco-Filament",
+    members: [
+      {
+        name: "Saket Sandru",
+        role: "Eco-Filament Director",
+        school: "American High School; Grade 11",
+        fact: "I broke the bone in the human body that's hardest to heal.",
+        photo: "/members/Saket Sandru.png",
+      },
+      {
+        name: "Nameh Gupta",
+        role: "Eco-Filament Officer",
+        school: "American High School; Grade 11",
+        fact: "I like gardening in my free time.",
+        photo: "/members/Nameh Gupta.jpg",
+      },
+      {
+        name: "Atiksh Jain",
+        role: "Eco-Filament Officer",
+        school: "American High School; Grade 10",
+        fact: "I have traveled to 15 countries.",
+        photo: "/members/Atiksh Jain.png",
+      },
+      {
+        name: "Cedric Liu",
+        role: "Eco-Filament Officer",
+        school: "Mission San Jose High School; Grade 11",
+        fact: "I like to build stuff",
+        photo: "/members/Cedric Liu.png",
+      },
+    ],
+  },
+  {
+    category: "Tech to Treasure",
+    members: [
+      {
+        name: "Krishan Ranjan",
+        role: "Tech to Treasure Director",
+        school: "American High School; Grade 11",
+        fact: "I've visited over 15 states in the US",
+        photo: "/members/Krishan Ranjan.jpg",
+      },
+      {
+        name: "Aarush Chavali",
+        role: "Tech to Treasure Director",
+        school: "American High School; Grade 11",
+        fact: "I can type up to 120 words per minute.",
+        photo: "/members/Aarush Chavali.webp",
+      },
+      {
+        name: "Clovis Zhang",
+        role: "Tech to Treasure Officer",
+        school: "American High School; Grade 11",
+        fact: "I enjoy playing Pokemon Go.",
+        photo: "/members/Clovis Zhang.png",
+      },
+      {
+        name: "Deenadarrshan Sathiyamoorthi",
+        role: "Tech to Treasure Officer",
+        school: "American High School; Grade 11",
+        fact: "I like to play basketball",
+        photo: "/members/Deenadarrshan Sathiyamoorthi.jpg",
+      },
+      {
+        name: "Arya Marker",
+        role: "Tech to Treasure Officer",
+        school: "Mission San Jose High School; Grade 12",
+        fact: "I've played piano for 5+ years!",
+        photo: "/members/Arya Marker.webp",
+      },
+    ],
+  },
+  {
+    category: "Bounce Back",
+    members: [
+      {
+        name: "Clovis Zhang",
+        role: "Bounce Back Director",
+        school: "American High School; Grade 11",
+        fact: "I enjoy playing Pokemon Go.",
+        photo: "/members/Clovis Zhang.png",
+      },
+      {
+        name: "Thomas Nguyen",
+        role: "Bounce Back Officer",
+        school: "American High School; Grade 11",
+        fact: "I like sleeping",
+        photo: "/members/Thomas Nguyen.png",
+      },
+      {
+        name: "Shlok Patani",
+        role: "Bounce Back Officer",
+        school: "Mission San Jose High School; Grade 10",
+        fact: "I enjoy playing basketball and giving back to the community, beyond Fremont",
+        photo: "/members/Shlok Patani.png",
+      },
+    ],
+  },
+  {
+    category: "Outreach",
+    members: [
+      {
+        name: "Deepam Kapadia",
+        role: "Outreach Director",
+        school: "American High School; Grade 11",
+        fact: "I am a top 5% Tetris player.",
+        photo: "/members/Deepam.png",
+      },
+      {
+        name: "Anika Batra",
+        role: "Outreach Director",
+        school: "American High School; Grade 11",
+        fact: "I have never broken a bone.",
+        photo: "/members/Anika Batra.png",
+      },
+      {
+        name: "Sanvi Varute",
+        role: "Outreach Officer",
+        school: "American High School; Grade 11",
+        fact: "I like cars",
+        photo: "/members/Sanvi Varute.jpg",
+        imagePosition: "center 30%",
+      },
+      {
+        name: "Nandini Kumar",
+        role: "Outreach Officer",
+        school: "American High School; Grade 11",
+        fact: "",
+        photo: "/members/Nandini Kumar.png",
+        imagePosition: "center 40%",
+      },
+    ],
+  },
+  {
+    category: "Fundraising",
+    members: [
+      {
+        name: "Vihaan Sanghvi",
+        role: "Fundraising Director",
+        school: "American High School; Grade 11",
+        fact: "I love traveling",
+        photo: "/members/Vihaan Sanghvi.png",
+      },
+      {
+        name: "Abhay Shankar",
+        role: "Fundraising Officer",
+        school: "Mission San Jose High School; Grade 12",
+        fact: "I have a labradoodle named Milo",
+        photo: "/members/Abhay Shankar.png",
+      },
+      {
+        name: "Yuva Chandrachood",
+        role: "Fundraising Officer",
+        school: "American High School; Grade 11",
+        fact: "I am 6 feet 1 inch tall.",
+        photo: "/members/Yuva Chandrachood.png",
+        imagePosition: "70% 25%",
+      },
+    ],
+  },
+  {
+    category: "Other Leadership",
+    members: [
+      {
+        name: "Ashish Swaminathan",
+        role: "Secretary",
+        school: "Mission San Jose High School; Grade 12",
+        fact: "I am an eclectic person, liking academia while also liking sports and leadership.",
+        photo: "/members/Ashish Swaminathan.png",
+        imagePosition: "center 25%",
+      },
+      {
+        name: "Aarnav Sharma",
+        role: "Website Developer",
+        school: "Archbishop Mitty High School; Grade 9",
+        fact: "I developed this website",
+        photo: "",
+      },
+    ],
+  },
+];

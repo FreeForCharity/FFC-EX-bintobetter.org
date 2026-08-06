@@ -39,3 +39,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+.vercel
+
+# local screenshot/test artifacts
+.playwright-mcp/
+*.jpeg
+/tmp/
+/docx_media/
+/docx_media_contact.jpg
+/docx_audit_render/

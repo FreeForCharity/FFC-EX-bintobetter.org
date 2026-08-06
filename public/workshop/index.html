@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting to Tech to Treasure — Bin to Better</title>
+    <!--
+      Workshop is no longer its own program; its content lives on the Tech to
+      Treasure page. This used to be an app/ route calling redirect(), which a
+      static export cannot do — it emitted a Next error page instead. GitHub
+      Pages cannot send a 301 either, so this is a meta refresh plus a canonical
+      link, which crawlers treat as a soft redirect, with a visible link for
+      anyone whose browser blocks the refresh. The target is relative
+      (../tech-to-treasure/, not /tech-to-treasure/) so this still resolves
+      correctly under NEXT_PUBLIC_BASE_PATH on project-page deployments.
+    -->
+    <meta http-equiv="refresh" content="0; url=../tech-to-treasure/" />
+    <link rel="canonical" href="https://bintobetter.org/tech-to-treasure/" />
+    <meta name="robots" content="noindex, follow" />
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f5f5ee;
+        color: #0b1410;
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+        text-align: center;
+        padding: 2rem;
+      }
+      a {
+        color: #0c2418;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      This page moved to
+      <a href="../tech-to-treasure/">Tech to Treasure</a>.
+    </p>
+  </body>
+</html>
