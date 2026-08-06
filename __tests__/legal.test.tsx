@@ -78,9 +78,15 @@ describe("legal pages", () => {
     expect(text).toMatch(/Google Analytics/i);
     expect(text).toMatch(/Google Tag Manager/i);
     expect(text).toMatch(/_ga/);
-    // Opt-out means the visitor must be told how to opt out, and how to return.
-    expect(text).toMatch(/No thanks|turn it off|switch(es)? analytics off/i);
+    // The visitor must be told how to decline, and how to come back to it.
+    expect(text).toMatch(/decline|turn it off|switch(es)? analytics off/i);
     expect(text).toMatch(/Cookie Settings/i);
+    // The posture is hybrid, so the copy has to say so — describing it as
+    // simply "on unless you decline" would be false for European visitors,
+    // and describing it as opt-in would be false for everyone else.
+    expect(text).toMatch(/UK, the EEA and Switzerland|EEA/);
+    expect(text).toMatch(/nothing is switched on until you say so/i);
+    expect(text).toMatch(/Everywhere else, analytics is on/i);
     // The old claim must not survive anywhere in the rendered policy — nor in
     // the page metadata, which is where it first slipped through: a meta
     // description is published to search results and social cards but never

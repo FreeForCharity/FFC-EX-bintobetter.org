@@ -38,3 +38,31 @@ export function isConfigured(id: string): boolean {
 
 /** True when a real GTM container is wired up and the tag should load. */
 export const analyticsEnabled = isConfigured(analyticsConfig.gtmId)
+
+/**
+ * Regions where analytics storage defaults to DENIED until the visitor opts in.
+ *
+ * This is the hybrid posture: US and rest-of-world traffic is not restricted
+ * (analytics on, decline available), while European traffic gets prior
+ * affirmative consent as GDPR/ePrivacy requires. One tag, two behaviours,
+ * chosen by where the visitor actually is.
+ *
+ * Passed to Google Consent Mode as a region-scoped `default`. Google resolves
+ * the region server-side from the request IP, so this is authoritative and
+ * needs no geo-IP lookup of our own — which matters on a static host with no
+ * server, and avoids adding a third-party geo service that would itself be a
+ * tracker requiring consent.
+ *
+ * EU 27 + the non-EU EEA states (IS, LI, NO) + the UK + Switzerland (nFADP).
+ * ISO 3166-1 alpha-2, which is what Consent Mode expects.
+ */
+export const CONSENT_RESTRICTED_REGIONS = [
+  // EU 27
+  'AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR',
+  'DE', 'GR', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL',
+  'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE',
+  // Rest of the EEA
+  'IS', 'LI', 'NO',
+  // United Kingdom (UK GDPR + PECR) and Switzerland (revised FADP)
+  'GB', 'CH',
+] as const

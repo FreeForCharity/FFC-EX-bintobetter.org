@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, act } from "@testing-library/react";
-import { describe, it, expect, beforeEach, vi } from "vitest";
+import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import CookieConsent, { OPEN_CONSENT_EVENT } from "@/components/cookie-consent";
 import { CookieSettingsButton } from "@/components/cookie-consent/CookieSettingsButton";
 import { CONSENT_STORAGE_KEY } from "@/components/google-tag-manager";
@@ -77,6 +77,57 @@ describe("CookieConsent", () => {
       analytics_storage: "denied",
     });
     spy.mockRestore();
+  });
+
+  /**
+   * The hybrid posture: Europe must opt in, everyone else may opt out. The
+   * banner's wording and button prominence follow the visitor's timezone;
+   * what GA may actually store is enforced by the region-scoped Consent Mode
+   * default, asserted separately below.
+   */
+  describe("regional posture", () => {
+    // Resolved once, before any spy is installed — reading it inside the helper
+    // would recurse through the previous test's mock and quietly pin every
+    // later test to the first timezone set.
+    const baseOptions = new Intl.DateTimeFormat().resolvedOptions();
+
+    afterEach(() => {
+      vi.restoreAllMocks();
+    });
+
+    const setTimeZone = (timeZone: string) => {
+      vi.spyOn(
+        Intl.DateTimeFormat.prototype,
+        "resolvedOptions"
+      ).mockReturnValue({ ...baseOptions, timeZone });
+    };
+
+    it("asks a European visitor to opt in, with equally prominent choices", () => {
+      setTimeZone("Europe/Berlin");
+      render(<CookieConsent />);
+
+      expect(screen.getByText(/nothing is switched on until you choose/i)).toBeInTheDocument();
+      const allow = screen.getByRole("button", { name: /allow analytics/i });
+      const reject = screen.getByRole("button", { name: /reject/i });
+      // Equal prominence is a consent-validity requirement in these regions,
+      // not a styling preference — a faint "reject" invalidates the consent.
+      expect(allow.className).toBe(reject.className);
+    });
+
+    it("gives a US visitor the opt-out notice instead", () => {
+      setTimeZone("America/Los_Angeles");
+      render(<CookieConsent />);
+
+      expect(screen.getByRole("button", { name: /that.s fine/i })).toBeInTheDocument();
+      expect(screen.queryByRole("button", { name: /allow analytics/i })).not.toBeInTheDocument();
+      expect(screen.getByText(/you can decline/i)).toBeInTheDocument();
+    });
+
+    it("treats European territories outside the Europe\\/ prefix as European", () => {
+      setTimeZone("Atlantic/Canary");
+      render(<CookieConsent />);
+      expect(screen.getByRole("button", { name: /allow analytics/i })).toBeInTheDocument();
+    });
   });
 
   it("moves focus to the banner so keyboard users meet it", () => {

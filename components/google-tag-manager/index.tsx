@@ -1,5 +1,9 @@
 import Script from 'next/script'
-import { analyticsConfig, analyticsEnabled } from '@/lib/analytics.config'
+import {
+  analyticsConfig,
+  analyticsEnabled,
+  CONSENT_RESTRICTED_REGIONS,
+} from '@/lib/analytics.config'
 
 const GTM_ID = analyticsConfig.gtmId
 
@@ -43,6 +47,16 @@ function gtag(){dataLayer.push(arguments);}
 window.gtag = gtag;
 var stored = null;
 try { stored = window.localStorage.getItem('${CONSENT_STORAGE_KEY}'); } catch (e) {}
+// Region-scoped default FIRST: Consent Mode applies the most specific match,
+// so this governs European visitors and the catch-all below governs everyone
+// else. Europe must opt IN (default denied); elsewhere is opt-out.
+gtag('consent', 'default', {
+  ad_storage: 'denied',
+  ad_user_data: 'denied',
+  ad_personalization: 'denied',
+  analytics_storage: stored === 'granted' ? 'granted' : 'denied',
+  region: ${JSON.stringify([...CONSENT_RESTRICTED_REGIONS])}
+});
 gtag('consent', 'default', {
   ad_storage: 'denied',
   ad_user_data: 'denied',

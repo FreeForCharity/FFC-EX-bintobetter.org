@@ -27,9 +27,41 @@ function readStored(): Choice | null {
 }
 
 /**
+ * Whether to present the banner as a required opt-in rather than an opt-out
+ * notice. Deliberately a *presentation* decision only — what GA is actually
+ * allowed to store is governed by the region-scoped Consent Mode default in
+ * the GTM component, which Google resolves from the request IP and which no
+ * client-side guess can weaken.
+ *
+ * The signal is the browser's IANA timezone, because it is the only zero-cost,
+ * synchronous, non-tracking hint available on a static host. It is a heuristic:
+ * a VPN or a traveller can defeat it. It fails in the safe direction — someone
+ * wrongly treated as European is asked to opt in, which is never a compliance
+ * problem, only a small friction. The reverse case is caught by Consent Mode,
+ * which still denies storage until they accept.
+ */
+function prefersExplicitOptIn(): boolean {
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || "";
+    return (
+      tz.startsWith("Europe/") ||
+      // European territories that sit outside the Europe/ tz prefix.
+      /^Atlantic\/(Canary|Madeira|Azores|Faroe|Reykjavik)$/.test(tz)
+    );
+  } catch {
+    return false;
+  }
+}
+
+/**
  * `storage` covers another tab recording a choice; the two custom events cover
  * this tab, where `storage` deliberately does not fire.
  */
+/** The timezone never changes mid-session, so there is nothing to subscribe to. */
+function noopSubscribe() {
+  return () => {};
+}
+
 function subscribeToChoice(onChange: () => void) {
   window.addEventListener("storage", onChange);
   window.addEventListener(OPEN_CONSENT_EVENT, onChange);
@@ -90,6 +122,14 @@ export default function CookieConsent() {
   );
   const open = analyticsEnabled && choice === null;
 
+  // Read once per mount rather than per render; the timezone cannot change
+  // under us and useSyncExternalStore has no business tracking it.
+  const optIn = useSyncExternalStore(
+    noopSubscribe,
+    prefersExplicitOptIn,
+    () => false
+  );
+
   // Move focus to the banner when it appears so keyboard and screen-reader
   // users meet it rather than having to hunt for it at the end of the document.
   useEffect(() => {
@@ -123,34 +163,71 @@ export default function CookieConsent() {
             Cookies on this site
           </h2>
           <p className="mt-1 text-sm leading-relaxed text-paper/70">
-            We use Google Analytics to understand which pages people find useful.
-            It sets a cookie in your browser. Nothing here is used for advertising
-            and we never sell your data. You can decline and we will switch it off
-            — see our{" "}
-            <Link
-              href="/privacy-policy/"
-              className="underline underline-offset-4 hover:text-court"
-            >
-              Privacy Policy
-            </Link>
-            .
+            {optIn ? (
+              <>
+                We would like to use Google Analytics to understand which pages
+                people find useful. It sets a cookie in your browser.{" "}
+                <strong className="font-medium text-paper/90">
+                  Nothing is switched on until you choose.
+                </strong>{" "}
+                Nothing here is used for advertising and we never sell your data
+                — see our{" "}
+                <Link
+                  href="/privacy-policy/"
+                  className="underline underline-offset-4 hover:text-court"
+                >
+                  Privacy Policy
+                </Link>
+                .
+              </>
+            ) : (
+              <>
+                We use Google Analytics to understand which pages people find
+                useful. It sets a cookie in your browser. Nothing here is used
+                for advertising and we never sell your data. You can decline and
+                we will switch it off — see our{" "}
+                <Link
+                  href="/privacy-policy/"
+                  className="underline underline-offset-4 hover:text-court"
+                >
+                  Privacy Policy
+                </Link>
+                .
+              </>
+            )}
           </p>
         </div>
         <div className="flex shrink-0 flex-wrap gap-3">
+          {/*
+            In opt-in mode both actions share one style. Regulators (EDPB
+            guidance, CNIL enforcement) treat a prominent "accept" beside a
+            faint "reject" as invalid consent, so equal prominence is a
+            requirement there rather than a design preference. Outside those
+            regions analytics is already on and "that's fine" is merely
+            acknowledging a notice, so the emphasis is not a dark pattern.
+          */}
           <button
             ref={acceptRef}
             type="button"
             onClick={() => choose("granted")}
-            className="inline-flex items-center rounded-[3px] bg-court px-4 py-2 text-sm font-medium text-ink transition-[filter] hover:brightness-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-paper"
+            className={
+              optIn
+                ? "inline-flex min-w-32 items-center justify-center rounded-[3px] border border-paper/30 px-4 py-2 text-sm font-medium text-paper transition-colors hover:border-paper hover:bg-paper/[0.06] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-paper"
+                : "inline-flex items-center rounded-[3px] bg-court px-4 py-2 text-sm font-medium text-ink transition-[filter] hover:brightness-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-paper"
+            }
           >
-            That&rsquo;s fine
+            {optIn ? "Allow analytics" : "That’s fine"}
           </button>
           <button
             type="button"
             onClick={() => choose("denied")}
-            className="inline-flex items-center rounded-[3px] border border-paper/30 px-4 py-2 text-sm font-medium text-paper transition-colors hover:border-paper hover:bg-paper/[0.06] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-paper"
+            className={
+              optIn
+                ? "inline-flex min-w-32 items-center justify-center rounded-[3px] border border-paper/30 px-4 py-2 text-sm font-medium text-paper transition-colors hover:border-paper hover:bg-paper/[0.06] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-paper"
+                : "inline-flex items-center rounded-[3px] border border-paper/30 px-4 py-2 text-sm font-medium text-paper transition-colors hover:border-paper hover:bg-paper/[0.06] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-paper"
+            }
           >
-            No thanks
+            {optIn ? "Reject" : "No thanks"}
           </button>
         </div>
       </div>
