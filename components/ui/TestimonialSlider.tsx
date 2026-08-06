@@ -55,7 +55,13 @@ export function TestimonialSlider({ items }: TestimonialSliderProps) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onFocus={() => setHovered(true)}
-      onBlur={() => setHovered(false)}
+      // React focus events bubble, so tabbing between the carousel's own
+      // controls fires blur-then-focus and would momentarily clear `hovered` —
+      // re-arming rotation and resetting the 6s interval mid-interaction.
+      // Only treat focus that actually leaves the section as leaving.
+      onBlur={(e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) setHovered(false);
+      }}
     >
       {/* ARIA APG carousel pattern: announce slide changes only while rotation
           is stopped. A live region that fires during auto-rotation talks over

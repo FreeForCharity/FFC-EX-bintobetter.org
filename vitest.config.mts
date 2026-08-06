@@ -1,6 +1,6 @@
 import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
-import path from "node:path";
+import { fileURLToPath } from "node:url";
 
 // `.mts` rather than `.ts`: Vite's native config loader treats a bare `.ts`
 // file as CommonJS, and this config is ESM. Under the old loader that only
@@ -12,5 +12,8 @@ export default defineConfig({
     setupFiles: ["./vitest.setup.ts"],
     globals: true,
   },
-  resolve: { alias: { "@": path.resolve(import.meta.dirname, ".") } },
+  // `fileURLToPath(new URL(...))` rather than `import.meta.dirname`: the latter
+  // needs Node >= 20.11 *and* a loader that preserves it, and Vite may transform
+  // this file before evaluating it. `import.meta.url` survives either way.
+  resolve: { alias: { "@": fileURLToPath(new URL(".", import.meta.url)) } },
 });
