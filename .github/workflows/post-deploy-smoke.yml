@@ -333,6 +333,14 @@ jobs:
             const donationHosts = ['zeffy.com','paypal.com','paypalobjects.com','gofundme.com','givebutter.com','donorbox.org','venmo.com','pledgeit.org'];
             const trackingOrigins = [...thirdPartyOrigins]
               .filter(h => !donationHosts.some(d => h === d || h.endsWith('.' + d)));
+            // ePrivacy treats localStorage/sessionStorage the same as cookies:
+            // it is terminal storage, and consent turns on the storing, not the
+            // mechanism. A site using them while reporting document.cookie empty
+            // would otherwise slip past the check below.
+            const webStorage = await page.evaluate(() => {
+              const count = (s) => { try { return s ? s.length : 0; } catch { return 0; } };
+              return { local: count(window.localStorage), session: count(window.sessionStorage) };
+            }).catch(() => ({ local: 0, session: 0 }));
 
             // ----- Compliance probes (DOM inspection) -----
             // 1) Footer present: any <footer> or [role="contentinfo"] with non-trivial text.
@@ -492,15 +500,17 @@ jobs:
               // the requirement from observed behaviour keeps the assertion live
               // in both directions without any per-repo variable.
               if (requireCookieConsent) {
-                const tracking = cookiesSet.length > 0 || trackingOrigins.length > 0;
+                const storageUsed = webStorage.local + webStorage.session;
+                const tracking = cookiesSet.length > 0 || trackingOrigins.length > 0 || storageUsed > 0;
                 if (tracking && !cookieConsent) {
                   const why = [
                     cookiesSet.length > 0 ? `${cookiesSet.length} cookie(s): ${cookiesSet.map(c => c.name).join(', ')}` : null,
                     trackingOrigins.length > 0 ? `third-party origins: ${trackingOrigins.join(', ')}` : null,
+                    storageUsed > 0 ? `web storage: ${webStorage.local} localStorage / ${webStorage.session} sessionStorage key(s)` : null,
                   ].filter(Boolean).join('; ');
-                  complianceFailures.push(`Site sets cookies or loads third-party resources on first load but shows no consent UI (${why})`);
+                  complianceFailures.push(`Site stores data or loads third-party resources on first load but shows no consent UI (${why})`);
                 } else if (!tracking) {
-                  console.log('Cookie check: site set no cookies and loaded no third-party resources on first load — no consent UI required.');
+                  console.log('Cookie check: site set no cookies, used no web storage, and loaded no third-party resources on first load — no consent UI required.');
                 }
               }
             } else {
@@ -551,7 +561,7 @@ jobs:
               placeholder,
               footer: footer ? { tag: footer.tag, hrefCount: footer.hrefs.length, hrefs: footer.hrefs } : null,
               cookieConsent: cookieConsent ? { selector: cookieConsent.selector, textSnippet: cookieConsent.text } : null,
-              cookies: { count: cookiesSet.length, names: cookiesSet.map(c => c.name), thirdPartyOrigins: trackingOrigins },
+              cookies: { count: cookiesSet.length, names: cookiesSet.map(c => c.name), thirdPartyOrigins: trackingOrigins, webStorage },
               donations: { scope: donationScope || 'undeclared', surfaces: donationChecks },
               complianceFailures,
             };

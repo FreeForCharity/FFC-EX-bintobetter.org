@@ -95,7 +95,7 @@ export function DotPattern({
       </defs>
       {dots.map((dot) =>
         animate ? (
-          // Animated (glow) path: framer-motion is only paid for when needed.
+          // Animated (glow) path: motion is only paid for when needed.
           <motion.circle
             key={`${dot.x}-${dot.y}`}
             cx={dot.x}
