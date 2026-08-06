@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { site } from "@/content/site";
 import { navLinks, programLinks } from "@/content/nav";
+import { CookieSettingsButton } from "@/components/cookie-consent/CookieSettingsButton";
 
 export function Footer() {
   return (
@@ -113,6 +114,15 @@ export function Footer() {
                 </Link>
               </li>
             ))}
+            {/*
+              Withdrawing consent has to be as easy as giving it, so the banner
+              needs a permanent way back once it has been dismissed. Rendered
+              only when a real GTM container is configured — with no analytics
+              there is nothing to manage and the control would be a dead end.
+            */}
+            <li>
+              <CookieSettingsButton />
+            </li>
           </ul>
 
           {/*

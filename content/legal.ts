@@ -12,16 +12,21 @@ import { site, MIN_UNSUPERVISED_AGE } from "@/content/site";
 export type LegalSection = { heading: string; body: string[] };
 
 /**
- * The cookie claim below is only true while the site ships no analytics, no
- * pixels, and no third-party embeds. Adding any of those — GA, Clarity, Meta,
- * an iframed form or map — makes this section false and very likely requires a
- * consent mechanism. Treat it as a tripwire, not boilerplate.
+ * This section must describe exactly what the site loads — no more, no less.
+ * It is kept honest by __tests__/legal.test.tsx, which reads
+ * lib/analytics.config.ts and fails if the configured tags and the copy below
+ * disagree in either direction: an undisclosed tracker, or a disclosure of
+ * something that is not actually wired up. Treat it as a tripwire, not
+ * boilerplate.
  */
 export const cookiePolicy: LegalSection = {
   heading: "Cookies and tracking",
   body: [
-    `This website sets no cookies. It is a static site with no analytics, no advertising or social pixels, no session tracking, and no embedded third-party frames. Nothing here follows you between visits or across other sites, so there is no consent banner to dismiss and nothing to opt out of.`,
+    `This website uses Google Analytics, loaded through Google Tag Manager, to count visits and see which pages people actually use. It sets a cookie in your browser (named \`_ga\`) that distinguishes one browser from another. That is the only cookie this site sets, and we use it for nothing but aggregate statistics.`,
+    `Analytics is on unless you turn it off. A banner appears on your first visit with a "No thanks" option; choosing it switches analytics off for this browser going forward and deletes the analytics cookies already set. You can change your mind at any time using the "Cookie Settings" link in the footer. Your choice is remembered in your browser's local storage rather than in a cookie.`,
+    `We do not run advertising or social pixels, we do not use session recording or heatmaps, and we do not sell or share this data. Advertising and personalisation signals are switched off explicitly, not merely left unused.`,
     `Links that leave this site are a different matter. Google Forms, Discord, GitHub, Google Photos, and donation platforms each set their own cookies once you arrive on them, under their own policies rather than ours. Those links are labelled so you can decide before you click.`,
+    `With JavaScript disabled, the analytics tag cannot run at all — but a single \`noscript\` frame to Google Tag Manager is present in the page for that case. It records nothing without the tag alongside it.`,
     `Your browser may still store ordinary technical data such as cache entries. That is standard browser behaviour and is not something this site reads or transmits.`,
   ],
 };
@@ -30,8 +35,8 @@ export const privacySections: LegalSection[] = [
   {
     heading: "What we collect",
     body: [
-      `We collect nothing on this website itself. It has no forms, no accounts, and no server that could receive a submission.`,
-      `We do receive information you choose to send us: what you type into one of our linked Google Forms, what you email to ${site.email}, and what you post if you join our Discord. That is the whole of it.`,
+      `This site has no forms, no accounts, and no server of its own that could receive a submission. What it does collect is analytics: Google Analytics records that a page was viewed, roughly where in the world the visit came from, and which site referred you. That is measurement, not identification — we cannot tell who you are from it, and it can be switched off (see "Cookies and tracking" below).`,
+      `We also receive information you choose to send us: what you type into one of our linked Google Forms, what you email to ${site.email}, and what you post if you join our Discord. That is the whole of it.`,
     ],
   },
   {

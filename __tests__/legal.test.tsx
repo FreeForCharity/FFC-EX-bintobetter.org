@@ -2,9 +2,14 @@ import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
-import PrivacyPolicy from "@/app/privacy-policy/page";
-import TermsOfService from "@/app/terms-of-service/page";
+import PrivacyPolicy, { metadata as privacyMeta } from "@/app/privacy-policy/page";
+import TermsOfService, { metadata as termsMeta } from "@/app/terms-of-service/page";
 import { cookiePolicy, privacySections, termsSections } from "@/content/legal";
+import {
+  analyticsConfig,
+  analyticsEnabled,
+  isConfigured,
+} from "@/lib/analytics.config";
 
 describe("legal pages", () => {
   it("privacy policy covers cookies, youth data, and photo removal", () => {
@@ -60,24 +65,84 @@ describe("legal pages", () => {
   });
 
   /**
-   * The cookie policy claims this site sets no cookies and loads no analytics.
-   * That claim is only true while the source contains no tracker. If someone
-   * adds GA, Clarity, a Meta pixel, or an iframe, this fails and the policy
-   * must be rewritten — the point is that the two can never drift apart
-   * silently, because the published claim is a legal one.
+   * The cookie policy and the tags actually loaded must agree in BOTH
+   * directions: nothing undisclosed may load, and nothing disclosed may be
+   * absent. The site now runs GTM + GA4 on an opt-out basis, so the assertions
+   * below pin that specific arrangement rather than the old "no cookies at all"
+   * claim. Turning analytics back off means this test fails until the copy is
+   * rewritten too — which is the point.
    */
-  it("no analytics, pixel, or embed exists that would falsify the cookie claim", () => {
+  it("the cookie policy describes the analytics that is actually configured", () => {
+    const text = cookiePolicy.body.join(" ");
+    expect(analyticsEnabled).toBe(true);
+    expect(text).toMatch(/Google Analytics/i);
+    expect(text).toMatch(/Google Tag Manager/i);
+    expect(text).toMatch(/_ga/);
+    // Opt-out means the visitor must be told how to opt out, and how to return.
+    expect(text).toMatch(/No thanks|turn it off|switch(es)? analytics off/i);
+    expect(text).toMatch(/Cookie Settings/i);
+    // The old claim must not survive anywhere in the rendered policy — nor in
+    // the page metadata, which is where it first slipped through: a meta
+    // description is published to search results and social cards but never
+    // appears in the rendered body, so a body-only assertion misses it.
+    const { container } = render(<PrivacyPolicy />);
+    expect(container.textContent).not.toMatch(/sets no cookies|no analytics/i);
+
+    const stale = /sets no cookies|no analytics|no tracking/i;
+    for (const [name, meta] of Object.entries({
+      privacy: privacyMeta,
+      terms: termsMeta,
+    })) {
+      expect(`${name}: ${meta.title ?? ""}`).not.toMatch(stale);
+      expect(`${name}: ${meta.description ?? ""}`).not.toMatch(stale);
+    }
+  });
+
+  /**
+   * Meta Pixel and Microsoft Clarity ship as placeholder ids in the FFC
+   * template. They are not wired up and the policy says we run no advertising
+   * or social pixels — so if an id is ever filled in without the copy changing,
+   * the site would be tracking undisclosed. Fail before that ships.
+   */
+  it("declares no tracker beyond the ones the policy names", () => {
+    expect(isConfigured(analyticsConfig.metaPixelId)).toBe(false);
+    expect(isConfigured(analyticsConfig.clarityProjectId)).toBe(false);
+    expect(cookiePolicy.body.join(" ")).toMatch(
+      /do not run advertising or social pixels/i
+    );
+  });
+
+  it("no tracker exists outside the sanctioned analytics components", () => {
     // `public/` is included deliberately. On a static export it is copied to
     // the site root verbatim, so a <script> dropped into a file there ships to
     // production without passing through any of the app/ code the rest of this
     // tripwire watches — it is the most likely place for a tracker to appear
     // and go unnoticed. next.config.ts is watched for the same reason.
     const roots = ["app", "components", "content", "lib", "public"];
+    // Anchored on the tracker HOSTS rather than bare words: `GoogleTagManager`
+    // is also the name of the sanctioned component, and matching the identifier
+    // would flag every file that merely imports or renders it — which would
+    // make the test noise rather than a tripwire.
     const banned =
-      /googletagmanager|google-analytics|gtag\(|clarity\.ms|connect\.facebook\.net|fbq\(|<iframe|document\.cookie|localStorage|sessionStorage/i;
+      /googletagmanager\.com|google-analytics\.com|gtag\(|clarity\.ms|connect\.facebook\.net|fbq\(|<iframe|document\.cookie|localStorage|sessionStorage/i;
+
+    /**
+     * Analytics is allowed in exactly two places, and nowhere else. Confining
+     * it means a tracker added to a page component, a content module or a
+     * static file in public/ still trips this test — the containment is what
+     * makes "we run GA and nothing else" a checkable statement rather than an
+     * assurance. content/legal.ts is exempt because the policy names the
+     * trackers it discloses and disclaims.
+     */
+    const sanctioned = [
+      path.join("components", "google-tag-manager"),
+      path.join("components", "cookie-consent"),
+      path.join("content", "legal.ts"),
+    ];
 
     const offenders: string[] = [];
     const check = (full: string) => {
+      if (sanctioned.some((s) => full.includes(s))) return;
       const src = fs.readFileSync(full, "utf8");
       if (banned.test(src)) offenders.push(full);
     };
@@ -87,8 +152,6 @@ describe("legal pages", () => {
         if (entry.isDirectory()) {
           walk(full);
         } else if (/\.(tsx?|css|html|js|mjs)$/.test(entry.name)) {
-          // The policy text itself names the trackers it disclaims.
-          if (full.endsWith(path.join("content", "legal.ts"))) continue;
           check(full);
         }
       }
