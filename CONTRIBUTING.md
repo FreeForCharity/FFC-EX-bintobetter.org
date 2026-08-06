@@ -520,7 +520,7 @@ Example:
 
 - One component per file
 - Name files using **PascalCase** for components: `MyComponent.tsx`
-- Name files using **camelCase** for utilities: `assetPath.ts`
+- Name files using **camelCase** for utilities: `usePrefersReducedMotion.ts`
 - Keep related files together in directories
 - Use `index.tsx` for directory exports when appropriate
 

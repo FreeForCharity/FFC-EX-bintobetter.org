@@ -37,7 +37,10 @@ This site is automatically deployed to GitHub Pages when changes are pushed to t
 
 For developers replicating this setup:
 1. Ensure `next.config.ts` has `output: "export"`.
-2. Assets use the `assetPath` helper to handle the GitHub Pages subdirectory.
+2. Subdirectory deployments are handled by Next's own `basePath`, set from
+   `NEXT_PUBLIC_BASE_PATH`. Leave it unset for an apex domain; set it to
+   `/<repo>` for a project page. (This replaced a hand-rolled `assetPath`
+   helper, which no longer exists.)
 3. The `.github/workflows/deploy.yml` handles the build and deployment process.
 
 ## CNCF-Compliant Open Source Project

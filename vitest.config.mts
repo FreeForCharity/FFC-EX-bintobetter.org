@@ -15,5 +15,5 @@ export default defineConfig({
   // `fileURLToPath(new URL(...))` rather than `import.meta.dirname`: the latter
   // needs Node >= 20.11 *and* a loader that preserves it, and Vite may transform
   // this file before evaluating it. `import.meta.url` survives either way.
-  resolve: { alias: { "@": fileURLToPath(new URL(".", import.meta.url)) } },
+  resolve: { alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) } },
 });

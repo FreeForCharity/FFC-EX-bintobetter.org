@@ -58,7 +58,7 @@ describe("legal pages", () => {
       }
     };
     for (const r of ["app", "components", "content", "lib"]) {
-      walk(path.join(process.cwd(), r));
+      walk(path.join(process.cwd(), "src", r));
     }
 
     expect(offenders).toEqual([]);
@@ -124,7 +124,15 @@ describe("legal pages", () => {
     // production without passing through any of the app/ code the rest of this
     // tripwire watches — it is the most likely place for a tracker to appear
     // and go unnoticed. next.config.ts is watched for the same reason.
-    const roots = ["app", "components", "content", "lib", "public"];
+    // The site tree lives under src/ (the FFC template layout); public/ stays
+    // at the repo root because Next requires it there.
+    const roots = [
+      path.join("src", "app"),
+      path.join("src", "components"),
+      path.join("src", "content"),
+      path.join("src", "lib"),
+      "public",
+    ];
     // Anchored on the tracker HOSTS rather than bare words: `GoogleTagManager`
     // is also the name of the sanctioned component, and matching the identifier
     // would flag every file that merely imports or renders it — which would
