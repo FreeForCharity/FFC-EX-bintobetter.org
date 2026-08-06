@@ -3,18 +3,20 @@
 import { useEffect, useRef, useState } from "react";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 
-interface AnimatedCounterProps {
+interface StatRevealProps {
   value: string;
   className?: string;
 }
 
-export function AnimatedCounter({ value, className = "" }: AnimatedCounterProps) {
+export function StatReveal({ value, className = "" }: StatRevealProps) {
   const ref = useRef<HTMLSpanElement>(null);
   const shineTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-  // `shining` is transient: it flips on when the count-up finishes to flash the
-  // one-shot shine sweep, then clears itself after the sweep so the text returns
-  // to its solid `text-court` color. Keeping it on permanently would leave the
-  // span with `-webkit-text-fill-color: transparent` and hide the digits.
+  // Renders `value` as-is and flashes a one-shot shine sweep the first time the
+  // stat scrolls into view — it does not count up, despite what the old name
+  // (AnimatedCounter) implied. `shining` is transient: it clears itself after
+  // the sweep so the text returns to its solid `text-court` color. Keeping it
+  // on permanently would leave the span with `-webkit-text-fill-color:
+  // transparent` and hide the digits.
   const [shining, setShining] = useState(false);
   const reduced = usePrefersReducedMotion();
 

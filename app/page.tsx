@@ -13,7 +13,7 @@ import { RevealGroup } from "@/components/motion/RevealGroup";
 import { CursorSpotlight } from "@/components/motion/CursorSpotlight";
 import { Magnetic } from "@/components/motion/Magnetic";
 import { DrawLine } from "@/components/motion/DrawLine";
-import { AnimatedCounter } from "@/components/motion/AnimatedCounter";
+import { StatReveal } from "@/components/motion/StatReveal";
 import { DotPattern } from "@/components/ui/dot-pattern";
 import { Globe } from "@/components/ui/globe";
 import { ArrowRight } from "@/components/ui/icons";
@@ -146,7 +146,7 @@ export default function Home() {
                 {stats.map((s) => (
                   <div key={s.label}>
                     <p className="font-mono text-3xl font-medium tabular-nums text-court sm:text-4xl">
-                      <AnimatedCounter value={s.value} />
+                      <StatReveal value={s.value} />
                     </p>
                     <p className="mt-1.5 font-mono text-xs text-paper/50 uppercase tracking-[0.1em]">
                       {s.label}

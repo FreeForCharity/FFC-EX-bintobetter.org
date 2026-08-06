@@ -50,6 +50,11 @@ export function CursorSpotlight({
     };
 
     const onLeave = () => {
+      // Cancel any frame still queued by onMove. Without this, a pointermove
+      // immediately before the pointer leaves runs its callback *after*
+      // onLeave, sees `active === false`, and turns the glow back on — leaving
+      // it stuck until the next pointermove.
+      cancelAnimationFrame(raf);
       el.style.opacity = "0";
       active = false;
     };

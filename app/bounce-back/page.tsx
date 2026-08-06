@@ -7,7 +7,7 @@ import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/motion/Reveal";
-import { AnimatedCounter } from "@/components/motion/AnimatedCounter";
+import { StatReveal } from "@/components/motion/StatReveal";
 
 export const metadata: Metadata = {
   title: "Bounce Back Project | Bin to Better",
@@ -171,7 +171,7 @@ export default function BounceBackPage() {
                 Impact to Date
               </p>
               <p className="font-mono text-[clamp(3rem,8vw,5rem)] font-medium tabular-nums text-court leading-none">
-                <AnimatedCounter value="100,000+" />
+                <StatReveal value="100,000+" />
               </p>
               <p className="font-mono text-sm font-medium uppercase tracking-[0.1em] text-paper/70">
                 Tennis Balls Collected

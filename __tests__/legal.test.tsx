@@ -67,25 +67,34 @@ describe("legal pages", () => {
    * silently, because the published claim is a legal one.
    */
   it("no analytics, pixel, or embed exists that would falsify the cookie claim", () => {
-    const roots = ["app", "components", "content", "lib"];
+    // `public/` is included deliberately. On a static export it is copied to
+    // the site root verbatim, so a <script> dropped into a file there ships to
+    // production without passing through any of the app/ code the rest of this
+    // tripwire watches — it is the most likely place for a tracker to appear
+    // and go unnoticed. next.config.ts is watched for the same reason.
+    const roots = ["app", "components", "content", "lib", "public"];
     const banned =
       /googletagmanager|google-analytics|gtag\(|clarity\.ms|connect\.facebook\.net|fbq\(|<iframe|document\.cookie|localStorage|sessionStorage/i;
 
     const offenders: string[] = [];
+    const check = (full: string) => {
+      const src = fs.readFileSync(full, "utf8");
+      if (banned.test(src)) offenders.push(full);
+    };
     const walk = (dir: string) => {
       for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
         const full = path.join(dir, entry.name);
         if (entry.isDirectory()) {
           walk(full);
-        } else if (/\.(tsx?|css)$/.test(entry.name)) {
-          const src = fs.readFileSync(full, "utf8");
+        } else if (/\.(tsx?|css|html|js|mjs)$/.test(entry.name)) {
           // The policy text itself names the trackers it disclaims.
           if (full.endsWith(path.join("content", "legal.ts"))) continue;
-          if (banned.test(src)) offenders.push(full);
+          check(full);
         }
       }
     };
     for (const r of roots) walk(path.join(process.cwd(), r));
+    check(path.join(process.cwd(), "next.config.ts"));
 
     expect(offenders).toEqual([]);
   });

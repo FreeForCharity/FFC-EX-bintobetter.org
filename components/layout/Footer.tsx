@@ -5,7 +5,13 @@ import { navLinks, programLinks } from "@/content/nav";
 
 export function Footer() {
   return (
-    <footer className="bg-canvas text-paper">
+    // `role="contentinfo"` is explicit rather than implied. A <footer> scoped to
+    // a <blockquote>/<article>/<section> is NOT contentinfo per HTML-AAM, and
+    // the testimonial slider renders exactly that (a <footer> for quote
+    // attribution) earlier in the DOM — so anything selecting the page footer
+    // by tag alone finds the wrong element. Naming the role makes the real
+    // site footer unambiguous to assistive tech and to the compliance smoke.
+    <footer role="contentinfo" className="bg-canvas text-paper">
       <div className="mx-auto grid max-w-6xl gap-10 px-6 py-14 sm:grid-cols-3">
         {/* Brand */}
         <div>

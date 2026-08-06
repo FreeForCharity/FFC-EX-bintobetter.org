@@ -11,7 +11,6 @@ const MOVEMENT_DAMPING = 1400
 const GLOBE_CONFIG: COBEOptions = {
   width: 800,
   height: 800,
-  onRender: () => {},
   devicePixelRatio: 2,
   phi: 0,
   theta: 0.3,
@@ -92,19 +91,28 @@ export function Globe({
       ...config,
       width: widthRef.current * 2,
       height: widthRef.current * 2,
-      onRender: (state) => {
-        // `=== null` rather than falsy: a pointer at clientX 0 is a real drag.
-        if (pointerInteracting.current === null) phiRef.current += 0.005
-        state.phi = phiRef.current + rs.get()
-        state.width = widthRef.current * 2
-        state.height = widthRef.current * 2
-      },
     })
+
+    // cobe v2 dropped the `onRender` callback and no longer runs its own
+    // animation loop — the caller drives it by calling `update()` per frame.
+    let frame = 0
+    const tick = () => {
+      // `=== null` rather than falsy: a pointer at clientX 0 is a real drag.
+      if (pointerInteracting.current === null) phiRef.current += 0.005
+      globe.update({
+        phi: phiRef.current + rs.get(),
+        width: widthRef.current * 2,
+        height: widthRef.current * 2,
+      })
+      frame = requestAnimationFrame(tick)
+    }
+    frame = requestAnimationFrame(tick)
 
     const fadeIn = setTimeout(() => {
       canvas.style.opacity = "1"
     }, 0)
     return () => {
+      cancelAnimationFrame(frame)
       clearTimeout(fadeIn)
       globe.destroy()
       window.removeEventListener("resize", onResize)
