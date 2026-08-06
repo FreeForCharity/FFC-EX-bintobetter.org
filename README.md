@@ -1,6 +1,29 @@
 # Bin to Better
 
-Bin to Better is a nonprofit organization dedicated to waste reduction and environmental sustainability. This project is a Next.js 16 application that serves as the organization's primary website.
+Bin to Better is a student-led nonprofit dedicated to waste reduction and environmental sustainability. This repository is the Next.js application behind [bintobetter.org](https://bintobetter.org), the organization's primary website.
+
+## About this repository
+
+**Free For Charity (FFC) is Bin to Better's digital infrastructure partner.** FFC
+provides and maintains this website, its hosting, its domain, and the automation
+around them, at no cost to the charity.
+
+**FFC is not Bin to Better's fiscal sponsor** and should never be described as
+one. FFC is separately a 501(c)(3) with its own EIN — that is FFC's own identity
+and says nothing about who receives Bin to Better's donations. Donations are
+processed through **PledgeIt**, whose checkout may name a different entity as
+fiscal sponsor or payment recipient, so this site deliberately asserts no
+sponsoring organization or tax identification anywhere. See
+[/terms-of-service](https://bintobetter.org/terms-of-service/), which defers to
+PledgeIt's own checkout and receipt language.
+
+This repository was generated from the FFC website template. Documentation that
+still describes "the Free For Charity website" is a leftover, not a statement
+about this site.
+
+Contributors and AI agents should read **[AGENTS.md](./AGENTS.md)** before making
+changes — it documents the structural and compliance contracts this repository
+has to keep.
 
 ## Getting Started
 
@@ -20,16 +43,17 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Technology Stack
 
-- **Framework**: [Next.js 16 (App Router)](https://nextjs.org/)
+- **Framework**: [Next.js 16 (App Router)](https://nextjs.org/), static export
+- **Testing**: [Vitest](https://vitest.dev/) + Testing Library
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Animations**: [Motion](https://motion.dev/) (successor to Framer Motion)
 - **Language**: [TypeScript](https://www.typescriptlang.org/)
 
 ## Deployment
 
 This site is automatically deployed to GitHub Pages when changes are pushed to the `main` branch.
 
-- **Production URL**: [https://FreeForCharity.github.io/FFC-EX-bintobetter.org/](https://FreeForCharity.github.io/FFC-EX-bintobetter.org/)
+- **Production URL**: [https://bintobetter.org](https://bintobetter.org)
 - **Hosting**: GitHub Pages
 - **Deployment Strategy**: Static Export (`output: 'export'`)
 
@@ -56,8 +80,8 @@ This repository follows **Cloud Native Computing Foundation (CNCF)** standards f
 - 🎉 **[CONTRIBUTORS.md](./CONTRIBUTORS.md)** - Recognition of all contributors
 - 🔒 **[SECURITY.md](./SECURITY.md)** - Vulnerability reporting and security practices
 - 🛡️ **[THREAT-MODEL.md](./THREAT-MODEL.md)** - Security threat analysis
-- 🌟 **[ADOPTERS.md](./ADOPTERS.md)** - Organizations using this template
 - 🤝 **[CONTRIBUTING.md](./CONTRIBUTING.md)** - How to contribute
+- 🤖 **[AGENTS.md](./AGENTS.md)** - Structural and compliance contracts (read before changing anything)
 - 💬 **[SUPPORT.md](./SUPPORT.md)** - How to get help
 - 🔗 **[EXTERNAL_DEPENDENCIES.md](./EXTERNAL_DEPENDENCIES.md)** - Third-party services
 - 📖 **[CITATION.cff](./CITATION.cff)** - Citation information for academic use

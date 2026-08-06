@@ -1,12 +1,17 @@
 # Support
 
-Thank you for using the Free For Charity website template! This document provides information on how to get help and support.
+This document explains how to get help with the Bin to Better website.
+
+The site is built and maintained by **Free For Charity (FFC)**, Bin to Better's
+digital infrastructure partner. Technical questions about the website go to FFC;
+questions about Bin to Better's programs, events, or donations go to Bin to
+Better at outreach@bintobetter.org.
 
 ## 📧 Getting Help
 
 ### For General Questions
 
-If you have general questions about using this template or Free For Charity's services:
+If you have general questions about this website or Free For Charity's services:
 
 - **Email**: clarkemoyer@freeforcharity.org
 - **Phone**: 520-222-8104 (text preferred)

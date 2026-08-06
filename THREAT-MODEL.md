@@ -4,7 +4,7 @@ This document outlines the security threat model for the Free For Charity websit
 
 ## Overview
 
-The Free For Charity website is a static Next.js application deployed to GitHub Pages. As a nonprofit organization, we prioritize protecting our reputation, maintaining service availability, and ensuring the security of our community.
+The Bin to Better website (bintobetter.org) is a Next.js static export deployed to GitHub Pages. As a nonprofit organization, we prioritize protecting our reputation, maintaining service availability, and ensuring the security of our community.
 
 ## System Architecture
 
@@ -18,7 +18,7 @@ The Free For Charity website is a static Next.js application deployed to GitHub 
 
 2. **Hosting and Deployment**
    - GitHub Pages (static hosting)
-   - Custom domain: ffcworkingsite1.org
+   - Custom domain: bintobetter.org
    - GitHub Actions CI/CD pipeline
 
 3. **Development Pipeline**

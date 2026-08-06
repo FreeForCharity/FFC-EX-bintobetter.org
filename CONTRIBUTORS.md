@@ -1,6 +1,6 @@
 # Contributors
 
-Thank you to all the people who have contributed to the Free For Charity website project! 🎉
+Thank you to all the people who have contributed to the Bin to Better website project! 🎉
 
 This document recognizes everyone who has helped make this project better through code, documentation, reviews, testing, feedback, and more.
 

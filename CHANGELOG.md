@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Repository History
 
-This repository was created using the Free For Charity website template and converted to serve the BinToBetter nonprofit organization. The template provided a professional, accessible, and performant static HTML website structure that was adapted for BinToBetter's mission of waste reduction and environmental sustainability.
+This repository was created from the Free For Charity website template and adapted to serve Bin to Better. Free For Charity is Bin to Better's digital infrastructure partner, not its fiscal sponsor. The template provided a professional, accessible, and performant static HTML website structure that was adapted for BinToBetter's mission of waste reduction and environmental sustainability.
 
 **BinToBetter** is a youth-led nonprofit organization that transforms used tennis balls, e-waste, and hard-to-recycle plastics into valuable tools for schools, seniors, and students through hands-on recycling initiatives and educational workshops.
 

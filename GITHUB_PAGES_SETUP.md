@@ -313,7 +313,7 @@ If you still have issues after following this guide:
    ```
 
 2. **Check detailed troubleshooting:**
-   - See [TROUBLESHOOTING_404.md](./TROUBLESHOOTING_404.md)
+   - See the GitHub Pages settings check above, and `.github/workflows/deploy.yml` for the deploy path
 
 3. **Review deployment logs:**
    - Go to Actions tab
@@ -333,4 +333,4 @@ If you still have issues after following this guide:
 - [Custom Domain Setup](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site)
 - [GitHub Actions Deployment](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site#publishing-with-a-custom-github-actions-workflow)
 - [Deployment Guide](./DEPLOYMENT.md) - Full deployment documentation
-- [Troubleshooting Guide](./TROUBLESHOOTING_404.md) - Detailed troubleshooting
+- [AGENTS.md](./AGENTS.md) - Deployment model and structural contracts
