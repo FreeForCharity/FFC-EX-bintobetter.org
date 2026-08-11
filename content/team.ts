@@ -26,13 +26,13 @@ export const teamGroups: TeamGroup[] = [
       {
         name: "Rohan Sashank Babbellapati",
         role: "Co-Founder",
-        school: "American High School; Alumni",
+        school: "American High School; Grade 11",
         fact: "Helped launch Bin to Better after seeing how many usable tennis balls were discarded.",
         photo: "/members/Rohan Sashank Babbellapati.png",
       },
       {
         name: "Pradyun Kanuparthi",
-        role: "Co-President",
+        role: "Co-Founder and Co-President",
         school: "Mission San Jose High School; Grade 12",
         fact: "I start for my varsity basketball team.",
         photo: "/members/Pradyun Kanuparthi.png",
