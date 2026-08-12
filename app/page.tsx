@@ -71,14 +71,14 @@ const recentMilestones = [
     detail: "Students explored real device parts through hands-on stations in Fremont.",
   },
   {
-    date: "March 28, 2026",
-    title: "Environmental Hackathon",
-    detail: "Students built technology-based responses to environmental challenges in San Jose.",
+    date: "June 27, 2026",
+    title: "5,000 Tennis Balls Collected",
+    detail: "Bounce Back recovered roughly 5,000 used tennis balls from partner facilities.",
   },
   {
-    date: "2026",
-    title: "CRRA Recognition",
-    detail: "Bin to Better received the 2026 Outstanding School Recycling Program Award.",
+    date: "June 28, 2026",
+    title: "Tech to Treasure Workshop",
+    detail: "Students explored storage, sensors, and embedded systems through guided disassembly.",
   },
 ];
 
@@ -287,7 +287,7 @@ export default function Home() {
                 Award
               </p>
               <h3 className="mt-3 font-display text-2xl font-bold text-ink">
-                2026 Outstanding School Recycling Program Award
+                2026 CRRA Outstanding School Recycling Program Award
               </h3>
               <p className="mt-3 text-sm leading-relaxed text-ink/65">
                 Presented by the California Resource Recovery Association
@@ -322,14 +322,8 @@ export default function Home() {
         </div>
         <Reveal delay={220}>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Button href="/events" variant="secondary" withArrow>
-              View Impact & Events
-            </Button>
             <Button href="/donate" variant="secondary">
               Support the Work
-            </Button>
-            <Button href="/donate#tennis-lessons" variant="secondary">
-              Tennis Lessons Fundraiser
             </Button>
           </div>
         </Reveal>

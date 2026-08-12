@@ -1,9 +1,10 @@
 export const hackathon = {
-  datePill: "Completed - March 28, 2026 - San Jose, CA",
+  // Not held yet — the date is TBD until the org confirms one.
+  datePill: "Date TBD - San Jose, CA",
   title: "Tech to Treasure Hackathon",
   tagline: "Turning ideas into impact. 8 Hours. Infinite Possibilities.",
   infoPills: [
-    { label: "Completed March 28, 2026", sublabel: undefined as string | undefined },
+    { label: "Date TBD", sublabel: undefined as string | undefined },
     { label: "10:00 AM - 6:00 PM", sublabel: undefined as string | undefined },
     { label: "Tully Community Branch Library", sublabel: "880 Tully Road, San Jose, CA 95111" },
   ],
@@ -190,13 +191,6 @@ export const impactTimeline = [
     result: "Bounce Back collected 5,000 used tennis balls and prepared them for reuse.",
   },
   {
-    date: "March 28, 2026",
-    category: "Hackathon",
-    title: "Tech to Treasure Environmental Hackathon",
-    location: "San Jose, CA",
-    result: "Students worked with mentors and teammates at Tully Library to develop technology-based environmental ideas.",
-  },
-  {
     date: "March 29, 2026",
     category: "Cleanup",
     title: "Central Park Community Cleanup",
@@ -262,7 +256,7 @@ export const impactTimeline = [
   {
     date: "2026",
     category: "Award",
-    title: "Outstanding School Recycling Program Award",
+    title: "CRRA Outstanding School Recycling Program Award",
     location: "California Resource Recovery Association",
     result: "Recognition for student-led reuse, recycling, and community education.",
   },

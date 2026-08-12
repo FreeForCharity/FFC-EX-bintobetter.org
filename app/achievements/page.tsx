@@ -42,7 +42,7 @@ export default function Achievements() {
               2026
             </p>
             <h2 className="mt-3 font-display text-[clamp(1.75rem,3vw,2.75rem)] font-bold leading-tight text-ink">
-              Outstanding School Recycling Program Award
+              CRRA Outstanding School Recycling Program Award
             </h2>
             <p className="mt-4 text-base leading-relaxed text-ink/70">
               Presented by the California Resource Recovery Association (CRRA).
@@ -56,12 +56,6 @@ export default function Achievements() {
               waste becomes a resource for schools and communities.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <Link
-                href="/events"
-                className="inline-flex rounded-[3px] border border-ink/25 px-5 py-2.5 text-sm font-medium text-ink hover:border-ink hover:bg-ink/[0.03] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
-              >
-                View Impact Timeline
-              </Link>
               <Link
                 href="/get-involved"
                 className="inline-flex rounded-[3px] bg-court px-5 py-2.5 text-sm font-medium text-ink hover:brightness-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-court"

@@ -14,7 +14,6 @@ export const routes = [
   "/eco-filament",
   "/partners",
   "/officers-and-team",
-  "/events",
   "/achievements",
   "/get-involved",
   "/mailing-list",
