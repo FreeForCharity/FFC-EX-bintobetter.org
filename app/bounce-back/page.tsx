@@ -212,7 +212,7 @@ export default function BounceBackPage() {
           <SectionHeading
             eyebrow="For Teachers"
             title="Free Tennis Balls for Classroom Chair Legs"
-            subtitle="Chair legs dragging across the floor are a constant source of classroom noise. We cut used tennis balls to fit chair legs and donate them to schools at no cost."
+            subtitle="Chair legs dragging across the floor are a constant source of classroom noise. We cut used tennis balls to fit chair legs and donate them to schools, animal shelters, and assisted living centers."
             tone="light"
             align="left"
           />

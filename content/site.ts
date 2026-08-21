@@ -103,6 +103,12 @@ export function pageMetadata({
   const url = absoluteUrl(route === "/" ? "/" : `${route.replace(/\/$/, "")}/`);
   const fullTitle = `${title} | ${site.name}`;
 
+  // Absolute, via absoluteUrl, rather than left root-relative. metadataBase
+  // resolves a relative card image against the origin only — it does not add
+  // BASE_PATH — so on a GitHub project-page deployment "/logo.webp" would point
+  // one directory above the site and every social preview would 404.
+  const imageUrl = absoluteUrl(image);
+
   return {
     alternates: canonicalFor(route),
     title: fullTitle,
@@ -112,14 +118,14 @@ export function pageMetadata({
       description,
       url,
       siteName: site.name,
-      images: [{ url: image, width: 666, height: 375, alt: title }],
+      images: [{ url: imageUrl, width: 666, height: 375, alt: title }],
       type: "website" as const,
     },
     twitter: {
       card: "summary_large_image" as const,
       title: fullTitle,
       description,
-      images: [image],
+      images: [imageUrl],
     },
   };
 }

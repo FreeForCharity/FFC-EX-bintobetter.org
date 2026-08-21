@@ -16,14 +16,18 @@
  *  - how to ask               → the existing "Request Tennis Balls" mailto
  *
  * Anything not evidenced on the site is phrased as "contact us" rather than
- * promised. Do not add an answer here that the page cannot back up: schema that
+ * promised. In particular the cost and the cutting/installing answers describe
+ * what has happened before and defer the specifics to a reply, because one
+ * testimonial showing a service once is not a commitment to provide it on every
+ * request — and these strings go verbatim into FAQPage schema, so an overclaim
+ * here is published in a machine-readable surface too. Do not add an answer here that the page cannot back up: schema that
  * contradicts the page is worse than no schema.
  */
 export const bounceBackFaq: { question: string; answer: string }[] = [
   {
     question: "Can my classroom get free tennis balls for chair legs?",
     answer:
-      "Yes. Bounce Back donates repurposed tennis balls to schools at no cost, along with animal shelters and assisted living centers. Email outreach@bintobetter.org with your school, the number of chairs, and your location, and we will confirm what we can cover.",
+      "The balls are donated, not sold. Bounce Back has given repurposed tennis balls to schools, animal shelters, and assisted living centers, and how much we can supply depends on what has come in from our collection partners. Email outreach@bintobetter.org with your school, the number of chairs, and your location, and we will confirm what we can cover for your request.",
   },
   {
     question: "Why put tennis balls on classroom chair legs?",
@@ -33,7 +37,7 @@ export const bounceBackFaq: { question: string; answer: string }[] = [
   {
     question: "Do you cut the tennis balls, or do we?",
     answer:
-      "Our volunteers cut the balls so they slide onto chair legs before we hand them over, and for nearby schools we have come out to help install them on the chairs. Tell us how many chairs you have when you get in touch.",
+      "Our volunteers have cut the balls to fit chair legs before handing them over, and have gone out to nearby classrooms to help put them on the chairs. Tell us how many chairs you have when you get in touch and we will confirm what we can do for your school.",
   },
   {
     question: "How many tennis balls can a classroom request?",

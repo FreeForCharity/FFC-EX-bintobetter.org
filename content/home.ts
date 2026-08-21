@@ -81,7 +81,7 @@ export const mission: string[] = [
 ];
 
 export const projectsBlurb =
-  "Below are snapshots of our three main projects. Click View More on each card to dive deeper into the details.";
+  "Below are snapshots of our three main projects. Follow the link on each card to dive deeper into the details.";
 
 export const contactPara =
   "We would love to hear from you. Whether you have questions, want to donate materials, or are interested in volunteering, please get in touch. We typically respond within a few school days.";

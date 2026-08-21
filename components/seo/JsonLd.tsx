@@ -6,16 +6,22 @@
  *
  * The stringified payload goes through `dangerouslySetInnerHTML` because React
  * escapes text children — `&`, `<` and quotes inside a <script> body would come
- * out as HTML entities and the JSON would not parse. `<` is escaped to its
- * unicode form instead, which is valid JSON and cannot close the script tag
+ * out as HTML entities and the JSON would not parse. So `<` is rewritten to the
+ * JSON escape sequence, which parses back to `<` but cannot close the script tag
  * early.
+ *
+ * The doubled backslash in the replacement is load-bearing: with a single
+ * backslash the replacement string is just the character `<` as far as
+ * JavaScript is concerned, the whole call becomes a no-op, and a `</script>` in
+ * any future schema string can break out of the block. CodeQL flags the
+ * single-backslash form as "replacement of a substring with itself".
  */
 export function JsonLd({ data }: { data: Record<string, unknown> | Record<string, unknown>[] }) {
   return (
     <script
       type="application/ld+json"
       dangerouslySetInnerHTML={{
-        __html: JSON.stringify(data).replace(/</g, "\u003c"),
+        __html: JSON.stringify(data).replace(/</g, "\\u003c"),
       }}
     />
   );
