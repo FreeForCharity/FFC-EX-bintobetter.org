@@ -19,6 +19,7 @@ import { Globe } from "@/components/ui/globe";
 import { ArrowRight } from "@/components/ui/icons";
 import { TestimonialSlider } from "@/components/ui/TestimonialSlider";
 import { Highlighter } from "@/components/ui/highlighter"
+import { site, pageMetadata } from "@/content/site";
 
 import {
   stats,
@@ -29,11 +30,12 @@ import {
   contactPara,
 } from "@/content/home";
 
-export const metadata: Metadata = {
-  title: "Home | Bin to Better",
+export const metadata: Metadata = pageMetadata({
+  route: "/",
+  title: "Turning Waste into Opportunity",
   description:
-    "Turning waste into opportunity — one item at a time, one community at a time.",
-};
+    "Student-led reuse in the Bay Area: free tennis balls for classroom chair legs, hands-on e-waste workshops, and plastic recycled into 3D printer filament.",
+});
 
 // Program photos shown as a compact 2-column bento under the mission heading.
 // Shapes are matched to cells: portrait → tall tile, landscape → wide tile.
@@ -88,6 +90,8 @@ export default function Home() {
   return (
     <>
       <Nav />
+
+      <main id="main-content">
 
       {/* ── Hero ──────────────────────────────────────────────── */}
       <Section className="relative overflow-hidden bg-mesh text-paper">
@@ -167,7 +171,7 @@ export default function Home() {
             <Reveal>
               <SectionHeading
                 eyebrow="Our Mission"
-                title="Turning Waste into Opportunity"
+                title="Waste Is an Opportunity"
                 tone="light"
                 align="left"
               />
@@ -260,7 +264,7 @@ export default function Home() {
                       href={p.href}
                       className="mt-1 inline-flex items-center gap-1 font-mono text-xs font-medium text-court transition-colors hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-court"
                     >
-                      View More
+                      {p.cta}
                       <ArrowRight className="size-3.5 transition-transform duration-200 ease-[var(--ease-out-hover)] group-hover/preview:translate-x-[3px]" />
                     </Link>
                   </div>
@@ -382,21 +386,21 @@ export default function Home() {
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:gap-4">
               {/* Email */}
               <a
-                href="mailto:outreach@bintobetter.org"
+                href={`mailto:${site.email}`}
                 className="group flex flex-col gap-1.5 rounded-[3px] border border-paper/15 px-6 py-5 transition-[transform,border-color,box-shadow] duration-200 ease-[var(--ease-out-hover)] will-change-transform hover:-translate-y-[2px] hover:border-court hover:shadow-[var(--shadow-glow)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-court"
               >
                 <span className="font-mono text-xs font-medium uppercase tracking-[0.12em] text-sage">
                   Email
                 </span>
                 <span className="inline-flex items-center gap-2 text-sm font-medium text-paper transition-colors group-hover:text-court">
-                  outreach@bintobetter.org
+                  {site.email}
                   <ArrowRight className="size-4 opacity-0 transition-[opacity,transform] duration-200 ease-[var(--ease-out-hover)] group-hover:opacity-100 group-hover:translate-x-[3px]" />
                 </span>
               </a>
 
               {/* Instagram */}
               <a
-                href="https://www.instagram.com/_bintobetter"
+                href={site.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group flex flex-col gap-1.5 rounded-[3px] border border-paper/15 px-6 py-5 transition-[transform,border-color,box-shadow] duration-200 ease-[var(--ease-out-hover)] will-change-transform hover:-translate-y-[2px] hover:border-court hover:shadow-[var(--shadow-glow)] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-court"
@@ -413,6 +417,9 @@ export default function Home() {
           </Reveal>
         </div>
       </Section>
+
+      </main>
+
 
       <Footer />
     </>

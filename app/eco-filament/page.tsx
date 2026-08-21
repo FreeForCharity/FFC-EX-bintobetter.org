@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema } from "@/content/structured-data";
 import Link from "next/link";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
@@ -7,6 +9,7 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/motion/Reveal";
 import { DiscordButton } from "@/components/ui/DiscordButton";
 import Image from "next/image";
+import { pageMetadata } from "@/content/site";
 
 // Google Photos album with the full set of park-cleanup photos.
 const CLEANUP_ALBUM = "https://photos.app.goo.gl/Gv7Gx5vsJinbyADB9";
@@ -20,16 +23,20 @@ const cleanupPhotos = [
   { src: "/cleanups/full-bag.webp", alt: "A volunteer carrying a full bag of collected litter down the path" },
 ];
 
-export const metadata: Metadata = {
-  title: "Eco-Filament | Bin to Better",
+export const metadata: Metadata = pageMetadata({
+  route: "/eco-filament",
+  title: "Eco-Filament: Plastic Waste into 3D Filament",
   description:
-    "Repurposing plastic waste into 3D printer filament for tools and toys.",
-};
+    "Turning cleaned, sorted plastic waste into 3D printer filament for tools and sensory toys, with park cleanups volunteers can join.",
+});
 
 export default function EcoFilamentPage() {
   return (
     <>
       <Nav />
+
+      <main id="main-content">
+      <JsonLd data={breadcrumbSchema("Eco-Filament", "/eco-filament")} />
 
       {/* Hero — dark canvas band */}
       <Section className="bg-canvas">
@@ -37,6 +44,7 @@ export default function EcoFilamentPage() {
           <SectionHeading
             eyebrow="Project Spotlight"
             title="Eco-Filament"
+            as="h1"
             subtitle="Repurposing plastic waste into 3D printer filament for tools and toys."
             align="left"
             tone="dark"
@@ -159,6 +167,9 @@ export default function EcoFilamentPage() {
           </div>
         </Reveal>
       </Section>
+
+      </main>
+
 
       <Footer />
     </>

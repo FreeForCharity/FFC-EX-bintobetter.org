@@ -22,6 +22,8 @@ export function LegalPage({
   return (
     <>
       <Nav />
+
+      <main id="main-content">
       <Section className="bg-canvas">
         <div className="max-w-3xl">
           <h1 className="font-display text-[clamp(2.5rem,6vw,5rem)] font-bold leading-tight text-paper">
@@ -50,6 +52,8 @@ export function LegalPage({
           </div>
         </div>
       </Section>
+      </main>
+
       <Footer />
     </>
   );

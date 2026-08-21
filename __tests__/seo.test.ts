@@ -1,8 +1,15 @@
+import type { Metadata } from "next";
 import { describe, it, expect, vi, afterEach } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
 import sitemap from "@/app/sitemap";
 import { site, isProductionSite, PRODUCTION_URL } from "@/content/site";
+import {
+  organizationSchema,
+  websiteSchema,
+  breadcrumbSchema,
+} from "@/content/structured-data";
+import { bounceBackFaq, bounceBackFaqSchema } from "@/content/bounce-back-faq";
 
 /**
  * `content/site.ts` resolves its origin from NEXT_PUBLIC_SITE_URL at import
@@ -39,6 +46,28 @@ function pageRoutes(): string[] {
   }
   return routes;
 }
+
+/**
+ * Every page's metadata module, keyed by route. Listed explicitly rather than
+ * built from a template string, which vite's dynamic-import-vars plugin cannot
+ * statically analyse. The pageRoutes() assertion in the canonical test keeps
+ * this list honest: a new page that is never added here fails that test rather
+ * than shipping unchecked.
+ */
+const PAGES: Record<string, () => Promise<{ metadata?: Metadata }>> = {
+  "/": () => import("@/app/page"),
+  "/achievements/": () => import("@/app/achievements/page"),
+  "/bounce-back/": () => import("@/app/bounce-back/page"),
+  "/chapter/": () => import("@/app/chapter/page"),
+  "/donate/": () => import("@/app/donate/page"),
+  "/eco-filament/": () => import("@/app/eco-filament/page"),
+  "/get-involved/": () => import("@/app/get-involved/page"),
+  "/officers-and-team/": () => import("@/app/officers-and-team/page"),
+  "/partners/": () => import("@/app/partners/page"),
+  "/privacy-policy/": () => import("@/app/privacy-policy/page"),
+  "/tech-to-treasure/": () => import("@/app/tech-to-treasure/page"),
+  "/terms-of-service/": () => import("@/app/terms-of-service/page"),
+};
 
 describe("seo", () => {
   it("sitemap covers every page route exactly once", () => {
@@ -77,6 +106,148 @@ describe("seo", () => {
     expect(html).toContain('http-equiv="refresh"');
     expect(html).toContain("/privacy-policy/");
     expect(fs.existsSync(path.join(process.cwd(), "app", "privacy"))).toBe(false);
+  });
+
+  // /mailing-list was an app/ route that re-exported the Get Involved page,
+  // publishing identical HTML at two indexed URLs. It is a stub now, and the
+  // sign-up it named is a card on Get Involved.
+  it("serves /mailing-list as a stub pointing at /get-involved", () => {
+    const paths = sitemap().map((e) => new URL(e.url).pathname);
+    expect(paths).toContain("/get-involved/");
+    expect(paths).not.toContain("/mailing-list/");
+
+    const stub = path.join(process.cwd(), "public", "mailing-list", "index.html");
+    expect(fs.existsSync(stub)).toBe(true);
+    const html = fs.readFileSync(stub, "utf8");
+    expect(html).toContain('http-equiv="refresh"');
+    expect(html).toContain("/get-involved/");
+    expect(fs.existsSync(path.join(process.cwd(), "app", "mailing-list"))).toBe(false);
+  });
+
+  /**
+   * Page metadata is shallow-merged over the root layout's, so a `canonical`
+   * declared in the layout is inherited rather than overridden. One set there
+   * previously made every route on the site name the homepage as its canonical,
+   * asking search engines to drop all of them as duplicates. Two guards: the
+   * layout must not declare one, and every page must declare its own.
+   */
+  it("the root layout declares no canonical, so pages cannot inherit one", () => {
+    const layout = fs.readFileSync(path.join(process.cwd(), "app", "layout.tsx"), "utf8");
+    expect(layout).not.toMatch(/canonical:/);
+  });
+
+  it("every page declares its own canonical, matching its route", async () => {
+    expect(Object.keys(PAGES).sort()).toEqual([...pageRoutes()].sort());
+
+    for (const [route, load] of Object.entries(PAGES)) {
+      const { metadata } = await load();
+      expect(metadata?.alternates?.canonical, `${route} canonical`).toBe(route);
+    }
+  });
+
+  /**
+   * Next shallow-merges page metadata over the layout's. `openGraph` lived only
+   * in the layout, so every route shared the homepage's social card: a link to
+   * the tennis-ball page previewed as generic org copy. content/site.ts's
+   * pageMetadata() builds all four blocks together; these guard that no page
+   * goes back to declaring title/description on their own.
+   */
+  it("every page carries its own Open Graph and Twitter card", async () => {
+    for (const [route, load] of Object.entries(PAGES)) {
+      const { metadata } = await load();
+      const og = metadata?.openGraph as { title?: string; description?: string } | undefined;
+      const tw = metadata?.twitter as { title?: string; description?: string } | undefined;
+
+      expect(og?.title, `${route} og:title`).toBe(metadata?.title);
+      expect(og?.description, `${route} og:description`).toBe(metadata?.description);
+      expect(tw?.title, `${route} twitter:title`).toBe(metadata?.title);
+      expect(tw?.description, `${route} twitter:description`).toBe(metadata?.description);
+    }
+  });
+
+  it("every page has a distinct, search-result-sized title and description", async () => {
+    const titles = new Set<string>();
+    const descriptions = new Set<string>();
+
+    for (const [route, load] of Object.entries(PAGES)) {
+      const { metadata } = await load();
+      const title = metadata?.title as string;
+      const description = metadata?.description as string;
+
+      // Google truncates titles around 60 characters and descriptions around
+      // 160. Over the cap is not an error, but it means the tail is invisible.
+      expect(title.length, `${route} title length`).toBeLessThanOrEqual(70);
+      expect(description.length, `${route} description length`).toBeGreaterThan(50);
+      expect(description.length, `${route} description length`).toBeLessThanOrEqual(200);
+
+      // Duplicate titles across routes are how a site ends up with pages
+      // competing for the same query, or getting folded together as near-dupes.
+      titles.add(title);
+      descriptions.add(description);
+    }
+
+    expect(titles.size, "duplicate titles").toBe(Object.keys(PAGES).length);
+    expect(descriptions.size, "duplicate descriptions").toBe(Object.keys(PAGES).length);
+  });
+
+  it("every page renders exactly one h1", () => {
+    // SectionHeading renders an h2 by default; pages that use it for their hero
+    // must pass as="h1" or the page ships with no h1 at all, which is how
+    // /bounce-back, /eco-filament, /partners and /tech-to-treasure lost theirs.
+    const appDir = path.join(process.cwd(), "app");
+    for (const route of pageRoutes()) {
+      const file = route === "/"
+        ? path.join(appDir, "page.tsx")
+        : path.join(appDir, route.replace(/\//g, ""), "page.tsx");
+      const src = fs.readFileSync(file, "utf8");
+
+      // Legal pages get their h1 from the shared LegalPage shell.
+      const usesLegalShell = src.includes("<LegalPage");
+      const count = usesLegalShell
+        ? 1
+        : (src.match(/<h1|as="h1"/g) ?? []).length;
+
+      expect(count, `${route} h1 count`).toBe(1);
+    }
+  });
+
+  it("the sitemap declares a lastModified date for every URL", () => {
+    for (const entry of sitemap()) {
+      expect(entry.lastModified, `${entry.url} lastModified`).toBeInstanceOf(Date);
+    }
+  });
+
+  it("structured data names the organisation and links the pages to it", () => {
+    expect(organizationSchema["@type"]).toBe("Organization");
+    expect(organizationSchema.name).toBe(site.name);
+    expect(organizationSchema.url).toBe(`${site.url}/`);
+    expect(websiteSchema.publisher).toEqual({ "@id": organizationSchema["@id"] });
+
+    // A breadcrumb whose item URL is not the page's own canonical is worse than
+    // none: it tells the crawler the trail ends somewhere the page is not.
+    const crumb = breadcrumbSchema("Bounce Back Project", "/bounce-back");
+    expect(crumb.itemListElement[1].item).toBe(`${site.url}/bounce-back/`);
+    expect(crumb.itemListElement[0].item).toBe(`${site.url}/`);
+  });
+
+  it("the Bounce Back FAQ schema matches the questions rendered on the page", () => {
+    const schema = bounceBackFaqSchema();
+    expect(schema.mainEntity).toHaveLength(bounceBackFaq.length);
+    expect(bounceBackFaq.length).toBeGreaterThan(0);
+
+    for (const [i, item] of bounceBackFaq.entries()) {
+      expect(schema.mainEntity[i].name).toBe(item.question);
+      expect(schema.mainEntity[i].acceptedAnswer.text).toBe(item.answer);
+    }
+
+    // FAQ markup that answers a question the page does not visibly answer is a
+    // structured-data violation. The page maps over this same array, so the
+    // only way they drift is someone hard-coding a question into the JSX.
+    const page = fs.readFileSync(
+      path.join(process.cwd(), "app", "bounce-back", "page.tsx"),
+      "utf8"
+    );
+    expect(page).toContain("bounceBackFaq.map");
   });
 
   it("every sitemap URL ends in a slash, matching the exported pages", () => {

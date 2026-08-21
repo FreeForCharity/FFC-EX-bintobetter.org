@@ -1,22 +1,25 @@
 import type { Metadata } from "next";
-import { Hanken_Grotesk, Inter, DM_Mono, Geist } from "next/font/google";
+import { Hanken_Grotesk, DM_Mono, Geist } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { site, isProductionSite } from "@/content/site";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { organizationSchema, websiteSchema } from "@/content/structured-data";
 
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+// Body font. `display: "swap"` matches the other two — without it this one
+// alone blocks text painting while the file downloads, and it is the face most
+// of the page is set in.
+const geist = Geist({
+  subsets: ["latin"],
+  variable: "--font-sans",
+  display: "swap",
+});
 
 const hanken = Hanken_Grotesk({
   subsets: ["latin"],
   variable: "--font-hanken",
   display: "swap",
   weight: ["400", "500", "600", "700", "800"],
-});
-
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
 });
 
 const dmMono = DM_Mono({
@@ -31,16 +34,20 @@ export const metadata: Metadata = {
   description:
     "At Bin to Better, we believe that waste is not just trash. It is an opportunity. Join us in creating a more sustainable, circular future.",
   metadataBase: new URL(site.url),
-  alternates: {
-    canonical: "/",
-  },
+  // No `alternates.canonical` here on purpose. Page metadata merges over the
+  // layout's rather than replacing it, so a canonical set at this level is
+  // inherited by every route — previously pointing all of them at the
+  // homepage. Each page declares its own via `canonicalFor` in content/site.ts.
   openGraph: {
     title: "Bin to Better | Turning Waste into Opportunity",
     description:
       "Student-led programs turning discarded materials into resources for schools, shelters, and communities.",
     url: site.url,
     siteName: site.name,
-    images: [{ url: "/logo.webp", width: 1200, height: 630, alt: "Bin to Better" }],
+    // logo.webp is 666x375. It was declared here as 1200x630, which is the
+    // recommended OG size but not this file's size — social cards size their
+    // preview from these numbers, so the wrong pair distorts the crop.
+    images: [{ url: "/logo.webp", width: 666, height: 375, alt: "Bin to Better" }],
     type: "website",
   },
   twitter: {
@@ -61,9 +68,15 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn(hanken.variable, inter.variable, dmMono.variable, "font-sans", geist.variable)}
+      className={cn(hanken.variable, dmMono.variable, geist.variable, "font-sans")}
     >
-      <body>{children}</body>
+      <body>
+        {/* Sitewide entity graph. Both nodes carry a stable @id, so the
+            per-page schema on individual routes references the organisation
+            rather than repeating (and risking contradicting) it. */}
+        <JsonLd data={[organizationSchema, websiteSchema]} />
+        {children}
+      </body>
     </html>
   );
 }

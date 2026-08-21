@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema } from "@/content/structured-data";
 import Image from "next/image";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
@@ -8,12 +10,14 @@ import { Card } from "@/components/ui/Card";
 import { Reveal } from "@/components/motion/Reveal";
 import { DiscordButton } from "@/components/ui/DiscordButton";
 import { Button } from "@/components/ui/Button";
+import { pageMetadata } from "@/content/site";
 
-export const metadata: Metadata = {
-  title: "Tech to Treasure | Bin to Better",
+export const metadata: Metadata = pageMetadata({
+  route: "/tech-to-treasure",
+  title: "Tech to Treasure: E-Waste Workshops for Kids",
   description:
-    "Turning e-waste into educational tools and responsible recycling, plus our environmental bootcamp and hands-on workshops.",
-};
+    "Free hands-on workshops where students take apart real devices to learn how they work. Leftover parts are recycled through certified e-waste channels.",
+});
 
 const whatWeDo = [
   {
@@ -58,7 +62,7 @@ const workshops = [
     details: [
       { label: "When", value: "March 1 · 3:30 PM – 5:30 PM" },
       { label: "Age Group", value: "8–12 years" },
-      { label: "Duration", value: "2–3 hours" },
+      { label: "Duration", value: "2 hours" },
       { label: "Group Size", value: "7–8 kids per group" },
     ],
     stations: [
@@ -237,12 +241,16 @@ export default function TechToTreasurePage() {
     <>
       <Nav />
 
+      <main id="main-content">
+      <JsonLd data={breadcrumbSchema("Tech to Treasure", "/tech-to-treasure")} />
+
       {/* Hero — dark canvas band */}
       <Section className="bg-canvas">
         <Reveal>
           <SectionHeading
             eyebrow="Project Spotlight"
             title="Tech to Treasure"
+            as="h1"
             subtitle="Turning e-waste into educational tools and responsible recycling."
             align="left"
             tone="dark"
@@ -497,6 +505,9 @@ export default function TechToTreasurePage() {
           </div>
         </Reveal>
       </Section>
+
+      </main>
+
 
       <Footer />
     </>

@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema } from "@/content/structured-data";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { Section } from "@/components/ui/Section";
@@ -6,12 +8,14 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Card } from "@/components/ui/Card";
 import { Reveal } from "@/components/motion/Reveal";
 import { donate } from "@/content/donate";
+import { pageMetadata } from "@/content/site";
 
-export const metadata: Metadata = {
-  title: "Support Us | Bin to Better",
+export const metadata: Metadata = pageMetadata({
+  route: "/donate",
+  title: "Support Us",
   description:
     "Support Bin to Better by donating or registering for community tennis lessons. Contributions fund collection supplies, workshops, and recycling costs.",
-};
+});
 
 // Inline SVG icons — decorative, aria-hidden
 function TennisIcon() {
@@ -67,6 +71,9 @@ export default function Donate() {
   return (
     <>
       <Nav />
+
+      <main id="main-content">
+      <JsonLd data={breadcrumbSchema("Support Us", "/donate")} />
 
       <Section className="bg-canvas">
         <Reveal>
@@ -133,6 +140,9 @@ export default function Donate() {
           </Reveal>
         </div>
       </Section>
+
+      </main>
+
 
       <Footer />
     </>

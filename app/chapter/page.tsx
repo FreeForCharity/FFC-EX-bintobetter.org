@@ -1,20 +1,27 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema } from "@/content/structured-data";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { FormGate } from "@/components/ui/FormGate";
+import { pageMetadata } from "@/content/site";
 
-export const metadata: Metadata = {
-  title: "Chapter Applications | Bin to Better",
+export const metadata: Metadata = pageMetadata({
+  route: "/chapter",
+  title: "Start a Chapter",
   description:
-    "Bring Bin to Better to your community — apply to become a Chapter Director and start a chapter in your area.",
-};
+    "Bring Bin to Better to your school or community. Apply to become a Chapter Director and lead local collection drives, workshops, and outreach.",
+});
 
 export default function Chapter() {
   return (
     <>
       <Nav />
+
+      <main id="main-content">
+      <JsonLd data={breadcrumbSchema("Start a Chapter", "/chapter")} />
 
       <Section className="bg-canvas">
         <Reveal>
@@ -80,6 +87,9 @@ export default function Chapter() {
           </div>
         </Reveal>
       </Section>
+
+      </main>
+
 
       <Footer />
     </>

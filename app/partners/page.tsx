@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema } from "@/content/structured-data";
 import Image from "next/image";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
@@ -6,7 +8,7 @@ import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/motion/Reveal";
-import { site } from "@/content/site";
+import { site, pageMetadata } from "@/content/site";
 import {
   partnerLogos,
   whyPartner,
@@ -15,11 +17,12 @@ import {
   animalShelters,
 } from "@/content/partners";
 
-export const metadata: Metadata = {
-  title: "Partners | Bin to Better",
+export const metadata: Metadata = pageMetadata({
+  route: "/partners",
+  title: "Partners: Tennis Clubs, Schools & Shelters",
   description:
-    "Meet the organizations and sponsors who help Bin to Better create lasting environmental impact.",
-};
+    "The tennis clubs, academies, schools, animal shelters, and businesses that collect and receive materials with Bin to Better. Partner with us or host a collection.",
+});
 
 const CONTACT_EMAIL = site.email;
 
@@ -28,12 +31,16 @@ export default function Partners() {
     <>
       <Nav />
 
+      <main id="main-content">
+      <JsonLd data={breadcrumbSchema("Partners", "/partners")} />
+
       {/* ── Hero ──────────────────────────────────────────────── */}
       <Section className="bg-canvas text-paper">
         <Reveal>
           <SectionHeading
             eyebrow="Our Partners"
             title="Partners"
+            as="h1"
             subtitle="Our mission wouldn't be possible without the support of our partners. We collaborate with tennis clubs, academies, schools, and animal shelters to collect materials and ensure they are put to good use."
             tone="dark"
             align="left"
@@ -247,6 +254,9 @@ export default function Partners() {
           </Reveal>
         </div>
       </Section>
+
+      </main>
+
 
       <Footer />
     </>

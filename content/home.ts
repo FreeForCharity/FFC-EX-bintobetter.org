@@ -1,5 +1,5 @@
 export const stats: { value: string; label: string }[] = [
-  { value: "100,000+", label: "Items Repurposed" },
+  { value: "80,000+", label: "Items Repurposed" },
   { value: "15+", label: "Chapters Internationally" },
 ];
 
@@ -8,6 +8,13 @@ export const programsPreview: {
   title: string;
   blurb: string;
   href: string;
+  /**
+   * Link text for the card. All three cards used to read "View More", which
+   * tells a search engine nothing about the page being linked and gives screen
+   * reader users three links with identical names in one list. Each one now
+   * names its destination.
+   */
+  cta: string;
 }[] = [
   {
     slug: "bounce-back",
@@ -15,6 +22,7 @@ export const programsPreview: {
     blurb:
       "Collects used tennis balls from clubs and repurposes them for schools (chair legs to reduce noise), animal shelters, and assisted living centers (walker feet).",
     href: "/bounce-back",
+    cta: "Tennis balls for schools",
   },
   {
     slug: "tech-to-treasure",
@@ -22,12 +30,14 @@ export const programsPreview: {
     blurb:
       "Transforms old devices into educational tools before responsibly recycling remaining parts through e-waste channels.",
     href: "/tech-to-treasure",
+    cta: "E-waste workshops",
   },
   {
     slug: "eco-filament",
     title: "Eco-Filament",
     blurb: "Repurposes suitable plastic waste into 3D printer filament for tools and toys.",
     href: "/eco-filament",
+    cta: "Plastic to 3D filament",
   },
 ];
 
