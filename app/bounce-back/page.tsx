@@ -1,4 +1,7 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema } from "@/content/structured-data";
+import { bounceBackFaq, bounceBackFaqSchema } from "@/content/bounce-back-faq";
 import Link from "next/link";
 import Image from "next/image";
 import { Nav } from "@/components/layout/Nav";
@@ -8,12 +11,14 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Button } from "@/components/ui/Button";
 import { Reveal } from "@/components/motion/Reveal";
 import { StatReveal } from "@/components/motion/StatReveal";
+import { pageMetadata } from "@/content/site";
 
-export const metadata: Metadata = {
-  title: "Bounce Back Project | Bin to Better",
+export const metadata: Metadata = pageMetadata({
+  route: "/bounce-back",
+  title: "Free Tennis Balls for Classroom Chair Legs",
   description:
-    "Giving used tennis balls a second life in schools, animal shelters, and assisted living — over 100,000 collected.",
-};
+    "Teachers can request free repurposed tennis balls for chair legs — quieter classrooms, protected floors. Over 74,000 balls repurposed for schools and shelters.",
+});
 
 const whatWeDo = [
   {
@@ -26,7 +31,7 @@ const whatWeDo = [
   },
   {
     title: "Impact",
-    desc: "The project has collected more than 100,000 tennis balls and donated more than 30,000 to organizations that can use them effectively.",
+    desc: "The project has repurposed more than 74,000 tennis balls and donated more than 30,000 to organizations that can use them effectively.",
   },
 ];
 
@@ -52,12 +57,16 @@ export default function BounceBackPage() {
     <>
       <Nav />
 
+      <main id="main-content">
+      <JsonLd data={[breadcrumbSchema("Bounce Back Project", "/bounce-back"), bounceBackFaqSchema()]} />
+
       {/* ── Hero ───────────────────────────────────────────── */}
       <Section className="bg-canvas text-paper">
         <Reveal>
           <SectionHeading
             eyebrow="Project Spotlight"
             title="Bounce Back Project"
+            as="h1"
             subtitle="Giving used tennis balls a second life in schools, animal shelters, and assisted living."
             align="left"
             tone="dark"
@@ -171,10 +180,10 @@ export default function BounceBackPage() {
                 Impact to Date
               </p>
               <p className="font-mono text-[clamp(3rem,8vw,5rem)] font-medium tabular-nums text-court leading-none">
-                <StatReveal value="100,000+" />
+                <StatReveal value="74k+" />
               </p>
               <p className="font-mono text-sm font-medium uppercase tracking-[0.1em] text-paper/70">
-                Tennis Balls Collected
+                Tennis Balls Repurposed
               </p>
               <div className="mt-5 grid w-full grid-cols-2 gap-3 text-left">
                 {[
@@ -192,6 +201,43 @@ export default function BounceBackPage() {
             </div>
           </Reveal>
         </div>
+      </Section>
+
+      {/* ── For Teachers ───────────────────────────────────── */}
+      {/* Placed directly after the hero, above the photo gallery: teachers
+          landing from a search are here to find out whether they can get balls
+          and how, and that answer should not be below a gallery. */}
+      <Section className="bg-paper">
+        <Reveal>
+          <SectionHeading
+            eyebrow="For Teachers"
+            title="Free Tennis Balls for Classroom Chair Legs"
+            subtitle="Chair legs dragging across the floor are a constant source of classroom noise. We cut used tennis balls to fit chair legs and donate them to schools, animal shelters, and assisted living centers."
+            tone="light"
+            align="left"
+          />
+        </Reveal>
+
+        <div className="grid gap-x-12 gap-y-8 lg:grid-cols-2">
+          {bounceBackFaq.map((item, i) => (
+            <Reveal key={item.question} delay={60 + i * 40}>
+              <div>
+                <h3 className="text-lg font-bold leading-snug text-ink">
+                  {item.question}
+                </h3>
+                <p className="mt-2 leading-relaxed text-ink/70">{item.answer}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal delay={320}>
+          <div className="mt-12">
+            <Button href="mailto:outreach@bintobetter.org?subject=Tennis%20Ball%20Request%20for%20My%20Classroom">
+              Request Tennis Balls for Your Classroom
+            </Button>
+          </div>
+        </Reveal>
       </Section>
 
       {/* ── Photo Gallery ──────────────────────────────────── */}
@@ -242,6 +288,9 @@ export default function BounceBackPage() {
           </div>
         </Reveal>
       </Section>
+
+      </main>
+
 
       <Footer />
     </>

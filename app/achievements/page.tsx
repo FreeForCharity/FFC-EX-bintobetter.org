@@ -1,21 +1,28 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema } from "@/content/structured-data";
 import Link from "next/link";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { Section } from "@/components/ui/Section";
 import { Card } from "@/components/ui/Card";
 import { Reveal } from "@/components/motion/Reveal";
+import { pageMetadata } from "@/content/site";
 
-export const metadata: Metadata = {
-  title: "Awards | Bin to Better",
+export const metadata: Metadata = pageMetadata({
+  route: "/achievements",
+  title: "Awards & Recognition",
   description:
-    "Awards and recognition for Bin to Better's student-led recycling, reuse, and community education programs.",
-};
+    "Bin to Better's awards, including the 2026 CRRA Outstanding School Recycling Program Award from the California Resource Recovery Association.",
+});
 
 export default function Achievements() {
   return (
     <>
       <Nav />
+
+      <main id="main-content">
+      <JsonLd data={breadcrumbSchema("Awards", "/achievements")} />
 
       <Section className="bg-canvas">
         <Reveal>
@@ -66,6 +73,9 @@ export default function Achievements() {
           </Card>
         </Reveal>
       </Section>
+
+      </main>
+
 
       <Footer />
     </>

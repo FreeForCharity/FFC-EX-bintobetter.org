@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { site } from "@/content/site";
+import { site, copyright } from "@/content/site";
 import { navLinks, programLinks } from "@/content/nav";
 
 export function Footer() {
@@ -16,11 +16,12 @@ export function Footer() {
         {/* Brand */}
         <div>
           <span className="inline-flex rounded-md bg-paper p-2 transition-transform duration-300 ease-[var(--ease-out-hover)] hover:scale-[1.03]">
+            {/* True intrinsic size — see the note in Nav.tsx. */}
             <Image
               src="/logo.webp"
               alt="Bin to Better"
-              width={120}
-              height={30}
+              width={666}
+              height={375}
               className="h-[30px] w-auto"
             />
           </span>
@@ -122,7 +123,7 @@ export function Footer() {
             tax claim we cannot stand behind. /terms-of-service points at the
             checkout language instead.
           */}
-          <p>{site.copyright}</p>
+          <p>{copyright}</p>
         </div>
       </div>
     </footer>

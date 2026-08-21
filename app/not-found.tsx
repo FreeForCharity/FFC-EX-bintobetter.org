@@ -7,6 +7,8 @@ export default function NotFound() {
   return (
     <>
       <Nav />
+
+      <main id="main-content">
       <Section className="bg-canvas">
         <div className="max-w-2xl">
           <p className="font-mono text-xs font-medium uppercase tracking-[0.12em] text-court">
@@ -35,6 +37,8 @@ export default function NotFound() {
           </div>
         </div>
       </Section>
+      </main>
+
       <Footer />
     </>
   );

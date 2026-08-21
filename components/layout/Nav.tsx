@@ -48,17 +48,33 @@ export function Nav() {
       data-scrolled={scrolled || undefined}
       className="sticky top-0 z-50 border-b border-ink/10 bg-paper transition-[background-color,backdrop-filter,box-shadow] duration-300 ease-[var(--ease-out-hover)] data-[scrolled]:bg-paper/80 data-[scrolled]:backdrop-blur-md data-[scrolled]:shadow-[0_1px_8px_rgba(0,0,0,0.05)]"
     >
+      {/* Skip link — first focusable element on every page, so a keyboard or
+          screen-reader user can jump the nav instead of tabbing the logo, the
+          Programs menu, and every destination on each page load. Off-screen
+          until focused. Targets the <main id="main-content"> each page renders. */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-[3px] focus:bg-court focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-canvas"
+      >
+        Skip to main content
+      </a>
+
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 transition-[height] duration-300 ease-[var(--ease-out-hover)] data-[scrolled]:h-14 h-16">
         {/* Logo */}
         <Link
           href="/"
           className="flex items-center shrink-0 transition-transform duration-200 ease-[var(--ease-out-hover)] hover:scale-[1.04]"
         >
+          {/* width/height are logo.webp's true intrinsic size (666x375). They
+              were 120x30 — a 4:1 ratio the image does not have — so the box
+              reserved before the file loaded was the wrong shape and the header
+              shifted on every first paint. `images.unoptimized` is set, so
+              these serve purely as the aspect-ratio hint; CSS does the sizing. */}
           <Image
             src="/logo.webp"
             alt="Bin to Better"
-            width={120}
-            height={30}
+            width={666}
+            height={375}
             priority
             className="h-[60px] w-auto"
           />
@@ -96,14 +112,23 @@ export function Nav() {
               onClick={() => setProgramsOpen((v) => !v)}
             >
               Programs
-              <span
+              {/* A real chevron. This was previously the literal letter "v",
+                  which rendered in the body font as a lowercase v sitting next
+                  to the label rather than as a disclosure arrow. */}
+              <svg
                 aria-hidden="true"
-                className={`inline-block text-[10px] transition-transform duration-200 ease-[var(--ease-out-hover)] ${
+                viewBox="0 0 12 12"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className={`size-3 transition-transform duration-200 ease-[var(--ease-out-hover)] ${
                   programsOpen ? "rotate-180" : ""
                 }`}
               >
-                v
-              </span>
+                <path d="M3 4.5 6 7.5 9 4.5" />
+              </svg>
             </button>
             <div
               id="programs-menu"

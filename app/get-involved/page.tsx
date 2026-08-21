@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema } from "@/content/structured-data";
 import Link from "next/link";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
@@ -7,13 +9,14 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Reveal } from "@/components/motion/Reveal";
 import { FormGate } from "@/components/ui/FormGate";
-import { site, MIN_UNSUPERVISED_AGE } from "@/content/site";
+import { site, MIN_UNSUPERVISED_AGE, pageMetadata } from "@/content/site";
 
-export const metadata: Metadata = {
-  title: "Get Involved | Bin to Better",
+export const metadata: Metadata = pageMetadata({
+  route: "/get-involved",
+  title: "Get Involved: Volunteer or Donate Materials",
   description:
-    "Volunteer, join the mailing list, donate materials, partner with Bin to Better, or start a chapter.",
-};
+    "Volunteer, request or donate tennis balls and electronics, partner with us, start a chapter, or join the mailing list for workshop and event updates.",
+});
 
 // `gated` marks destinations that collect personal information off-site. Those
 // render through FormGate so an under-13 visitor is routed to a
@@ -69,6 +72,9 @@ export default function GetInvolved() {
   return (
     <>
       <Nav />
+
+      <main id="main-content">
+      <JsonLd data={breadcrumbSchema("Get Involved", "/get-involved")} />
 
       <Section className="bg-canvas">
         <Reveal>
@@ -172,6 +178,9 @@ export default function GetInvolved() {
           </div>
         </Reveal>
       </Section>
+
+      </main>
+
 
       <Footer />
     </>

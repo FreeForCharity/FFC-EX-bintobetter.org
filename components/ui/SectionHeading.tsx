@@ -6,6 +6,13 @@ interface SectionHeadingProps {
   subtitle?: ReactNode;
   align?: "left" | "center" | "right";
   tone?: "light" | "dark";
+  /**
+   * Heading level to render. Defaults to "h2" because most uses are section
+   * headings, but the pages that use this component for their hero need an
+   * "h1" — several of them had no h1 at all, which costs the page its single
+   * strongest on-page relevance signal.
+   */
+  as?: "h1" | "h2";
 }
 
 export function SectionHeading({
@@ -14,6 +21,7 @@ export function SectionHeading({
   subtitle,
   align = "left",
   tone = "light",
+  as: Heading = "h2",
 }: SectionHeadingProps) {
   const alignClass =
     align === "left"
@@ -41,11 +49,11 @@ export function SectionHeading({
           </p>
         </div>
       )}
-      <h2
+      <Heading
         className={`text-[clamp(2rem,4vw,3.25rem)] font-bold leading-tight tracking-tight ${titleColor}`}
       >
         {title}
-      </h2>
+      </Heading>
       {subtitle && (
         <p className={`mt-3 text-base sm:text-lg ${subtitleColor}`}>{subtitle}</p>
       )}

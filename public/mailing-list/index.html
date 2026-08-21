@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting to Get Involved — Bin to Better</title>
+    <!--
+      /mailing-list used to be an app/ route that re-exported the Get Involved
+      page wholesale. It rendered byte-identical HTML at a second URL, down to
+      the <title>, and both URLs were listed in the sitemap — so the site asked
+      search engines to index the same page twice and nothing on the site ever
+      linked to this one. The mailing-list sign-up is a card on Get Involved, so
+      this is now a redirect to it, following the same meta-refresh pattern as
+      /workshop and /privacy (GitHub Pages cannot serve a 301). The target is
+      relative so it still resolves under NEXT_PUBLIC_BASE_PATH on project-page
+      deployments.
+    -->
+    <meta http-equiv="refresh" content="0; url=../get-involved/#ways" />
+    <link rel="canonical" href="https://bintobetter.org/get-involved/" />
+    <meta name="robots" content="noindex, follow" />
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f5f5ee;
+        color: #0b1410;
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+        text-align: center;
+        padding: 2rem;
+      }
+      a {
+        color: #0c2418;
+      }
+    </style>
+  </head>
+  <body>
+    <p>
+      The mailing-list sign-up lives on
+      <a href="../get-involved/#ways">Get Involved</a>.
+    </p>
+  </body>
+</html>

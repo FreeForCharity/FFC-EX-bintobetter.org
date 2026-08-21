@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { breadcrumbSchema } from "@/content/structured-data";
 import Image from "next/image";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
@@ -6,17 +8,22 @@ import { Section } from "@/components/ui/Section";
 import { Reveal } from "@/components/motion/Reveal";
 import { FormGate } from "@/components/ui/FormGate";
 import { teamGroups } from "@/content/team";
+import { pageMetadata } from "@/content/site";
 
-export const metadata: Metadata = {
-  title: "Officers & Team | Bin to Better",
+export const metadata: Metadata = pageMetadata({
+  route: "/officers-and-team",
+  title: "Officers & Team",
   description:
-    "Get to know the dedicated officers and volunteers who power the Bin to Better mission.",
-};
+    "The students and volunteers who run Bin to Better's Bounce Back, Tech to Treasure, Eco-Filament, outreach, and fundraising programs.",
+});
 
 export default function OfficersAndTeam() {
   return (
     <>
       <Nav />
+
+      <main id="main-content">
+      <JsonLd data={breadcrumbSchema("Officers & Team", "/officers-and-team")} />
 
       {/* Hero — dark canvas band */}
       <Section className="bg-canvas">
@@ -36,7 +43,7 @@ export default function OfficersAndTeam() {
           <div className="mb-4 flex items-center gap-3">
             <span className="h-px w-6 shrink-0 bg-court" aria-hidden="true" />
             <p className="font-mono text-xs font-medium uppercase tracking-[0.12em] text-court">
-              Officers &amp; Team
+              Who We Are
             </p>
           </div>
           <h1 className="font-display text-[clamp(2.75rem,7vw,6rem)] font-bold leading-[0.95] tracking-tight text-paper text-balance">
@@ -59,18 +66,14 @@ export default function OfficersAndTeam() {
           <Section key={group.category} className={bandBg}>
             <Reveal delay={60}>
               {/* Category header: mono eyebrow + hairline + display heading */}
+              {/* Hairline + display heading. The mono eyebrow that used to sit
+                  above the heading rendered {group.category} as well, so every
+                  band showed its name twice in a row. */}
               <div className="mb-10">
-                <div className="mb-3 flex items-center gap-3">
-                  <span
-                    className={`h-px w-6 shrink-0 ${isDark ? "bg-court" : "bg-sage"}`}
-                    aria-hidden="true"
-                  />
-                  <p
-                    className={`font-mono text-xs font-medium uppercase tracking-[0.12em] ${isDark ? "text-court" : "text-sage"}`}
-                  >
-                    {group.category}
-                  </p>
-                </div>
+                <span
+                  className={`mb-3 block h-px w-6 ${isDark ? "bg-court" : "bg-sage"}`}
+                  aria-hidden="true"
+                />
                 <h2
                   className={`font-display text-[clamp(1.75rem,3.5vw,2.75rem)] font-bold leading-tight tracking-tight text-balance ${isDark ? "text-paper" : "text-ink"}`}
                 >
@@ -169,6 +172,9 @@ export default function OfficersAndTeam() {
           </Section>
         );
       })}
+
+      </main>
+
 
       <Footer />
     </>

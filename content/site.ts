@@ -15,8 +15,15 @@ export const site = {
   email: "outreach@bintobetter.org",
   instagram: "https://www.instagram.com/_bintobetter",
   linkedin: "https://www.linkedin.com/company/bin-to-better/posts/?feedView=all",
-  copyright: "Copyright 2026 Bin to Better. All rights reserved. Turning waste into opportunity.",
 };
+
+/**
+ * Footer copyright line. The year was hard-coded as "2026", which silently goes
+ * stale the moment the calendar turns. The site is a static export, so this is
+ * evaluated at build time — every deploy stamps the current year without anyone
+ * remembering to edit it.
+ */
+export const copyright = `Copyright ${new Date().getFullYear()} ${site.name}. All rights reserved. Turning waste into opportunity.`;
 
 /**
  * The minimum age to use a service we link out to but do not control.
@@ -39,10 +46,86 @@ export function absoluteUrl(route: string): string {
 }
 
 /**
+ * `alternates` block for a page's metadata, naming that page as its own
+ * canonical.
+ *
+ * Next merges page metadata over the root layout's, so a `canonical` set once
+ * in the layout is inherited verbatim by every page rather than overridden —
+ * which is how every route on this site ended up declaring the homepage as its
+ * canonical and asking search engines to drop it as a duplicate. Canonicals
+ * therefore live on the pages, never on the layout.
+ *
+ * The path is relative; `metadataBase` resolves it against the configured
+ * origin. The trailing slash matches next.config's `trailingSlash`, so the
+ * canonical URL is the URL that actually serves the page instead of one that
+ * redirects to it.
+ */
+export function canonicalFor(route: string) {
+  const path = route === "/" ? "/" : `${route.replace(/\/$/, "")}/`;
+  return { canonical: `${BASE_PATH}${path}` };
+}
+
+/**
  * True only on the live site. Test and preview deployments serve the same
  * content, so they are kept out of search results entirely rather than
  * competing with production for it — see app/robots.ts and app/layout.tsx.
  */
 export function isProductionSite(url: string = site.url): boolean {
   return url === PRODUCTION_URL;
+}
+
+/**
+ * Full metadata block for a page: canonical, title, description, and the
+ * Open Graph / Twitter cards that go with them.
+ *
+ * Pages previously declared only `alternates`, `title` and `description`. Next
+ * shallow-merges page metadata over the layout's, and `openGraph` was declared
+ * only in the layout — so every route on the site shared the homepage's social
+ * card. Sharing a link to the tennis-ball page in a teacher's group chat
+ * produced a preview about the organisation in general, which is both a worse
+ * click and a wasted one. Building all four here keeps them in step by
+ * construction.
+ *
+ * `title` and `description` are the page's own; the suffix and the card
+ * plumbing are added once, here.
+ */
+export function pageMetadata({
+  title,
+  description,
+  route,
+  image = "/logo.webp",
+}: {
+  title: string;
+  description: string;
+  route: string;
+  image?: string;
+}) {
+  const url = absoluteUrl(route === "/" ? "/" : `${route.replace(/\/$/, "")}/`);
+  const fullTitle = `${title} | ${site.name}`;
+
+  // Absolute, via absoluteUrl, rather than left root-relative. metadataBase
+  // resolves a relative card image against the origin only — it does not add
+  // BASE_PATH — so on a GitHub project-page deployment "/logo.webp" would point
+  // one directory above the site and every social preview would 404.
+  const imageUrl = absoluteUrl(image);
+
+  return {
+    alternates: canonicalFor(route),
+    title: fullTitle,
+    description,
+    openGraph: {
+      title: fullTitle,
+      description,
+      url,
+      siteName: site.name,
+      images: [{ url: imageUrl, width: 666, height: 375, alt: title }],
+      type: "website" as const,
+    },
+    twitter: {
+      card: "summary_large_image" as const,
+      title: fullTitle,
+      description,
+      images: [imageUrl],
+    },
+  };
 }
