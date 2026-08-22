@@ -18,6 +18,11 @@ import { site, MIN_UNSUPERVISED_AGE } from "@/content/site";
  * Native <dialog> rather than a modal library: showModal() brings the focus
  * trap, Esc handling, inertness of the page behind, and the ::backdrop with it,
  * and this site has no other need for a dialog primitive.
+ *
+ * Placement: the <dialog> renders as a sibling of the link, and <dialog> is not
+ * phrasing content, so this must NOT be nested inside a <p>. The HTML parser
+ * closes the <p> before the <dialog>, the server and client trees then differ,
+ * and React throws a hydration error. Wrap call sites in a <div>.
  */
 export function FormGate({
   href,

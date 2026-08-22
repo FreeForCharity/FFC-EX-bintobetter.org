@@ -28,16 +28,24 @@ export default function OfficersAndTeam() {
       {/* Hero — dark canvas band */}
       <Section className="bg-canvas">
         <Reveal>
-          <p className="mb-6 font-mono text-xs uppercase tracking-[0.12em] text-paper/60">
-            Interested in being an officer?{" "}
+          {/* A bare <div>, not a <p>: FormGate renders a native <dialog> as a
+              sibling of its link, and <dialog> is not phrasing content, so a
+              <p> wrapper gets force-closed by the HTML parser and the server
+              and client trees disagree (hydration error). The eyebrow's mono /
+              uppercase styling lives on the line itself rather than on this
+              wrapper, so the dialog inside does not inherit a text-transform. */}
+          <div className="mb-6">
+            <span className="font-mono text-xs uppercase tracking-[0.12em] text-paper/60">
+              Interested in being an officer?{" "}
+            </span>
             <FormGate
               href="https://forms.gle/Pf9kCT1HbYm9Nobt7"
               what="the officer application"
-              className="text-court underline underline-offset-4 hover:brightness-90 transition-[filter]"
+              className="font-mono text-xs uppercase tracking-[0.12em] text-court underline underline-offset-4 hover:brightness-90 transition-[filter]"
             >
               Apply here
             </FormGate>
-          </p>
+          </div>
 
           {/* Eyebrow hairline + h1 */}
           <div className="mb-4 flex items-center gap-3">
@@ -59,7 +67,7 @@ export default function OfficersAndTeam() {
 
       {/* Team groups — alternating bg-paper / bg-field bands */}
       {teamGroups.map((group, groupIndex) => {
-        const isDark = groupIndex % 2 === 1;
+        const isDark = groupIndex % 2 === 0;
         const bandBg = isDark ? "bg-field" : "bg-paper";
 
         return (
