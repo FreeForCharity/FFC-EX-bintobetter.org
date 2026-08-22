@@ -59,7 +59,7 @@ export default function OfficersAndTeam() {
 
       {/* Team groups — alternating bg-paper / bg-field bands */}
       {teamGroups.map((group, groupIndex) => {
-        const isDark = groupIndex % 2 === 1;
+        const isDark = groupIndex % 2 === 0;
         const bandBg = isDark ? "bg-field" : "bg-paper";
 
         return (
