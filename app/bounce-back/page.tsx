@@ -8,7 +8,7 @@ import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Button } from "@/components/ui/Button";
+import { EmailActions } from "@/components/ui/EmailActions";
 import { Reveal } from "@/components/motion/Reveal";
 import { StatReveal } from "@/components/motion/StatReveal";
 import { pageMetadata } from "@/content/site";
@@ -162,14 +162,21 @@ export default function BounceBackPage() {
             </Reveal>
 
             <Reveal delay={280}>
-              <div className="flex flex-wrap gap-3">
-                <Button href="mailto:outreach@bintobetter.org?subject=Bounce%20Back%20Pickup%20Request" variant="light">
-                  Request a Pickup
-                </Button>
-                <Button href="mailto:outreach@bintobetter.org?subject=Tennis%20Ball%20Recipient%20Request" variant="onDark">
-                  Request Tennis Balls
-                </Button>
-              </div>
+              <EmailActions
+                tone="dark"
+                actions={[
+                  {
+                    label: "Request a Pickup",
+                    subject: "Bounce Back Pickup Request",
+                    variant: "light",
+                  },
+                  {
+                    label: "Request Tennis Balls",
+                    subject: "Tennis Ball Recipient Request",
+                    variant: "onDark",
+                  },
+                ]}
+              />
             </Reveal>
           </div>
 
@@ -233,9 +240,15 @@ export default function BounceBackPage() {
 
         <Reveal delay={320}>
           <div className="mt-12">
-            <Button href="mailto:outreach@bintobetter.org?subject=Tennis%20Ball%20Request%20for%20My%20Classroom">
-              Request Tennis Balls for Your Classroom
-            </Button>
+            <EmailActions
+              actions={[
+                {
+                  label: "Request Tennis Balls for Your Classroom",
+                  subject: "Tennis Ball Request for My Classroom",
+                },
+              ]}
+              note="This opens a pre-addressed email. You can also write to us directly:"
+            />
           </div>
         </Reveal>
       </Section>

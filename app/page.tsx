@@ -20,6 +20,7 @@ import { ArrowRight } from "@/components/ui/icons";
 import { TestimonialSlider } from "@/components/ui/TestimonialSlider";
 import { Highlighter } from "@/components/ui/highlighter"
 import { site, pageMetadata } from "@/content/site";
+import { recentImpact } from "@/content/events";
 
 import {
   stats,
@@ -39,53 +40,47 @@ export const metadata: Metadata = pageMetadata({
 
 // Program photos shown as a compact 2-column bento under the mission heading.
 // Shapes are matched to cells: portrait → tall tile, landscape → wide tile.
+//
+// `position` sets the object-position of the crop. The tiles are far wider than
+// they are tall, so the default centre crop slices the top off any photo whose
+// subject is people standing up — which is how the volunteer hand-off photo
+// ended up on the homepage with everyone's face cut in half. Photos with people
+// in them are anchored to the top.
 const missionPhotos = [
   {
     src: "/bounce-back-logos/page-30-xref-120.png",
     alt: "Repurposed tennis balls ready for donation",
     span: "col-span-1 row-span-1",
     sizes: "(max-width: 1024px) 45vw, 18vw",
+    position: "object-center",
   },
   {
     src: "/bounce-back-logos/page-31-xref-123.png",
     alt: "Loading collected materials at a community collection drive",
     span: "col-span-1 row-span-2",
     sizes: "(max-width: 1024px) 45vw, 18vw",
+    position: "object-center",
   },
   {
     src: "/bounce-back-logos/page-28-xref-114.png",
-    alt: "Bin to Better volunteers handing off a donation of collected tennis balls",
+    alt: "Bin to Better volunteers handing a teacher a bag of repurposed tennis balls for her classroom",
     span: "col-span-1 row-span-1",
     sizes: "(max-width: 1024px) 45vw, 18vw",
+    position: "object-top",
   },
   {
     src: "/bounce-back-logos/page-29-xref-117.png",
     alt: "Sorting and preparing collected tennis balls for reuse",
     span: "col-span-2 row-span-1",
     sizes: "(max-width: 1024px) 92vw, 38vw",
-  },
-];
-
-const recentMilestones = [
-  {
-    date: "March 1, 2026",
-    title: "Tech to Treasure Workshop",
-    detail: "Students explored real device parts through hands-on stations in Fremont.",
-  },
-  {
-    date: "June 27, 2026",
-    title: "5,000 Tennis Balls Collected",
-    detail: "Bounce Back recovered roughly 5,000 used tennis balls from partner facilities.",
-  },
-  {
-    date: "June 28, 2026",
-    title: "Tech to Treasure Workshop",
-    detail: "Students explored storage, sensors, and embedded systems through guided disassembly.",
+    position: "object-center",
   },
 ];
 
 export default function Home() {
   const [lead, ...missionRest] = mission;
+  // Newest first, straight from the timeline — see content/events.ts.
+  const recentMilestones = recentImpact(6);
 
   return (
     <>
@@ -190,7 +185,7 @@ export default function Home() {
                       alt={photo.alt}
                       fill
                       sizes={photo.sizes}
-                      className="object-cover transition-transform duration-500 ease-[var(--ease-out-hover)] group-hover:scale-105"
+                      className={`object-cover ${photo.position} transition-transform duration-500 ease-[var(--ease-out-hover)] group-hover:scale-105`}
                     />
                   </div>
                 ))}
@@ -280,6 +275,7 @@ export default function Home() {
           <SectionHeading
             eyebrow="Proof of Impact"
             title="Recent Momentum"
+            subtitle="What our three programs have done most recently, newest first — collections, donations, workshops, and cleanups."
             tone="light"
             align="left"
           />
@@ -306,18 +302,26 @@ export default function Home() {
               </Link>
             </Card>
           </Reveal>
-          <div className="grid gap-3">
+          <div className="grid gap-3 sm:grid-cols-2">
             {recentMilestones.map((item, i) => (
-              <Reveal key={item.title} delay={100 + i * 60}>
-                <div className="border border-ink/10 p-5">
-                  <p className="font-mono text-xs font-medium uppercase tracking-[0.12em] text-sage">
-                    {item.date}
-                  </p>
+              <Reveal key={`${item.date}-${item.title}`} delay={100 + i * 50}>
+                <div className="flex h-full flex-col border border-ink/10 p-5">
+                  <div className="flex flex-wrap items-baseline justify-between gap-2">
+                    <p className="font-mono text-xs font-medium uppercase tracking-[0.12em] text-sage">
+                      {item.date}
+                    </p>
+                    <span className="rounded-[2px] border border-ink/15 px-1.5 py-0.5 font-mono text-[0.625rem] font-medium uppercase tracking-[0.1em] text-ink/50">
+                      {item.category}
+                    </span>
+                  </div>
                   <h3 className="mt-2 font-display text-xl font-bold text-ink">
                     {item.title}
                   </h3>
                   <p className="mt-1 text-sm leading-relaxed text-ink/65">
-                    {item.detail}
+                    {item.result}
+                  </p>
+                  <p className="mt-3 font-mono text-[0.6875rem] uppercase tracking-[0.1em] text-ink/40">
+                    {item.location}
                   </p>
                 </div>
               </Reveal>

@@ -262,6 +262,24 @@ export const impactTimeline = [
   },
 ];
 
+/**
+ * The most recent entries from the impact timeline, newest first.
+ *
+ * The homepage used to carry its own hand-written list of three milestones,
+ * which meant every new event had to be added in two places and the homepage
+ * quietly fell months behind the timeline. It now reads from here, so adding an
+ * entry to `impactTimeline` is the only step.
+ *
+ * Awards are excluded: the homepage already gives the CRRA award its own card
+ * beside this list, and repeating it there wastes one of the slots.
+ */
+export function recentImpact(count = 6) {
+  return impactTimeline
+    .filter((entry) => entry.category !== "Award")
+    .slice(-count)
+    .reverse();
+}
+
 // Legacy list kept for backwards compat
 export const events: { title: string; date?: string; description: string }[] = [
   {

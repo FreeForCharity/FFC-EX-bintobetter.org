@@ -6,6 +6,8 @@ import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
+import { CopyEmail } from "@/components/ui/CopyEmail";
+import { Mail } from "@/components/ui/icons";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Reveal } from "@/components/motion/Reveal";
 import { site, pageMetadata } from "@/content/site";
@@ -235,20 +237,22 @@ export default function Partners() {
                 Become a partner
               </h2>
               <p className="mt-4 text-base leading-relaxed text-paper/70">
-                Email{" "}
-                <a
-                  href={`mailto:${site.email}`}
-                  className="text-paper underline underline-offset-4 transition-colors hover:text-court focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-court"
-                >
-                  {site.email}
-                </a>{" "}
-                to coordinate collections, donations, workshops, or reuse
-                opportunities.
+                Write to us to coordinate collections, donations, workshops, or
+                reuse opportunities. We usually reply within a few school days.
               </p>
               <div className="mt-8">
-                <Button href={`mailto:${site.email}`} variant="light">
+                <Button
+                  href={`mailto:${site.email}?subject=${encodeURIComponent("Partnership Inquiry")}`}
+                  variant="light"
+                  icon={<Mail className="size-4" />}
+                >
                   Get in Touch
                 </Button>
+                <CopyEmail
+                  tone="dark"
+                  className="mt-4"
+                  label="Opens a pre-addressed email, or copy the address:"
+                />
               </div>
             </div>
           </Reveal>

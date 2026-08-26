@@ -8,6 +8,8 @@ import {
   organizationSchema,
   websiteSchema,
   breadcrumbSchema,
+  bootcampCourseSchema,
+  workshopEventSchema,
 } from "@/content/structured-data";
 import { bounceBackFaq, bounceBackFaqSchema } from "@/content/bounce-back-faq";
 
@@ -289,5 +291,50 @@ describe("seo", () => {
     expect(isProductionSite("https://bin2b.vercel.app")).toBe(false);
     expect(isProductionSite("https://b2b-git-preview.vercel.app")).toBe(false);
     expect(isProductionSite(PRODUCTION_URL)).toBe(true);
+  });
+});
+
+/**
+ * Event and Course markup makes claims a crawler can check against the page, so
+ * these assert the shape Google requires *and* that the claims stay tied to
+ * content/events.ts rather than drifting into invention.
+ */
+describe("workshop and bootcamp structured data", () => {
+  const workshop = {
+    date: "June 28, 2026",
+    startDate: "2026-06-28T16:30:00-07:00",
+    endDate: "2026-06-28T18:30:00-07:00",
+    location: "5298 Rancho Del Norte Dr, Fremont, CA 94555",
+    outcome: "Students opened a hard drive and wired up sensors.",
+  };
+
+  it("emits a valid EducationEvent for a workshop", () => {
+    const schema = workshopEventSchema(workshop);
+    expect(schema["@type"]).toBe("EducationEvent");
+    expect(schema.startDate).toBe(workshop.startDate);
+    expect(schema.endDate).toBe(workshop.endDate);
+    expect(schema.description).toBe(workshop.outcome);
+    expect(schema.eventStatus).toBe("https://schema.org/EventScheduled");
+    expect(schema.location.address.addressLocality).toBe("Fremont");
+  });
+
+  it("ends every workshop after it starts", () => {
+    const schema = workshopEventSchema(workshop);
+    expect(Date.parse(schema.endDate)).toBeGreaterThan(Date.parse(schema.startDate));
+  });
+
+  it("says the workshops are free, which the page also says", () => {
+    expect(workshopEventSchema(workshop).isAccessibleForFree).toBe(true);
+  });
+
+  it("attributes the bootcamp and the workshops to the one organisation node", () => {
+    expect(bootcampCourseSchema.provider).toEqual({ "@id": organizationSchema["@id"] });
+    expect(workshopEventSchema(workshop).organizer).toEqual({
+      "@id": organizationSchema["@id"],
+    });
+  });
+
+  it("publishes a contact point carrying the address the site displays", () => {
+    expect(organizationSchema.contactPoint.email).toBe(site.email);
   });
 });
