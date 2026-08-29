@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "preview": "pnpm exec serve@latest out",
+    "preview": "pnpm exec serve out",
     "lint": "eslint",
     "test": "vitest run",
     "test:watch": "vitest"

@@ -36,7 +36,7 @@ This repository contains TWO versions of the website:
 ### Environment Setup
 
 - **Node.js Version**: Requires Node.js 20.x (validated with v20.19.5)
-- **Package Manager**: Uses npm with pnpm-lock.yaml
+- **Package Manager**: pnpm 10 (lockfile: pnpm-lock.yaml, version pinned via the packageManager field)
 
 ### Bootstrap and Build Process
 
