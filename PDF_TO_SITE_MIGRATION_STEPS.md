@@ -126,12 +126,12 @@ Because Playwright runs from `./tests` (see `playwright.config.ts`), archived sp
 
 Actions:
 - Install test deps:
-  - `npm install`
+  - `pnpm install`
 - Run E2E tests:
-  - `npm test`
+  - `pnpm test`
 
 Expected result:
-- Tests pass against `npm run preview` (serves `html-site/` on port 8000).
+- Tests pass against `pnpm run preview` (serves `html-site/` on port 8000).
 
 ### 9) Open a PR
 
