@@ -18,6 +18,9 @@ export const metadata: Metadata = pageMetadata({
   title: "Get Involved: Volunteer or Donate Materials",
   description:
     "Volunteer, request or donate tennis balls and electronics, partner with us, start a chapter, or join the mailing list for workshop and event updates.",
+  image: "/og/get-involved.jpg",
+  imageAlt:
+    "Volunteers signing in at the check-in table before a community cleanup",
 });
 
 // `gated` marks destinations that collect personal information off-site. Those

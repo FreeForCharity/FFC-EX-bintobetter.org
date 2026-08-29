@@ -20,6 +20,8 @@ import { ArrowRight } from "@/components/ui/icons";
 import { TestimonialSlider } from "@/components/ui/TestimonialSlider";
 import { Highlighter } from "@/components/ui/highlighter"
 import { site, pageMetadata } from "@/content/site";
+import { JsonLd } from "@/components/seo/JsonLd";
+import { programListSchema } from "@/content/structured-data";
 import { recentImpact } from "@/content/events";
 
 import {
@@ -33,7 +35,7 @@ import {
 
 export const metadata: Metadata = pageMetadata({
   route: "/",
-  title: "Turning Waste into Opportunity",
+  title: "Turning Waste into Opportunity in the Bay Area",
   description:
     "Student-led reuse in the Bay Area: free tennis balls for classroom chair legs, hands-on e-waste workshops, and plastic recycled into 3D printer filament.",
 });
@@ -48,28 +50,28 @@ export const metadata: Metadata = pageMetadata({
 // in them are anchored to the top.
 const missionPhotos = [
   {
-    src: "/bounce-back-logos/page-30-xref-120.png",
+    src: "/bounce-back-logos/page-30-xref-120.webp",
     alt: "Repurposed tennis balls ready for donation",
     span: "col-span-1 row-span-1",
     sizes: "(max-width: 1024px) 45vw, 18vw",
     position: "object-center",
   },
   {
-    src: "/bounce-back-logos/page-31-xref-123.png",
+    src: "/bounce-back-logos/page-31-xref-123.webp",
     alt: "Loading collected materials at a community collection drive",
     span: "col-span-1 row-span-2",
     sizes: "(max-width: 1024px) 45vw, 18vw",
     position: "object-center",
   },
   {
-    src: "/bounce-back-logos/page-28-xref-114.png",
+    src: "/bounce-back-logos/page-28-xref-114.webp",
     alt: "Bin to Better volunteers handing a teacher a bag of repurposed tennis balls for her classroom",
     span: "col-span-1 row-span-1",
     sizes: "(max-width: 1024px) 45vw, 18vw",
     position: "object-top",
   },
   {
-    src: "/bounce-back-logos/page-29-xref-117.png",
+    src: "/bounce-back-logos/page-29-xref-117.webp",
     alt: "Sorting and preparing collected tennis balls for reuse",
     span: "col-span-2 row-span-1",
     sizes: "(max-width: 1024px) 92vw, 38vw",
@@ -87,6 +89,10 @@ export default function Home() {
       <Nav />
 
       <main id="main-content">
+      {/* The three programmes as a list. The organisation and website nodes
+          come from the layout; this is the homepage's own contribution to the
+          entity graph, and it is what sitelinks get built from. */}
+      <JsonLd data={programListSchema(programsPreview)} />
 
       {/* ── Hero ──────────────────────────────────────────────── */}
       <Section className="relative overflow-hidden bg-mesh text-paper">

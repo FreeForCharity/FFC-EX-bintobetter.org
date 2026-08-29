@@ -2,7 +2,13 @@ import type { Metadata } from "next";
 import { Hanken_Grotesk, DM_Mono, Geist } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import { site, isProductionSite } from "@/content/site";
+import {
+  site,
+  isProductionSite,
+  DEFAULT_OG_IMAGE,
+  OG_IMAGE_WIDTH,
+  OG_IMAGE_HEIGHT,
+} from "@/content/site";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { organizationSchema, websiteSchema } from "@/content/structured-data";
 
@@ -44,10 +50,17 @@ export const metadata: Metadata = {
       "Student-led programs turning discarded materials into resources for schools, shelters, and communities.",
     url: site.url,
     siteName: site.name,
-    // logo.webp is 666x375. It was declared here as 1200x630, which is the
-    // recommended OG size but not this file's size — social cards size their
-    // preview from these numbers, so the wrong pair distorts the crop.
-    images: [{ url: "/logo.webp", width: 666, height: 375, alt: "Bin to Better" }],
+    // The declared size has to be the file's real size — unfurlers lay out the
+    // preview from these numbers, so a wrong pair distorts the crop. Every card
+    // under public/og is built at exactly OG_IMAGE_WIDTH x OG_IMAGE_HEIGHT.
+    images: [
+      {
+        url: DEFAULT_OG_IMAGE,
+        width: OG_IMAGE_WIDTH,
+        height: OG_IMAGE_HEIGHT,
+        alt: "Bin to Better",
+      },
+    ],
     type: "website",
   },
   twitter: {
@@ -55,7 +68,7 @@ export const metadata: Metadata = {
     title: "Bin to Better | Turning Waste into Opportunity",
     description:
       "Student-led programs turning discarded materials into resources for schools, shelters, and communities.",
-    images: ["/logo.webp"],
+    images: [DEFAULT_OG_IMAGE],
   },
   // Belt and braces alongside robots.txt: a noindex header on every page of a
   // test deployment, which also covers crawlers that ignore robots.txt.

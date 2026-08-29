@@ -38,6 +38,38 @@ const PRIORITY: Record<string, number> = {
   "/terms-of-service": 0.3,
 };
 
+// The social card for each route, which is also the one image on the page that
+// is guaranteed to describe it. Listing images in the sitemap is how they get
+// into Google Images at all for a site with no image-heavy landing pages — and
+// image search is a real entry point for "tennis ball chair legs" and
+// "take apart a computer for kids", both of which people search visually.
+const IMAGES: Record<string, string> = {
+  "": "/og/home.jpg",
+  "/bounce-back": "/og/bounce-back.jpg",
+  "/tech-to-treasure": "/og/tech-to-treasure.jpg",
+  "/eco-filament": "/og/eco-filament.jpg",
+  "/partners": "/og/partners.jpg",
+  "/officers-and-team": "/og/officers-and-team.jpg",
+  "/achievements": "/og/achievements.jpg",
+  "/get-involved": "/og/get-involved.jpg",
+  "/chapter": "/og/chapter.jpg",
+  "/donate": "/og/donate.jpg",
+};
+
+// How often a route's content actually changes. A flat "monthly" across twelve
+// pages is the same non-signal as a flat priority: the programme pages gain
+// events and photos, and the legal pages change when the law does.
+const CHANGE_FREQUENCY: Record<string, MetadataRoute.Sitemap[number]["changeFrequency"]> = {
+  "": "weekly",
+  "/bounce-back": "weekly",
+  "/tech-to-treasure": "weekly",
+  "/eco-filament": "monthly",
+  "/officers-and-team": "yearly",
+  "/achievements": "yearly",
+  "/privacy-policy": "yearly",
+  "/terms-of-service": "yearly",
+};
+
 export default function sitemap(): MetadataRoute.Sitemap {
   // Static export: this runs once at build time, so every deploy stamps the
   // build date. That is honest for a site whose content changes by redeploy,
@@ -46,10 +78,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // Trailing slashes to match the exported pages (next.config trailingSlash),
   // so sitemap URLs resolve directly instead of redirecting.
-  return routes.map((r) => ({
-    url: absoluteUrl(`${r}/`),
-    lastModified,
-    changeFrequency: "monthly" as const,
-    priority: PRIORITY[r] ?? 0.6,
-  }));
+  return routes.map((r) => {
+    const image = IMAGES[r];
+    return {
+      url: absoluteUrl(`${r}/`),
+      lastModified,
+      changeFrequency: CHANGE_FREQUENCY[r] ?? "monthly",
+      priority: PRIORITY[r] ?? 0.6,
+      ...(image ? { images: [absoluteUrl(image)] } : {}),
+    };
+  });
 }

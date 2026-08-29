@@ -89,16 +89,33 @@ export function isProductionSite(url: string = site.url): boolean {
  * `title` and `description` are the page's own; the suffix and the card
  * plumbing are added once, here.
  */
+/**
+ * Every social card is 1200x630, the ratio every platform crops toward. They
+ * are built from real photographs of the programme they belong to by
+ * scripts/generate-og-images.mjs (`npm run og`) and committed under public/og.
+ *
+ * Before this, `image` defaulted to /logo.webp for every route, so a link to
+ * the tennis-ball page, the workshops page and the donate page all previewed
+ * identically — and logo.webp has a transparent background, which unfurlers
+ * composite onto black rather than onto the page's cream.
+ */
+export const OG_IMAGE_WIDTH = 1200;
+export const OG_IMAGE_HEIGHT = 630;
+export const DEFAULT_OG_IMAGE = "/og/home.jpg";
+
 export function pageMetadata({
   title,
   description,
   route,
-  image = "/logo.webp",
+  image = DEFAULT_OG_IMAGE,
+  imageAlt,
 }: {
   title: string;
   description: string;
   route: string;
   image?: string;
+  /** Describes the card itself. Falls back to the page title. */
+  imageAlt?: string;
 }) {
   const url = absoluteUrl(route === "/" ? "/" : `${route.replace(/\/$/, "")}/`);
   const fullTitle = `${title} | ${site.name}`;
@@ -118,7 +135,14 @@ export function pageMetadata({
       description,
       url,
       siteName: site.name,
-      images: [{ url: imageUrl, width: 666, height: 375, alt: title }],
+      images: [
+        {
+          url: imageUrl,
+          width: OG_IMAGE_WIDTH,
+          height: OG_IMAGE_HEIGHT,
+          alt: imageAlt ?? title,
+        },
+      ],
       type: "website" as const,
     },
     twitter: {

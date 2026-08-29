@@ -155,7 +155,9 @@ export const bootcampCourseSchema = {
   provider: { "@id": ORG_ID },
   url: absoluteUrl("/tech-to-treasure/"),
   inLanguage: "en-US",
-  isAccessibleForFree: true,
+  // No `isAccessibleForFree` here, unlike the workshops: the workshops page
+  // says in as many words that the sessions are free, and it says nothing
+  // either way about the bootcamp. Markup may only repeat what the page states.
   educationalLevel: "Beginner",
   teaches: [
     "Building software projects for environmental problems",
@@ -178,3 +180,75 @@ export const bootcampCourseSchema = {
     },
   },
 };
+
+/**
+ * A programme, as a `Service`.
+ *
+ * The three programme pages are the ones people reach by describing what they
+ * need rather than by naming us — "free tennis balls for chair legs", "e-waste
+ * workshop for kids", "what to do with plastic bottles". A `Service` node ties
+ * each page to the organisation, says what is offered, where, and that it costs
+ * nothing, which is exactly the set of facts those searches are asking about.
+ *
+ * `price: "0"` is a claim the pages make in plain English; if a programme ever
+ * charges, this has to change with it.
+ */
+export function programServiceSchema({
+  name,
+  description,
+  route,
+  serviceType,
+  audience,
+}: {
+  name: string;
+  description: string;
+  route: string;
+  serviceType: string;
+  audience: string;
+}) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name,
+    description,
+    serviceType,
+    url: absoluteUrl(`${route.replace(/\/$/, "")}/`),
+    provider: { "@id": ORG_ID },
+    areaServed: {
+      "@type": "AdministrativeArea",
+      name: "San Francisco Bay Area, California",
+    },
+    audience: { "@type": "Audience", audienceType: audience },
+    offers: {
+      "@type": "Offer",
+      price: "0",
+      priceCurrency: "USD",
+      availability: "https://schema.org/InStock",
+    },
+  };
+}
+
+/**
+ * The three programmes as a list, emitted on the homepage.
+ *
+ * Google builds sitelinks from what it can tell are the site's main sections.
+ * The homepage links to all three in prose and cards; naming them as an ordered
+ * list with their URLs says the same thing in the one form a crawler cannot
+ * misread.
+ */
+export function programListSchema(
+  programs: { title: string; blurb: string; href: string }[]
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: `${site.name} programs`,
+    itemListElement: programs.map((program, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: program.title,
+      description: program.blurb,
+      url: absoluteUrl(`${program.href.replace(/\/$/, "")}/`),
+    })),
+  };
+}

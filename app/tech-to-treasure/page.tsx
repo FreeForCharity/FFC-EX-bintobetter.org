@@ -4,7 +4,12 @@ import {
   breadcrumbSchema,
   bootcampCourseSchema,
   workshopEventSchema,
+  programServiceSchema,
 } from "@/content/structured-data";
+import {
+  techToTreasureFaq,
+  techToTreasureFaqSchema,
+} from "@/content/tech-to-treasure-faq";
 import Image from "next/image";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
@@ -21,6 +26,9 @@ export const metadata: Metadata = pageMetadata({
   title: "Free E-Waste Workshops for Kids in Fremont, CA",
   description:
     "Free hands-on workshops in Fremont where kids take apart real computers, routers, and sensors to see how they work, plus a six-week environmental tech bootcamp. Leftover parts are recycled.",
+  image: "/og/tech-to-treasure.jpg",
+  imageAlt:
+    "Students gathered outside the red barn at a Tech to Treasure workshop in Fremont",
 });
 
 const whatWeDo = [
@@ -306,7 +314,16 @@ export default function TechToTreasurePage() {
       <JsonLd
         data={[
           breadcrumbSchema("Tech to Treasure", "/tech-to-treasure"),
+          programServiceSchema({
+            name: "Tech to Treasure: free hands-on e-waste workshops",
+            description:
+              "Free workshops in Fremont where students take apart donated computers, routers, and sensors to learn how they work. Remaining parts are responsibly recycled.",
+            route: "/tech-to-treasure",
+            serviceType: "Electronics reuse education",
+            audience: "Students, families, and schools",
+          }),
           bootcampCourseSchema,
+          techToTreasureFaqSchema(),
           ...workshops.map(workshopEventSchema),
         ]}
       />
@@ -585,8 +602,40 @@ export default function TechToTreasurePage() {
         </Reveal>
       </Section>
 
-      {/* Get Involved — paper band */}
+      {/* Questions parents ask — paper band.
+          Parents reach this page from questions ("free computer class for kids
+          near me", "is it safe for kids to take apart electronics") that the
+          page answered nowhere in those words. Same pattern as the teacher Q&A
+          on /bounce-back: the visible list and the FAQPage schema are built
+          from one source so they cannot contradict each other. */}
       <Section className="bg-paper">
+        <Reveal>
+          <SectionHeading
+            eyebrow="For Parents & Schools"
+            title="Common Questions"
+            subtitle="What the workshops cost, who they are for, what students actually do, and where the parts end up."
+            tone="light"
+            align="left"
+          />
+        </Reveal>
+
+        <div className="grid gap-x-12 gap-y-8 lg:grid-cols-2">
+          {techToTreasureFaq.map((item, i) => (
+            <Reveal key={item.question} delay={60 + i * 40}>
+              <div>
+                <h3 className="text-lg font-bold leading-snug text-ink">
+                  {item.question}
+                </h3>
+                <p className="mt-2 leading-relaxed text-ink/70">{item.answer}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      {/* Get Involved — field band, so it does not sit paper-on-paper against
+          the questions above it. */}
+      <Section className="bg-field">
         <Reveal>
           <div className="max-w-3xl border border-ink/10 bg-paper p-8">
             <h2 className="font-display text-[clamp(1.5rem,2.5vw,2rem)] font-bold text-ink mb-3 text-balance">

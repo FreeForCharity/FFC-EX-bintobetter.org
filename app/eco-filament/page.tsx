@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { breadcrumbSchema } from "@/content/structured-data";
+import {
+  breadcrumbSchema,
+  programServiceSchema,
+} from "@/content/structured-data";
 import Link from "next/link";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
@@ -27,7 +30,10 @@ export const metadata: Metadata = pageMetadata({
   route: "/eco-filament",
   title: "Eco-Filament: Plastic Waste into 3D Filament",
   description:
-    "Turning cleaned, sorted plastic waste into 3D printer filament for tools and sensory toys, with park cleanups volunteers can join.",
+    "Turning cleaned, sorted plastic waste into 3D printer filament for tools and sensory toys, with Bay Area park and creek cleanups that volunteers can join.",
+  image: "/og/eco-filament.jpg",
+  imageAlt:
+    "Volunteers bagging litter collected along a creek at a Bin to Better cleanup",
 });
 
 export default function EcoFilamentPage() {
@@ -36,7 +42,19 @@ export default function EcoFilamentPage() {
       <Nav />
 
       <main id="main-content">
-      <JsonLd data={breadcrumbSchema("Eco-Filament", "/eco-filament")} />
+      <JsonLd
+        data={[
+          breadcrumbSchema("Eco-Filament", "/eco-filament"),
+          programServiceSchema({
+            name: "Eco-Filament: plastic waste into 3D printer filament",
+            description:
+              "Suitable plastic waste collected at community cleanups and drop-offs, processed into 3D printer filament, and printed into tools and toys that are donated.",
+            route: "/eco-filament",
+            serviceType: "Plastic recycling and 3D printing",
+            audience: "Community groups, schools, and volunteers",
+          }),
+        ]}
+      />
 
       {/* Hero — dark canvas band */}
       <Section className="bg-canvas">

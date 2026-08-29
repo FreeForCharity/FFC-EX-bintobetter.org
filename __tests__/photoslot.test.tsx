@@ -4,7 +4,7 @@ import { PhotoSlot } from "@/components/ui/PhotoSlot";
 
 describe("PhotoSlot", () => {
   it("renders an img with alt when src is given", () => {
-    render(<PhotoSlot src="/members/Anika Batra.png" alt="Anika Batra" />);
+    render(<PhotoSlot src="/members/Anika Batra.webp" alt="Anika Batra" />);
     expect(screen.getByAltText("Anika Batra")).toBeInTheDocument();
   });
   it("renders a branded placeholder when src is missing", () => {

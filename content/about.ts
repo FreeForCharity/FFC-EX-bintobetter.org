@@ -24,7 +24,7 @@ export const about = {
     {
       name: "Rohan Sashank Babbellapati",
       role: "Co-Founder",
-      photo: "/members/Rohan Sashank Babbellapati.png",
+      photo: "/members/Rohan Sashank Babbellapati.webp",
     },
   ],
   approachHeading: "Our Approach",

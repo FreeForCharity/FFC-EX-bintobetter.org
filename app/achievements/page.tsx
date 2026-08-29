@@ -11,9 +11,12 @@ import { pageMetadata } from "@/content/site";
 
 export const metadata: Metadata = pageMetadata({
   route: "/achievements",
-  title: "Awards & Recognition",
+  title: "2026 CRRA School Recycling Program Award",
   description:
-    "Bin to Better's awards, including the 2026 CRRA Outstanding School Recycling Program Award from the California Resource Recovery Association.",
+    "Bin to Better received the 2026 Outstanding School Recycling Program Award from the California Resource Recovery Association, for student-led reuse and community education.",
+  image: "/og/achievements.jpg",
+  imageAlt:
+    "A tennis ball being cut to fit a classroom chair leg",
 });
 
 export default function Achievements() {

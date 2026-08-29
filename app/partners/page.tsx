@@ -24,6 +24,9 @@ export const metadata: Metadata = pageMetadata({
   title: "Partners: Tennis Clubs, Schools & Shelters",
   description:
     "The tennis clubs, academies, schools, animal shelters, and businesses that collect and receive materials with Bin to Better. Partner with us or host a collection.",
+  image: "/og/partners.jpg",
+  imageAlt:
+    "A bag of collected tennis balls being handed over at a partner drop-off",
 });
 
 const CONTACT_EMAIL = site.email;

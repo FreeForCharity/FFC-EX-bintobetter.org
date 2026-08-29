@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { breadcrumbSchema } from "@/content/structured-data";
+import {
+  breadcrumbSchema,
+  programServiceSchema,
+} from "@/content/structured-data";
 import { bounceBackFaq, bounceBackFaqSchema } from "@/content/bounce-back-faq";
 import Link from "next/link";
 import Image from "next/image";
@@ -18,6 +21,9 @@ export const metadata: Metadata = pageMetadata({
   title: "Free Tennis Balls for Classroom Chair Legs",
   description:
     "Teachers can request free repurposed tennis balls for chair legs — quieter classrooms, protected floors. Over 74,000 balls repurposed for schools and shelters.",
+  image: "/og/bounce-back.jpg",
+  imageAlt:
+    "A Bin to Better volunteer handing a box of repurposed tennis balls to a teacher",
 });
 
 const whatWeDo = [
@@ -58,7 +64,20 @@ export default function BounceBackPage() {
       <Nav />
 
       <main id="main-content">
-      <JsonLd data={[breadcrumbSchema("Bounce Back Project", "/bounce-back"), bounceBackFaqSchema()]} />
+      <JsonLd
+        data={[
+          breadcrumbSchema("Bounce Back Project", "/bounce-back"),
+          bounceBackFaqSchema(),
+          programServiceSchema({
+            name: "Bounce Back: free repurposed tennis balls",
+            description:
+              "Used tennis balls collected from clubs and academies, cut to fit chair legs, and donated free to schools, animal shelters, and assisted living centers.",
+            route: "/bounce-back",
+            serviceType: "Material reuse and donation",
+            audience: "Teachers, schools, animal shelters, and assisted living centers",
+          }),
+        ]}
+      />
 
       {/* ── Hero ───────────────────────────────────────────── */}
       <Section className="bg-canvas text-paper">

@@ -12,9 +12,12 @@ import { pageMetadata } from "@/content/site";
 
 export const metadata: Metadata = pageMetadata({
   route: "/officers-and-team",
-  title: "Officers & Team",
+  title: "Officers & Student Volunteer Team",
   description:
-    "The students and volunteers who run Bin to Better's Bounce Back, Tech to Treasure, Eco-Filament, outreach, and fundraising programs.",
+    "Meet the students and volunteers who run Bin to Better across the Bay Area: the Bounce Back, Tech to Treasure, and Eco-Filament programs, plus outreach and fundraising.",
+  image: "/og/officers-and-team.jpg",
+  imageAlt:
+    "Students seated at the station tables during a Tech to Treasure workshop",
 });
 
 export default function OfficersAndTeam() {
