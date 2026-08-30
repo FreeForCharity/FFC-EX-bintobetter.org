@@ -499,7 +499,7 @@ export default function TechToTreasurePage() {
                 <div className="p-8 md:p-12">
                   <div className="mb-6">
                     <p className="font-mono text-xs font-medium uppercase tracking-[0.12em] text-sage mb-4">
-                      {w.date} &bull; Fremont, CA
+                      {w.date} &bull; {w.locality}, {w.region}
                     </p>
                     <p className="max-w-3xl text-lg leading-relaxed text-paper sm:text-xl">
                       {w.outcome}
