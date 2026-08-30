@@ -107,6 +107,9 @@ export function workshopEventSchema(workshop: {
   startDate: string;
   endDate: string;
   location: string;
+  /** City and state of `location`. Required, not defaulted — see below. */
+  locality: string;
+  region: string;
   outcome: string;
 }) {
   return {
@@ -129,8 +132,12 @@ export function workshopEventSchema(workshop: {
       name: workshop.location,
       address: {
         "@type": "PostalAddress",
-        addressLocality: "Fremont",
-        addressRegion: "CA",
+        // Taken from the workshop, not hard-coded. Every session so far has
+        // been in Fremont, and a default would have quietly kept saying so for
+        // the first one that is not — schema contradicting the page it sits on
+        // is worse than no schema, so the caller has to state the city.
+        addressLocality: workshop.locality,
+        addressRegion: workshop.region,
         addressCountry: "US",
       },
     },

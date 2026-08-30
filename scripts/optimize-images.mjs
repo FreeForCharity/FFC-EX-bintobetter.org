@@ -65,8 +65,21 @@ for (const { dir, maxWidth, quality } of targets) {
       .webp({ quality })
       .toBuffer();
 
-    await writeFile(target, output);
     const after = output.byteLength;
+
+    // Re-encoding does not always win: a small, already-optimised PNG can come
+    // out of WebP larger than it went in. Replacing it anyway would regress the
+    // page weight this script exists to reduce, and would make the total below
+    // a number that can go negative while still being reported as a saving.
+    if (after >= before) {
+      console.log(
+        `${dir}/${name}  kept (WebP would be ` +
+          `${Math.round(after / 1024)} KB vs ${Math.round(before / 1024)} KB)`
+      );
+      continue;
+    }
+
+    await writeFile(target, output);
     await unlink(source);
 
     savedBytes += before - after;

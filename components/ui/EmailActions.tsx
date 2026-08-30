@@ -37,7 +37,10 @@ export function EmailActions({
       <div className="flex flex-wrap gap-3">
         {actions.map((action) => (
           <Button
-            key={action.label}
+            // Label alone is not unique: two actions may reasonably share a
+            // label and differ only in subject, which React would reconcile as
+            // one node. The pair is what identifies an action here.
+            key={`${action.label}:${action.subject}`}
             href={`mailto:${site.email}?subject=${encodeURIComponent(action.subject)}`}
             variant={action.variant ?? "primary"}
             icon={<Mail className="size-4" />}

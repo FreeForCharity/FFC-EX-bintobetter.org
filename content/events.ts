@@ -315,10 +315,13 @@ export const upcomingEvents: {
  * beside this list, and repeating it there wastes one of the slots.
  */
 export function recentImpact(count = 6) {
-  return impactTimeline
-    .filter((entry) => entry.category !== "Award")
-    .slice(-count)
-    .reverse();
+  const past = impactTimeline.filter((entry) => entry.category !== "Award");
+  // `slice(-count)` is a trap at the boundary: -0 === 0 in JavaScript, so
+  // `recentImpact(0)` would slice from the start and hand back the entire
+  // timeline — the opposite of what the argument asks for. A negative count
+  // does the same thing from the other direction.
+  if (count <= 0) return [];
+  return past.slice(-count).reverse();
 }
 
 // Legacy list kept for backwards compat

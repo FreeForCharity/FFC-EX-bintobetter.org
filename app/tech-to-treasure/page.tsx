@@ -99,6 +99,8 @@ const workshops = [
     date: "March 1, 2026",
     startDate: "2026-03-01T15:30:00-08:00",
     endDate: "2026-03-01T17:30:00-08:00",
+    locality: "Fremont",
+    region: "CA",
     location: "Patterson Ranch benches outside the red barn · 5298 Rancho Del Norte Dr, Fremont, CA 94555",
     outcome:
       "More than 40 students and family members took apart desktop computers, monitors, and a 3D printer, and left able to point out which part of a machine does what.",
@@ -167,6 +169,8 @@ const workshops = [
     date: "April 19, 2026",
     startDate: "2026-04-19T15:30:00-07:00",
     endDate: "2026-04-19T17:30:00-07:00",
+    locality: "Fremont",
+    region: "CA",
     location: "5298 Rancho Del Norte Dr, Fremont, CA 94555",
     outcome:
       "Students worked through circuit boards, motors, routers, and modems — taking each apart, following the signal through it, and putting it back together.",
@@ -237,6 +241,8 @@ const workshops = [
     date: "June 28, 2026",
     startDate: "2026-06-28T16:30:00-07:00",
     endDate: "2026-06-28T18:30:00-07:00",
+    locality: "Fremont",
+    region: "CA",
     location: "5298 Rancho Del Norte Dr, Fremont, CA 94555",
     outcome:
       "Students opened a hard drive, stripped a Chromebook to its motherboard, and wired up sensors — covering how data is stored, how a laptop is built, and how an embedded system reads the world around it.",

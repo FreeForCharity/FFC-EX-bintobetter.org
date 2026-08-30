@@ -322,6 +322,8 @@ describe("workshop and bootcamp structured data", () => {
     startDate: "2026-06-28T16:30:00-07:00",
     endDate: "2026-06-28T18:30:00-07:00",
     location: "5298 Rancho Del Norte Dr, Fremont, CA 94555",
+    locality: "Fremont",
+    region: "CA",
     outcome: "Students opened a hard drive and wired up sensors.",
   };
 
@@ -332,7 +334,7 @@ describe("workshop and bootcamp structured data", () => {
     expect(schema.endDate).toBe(workshop.endDate);
     expect(schema.description).toBe(workshop.outcome);
     expect(schema.eventStatus).toBe("https://schema.org/EventScheduled");
-    expect(schema.location.address.addressLocality).toBe("Fremont");
+    expect(schema.location.address.addressLocality).toBe(workshop.locality);
   });
 
   it("ends every workshop after it starts", () => {
@@ -342,6 +344,19 @@ describe("workshop and bootcamp structured data", () => {
 
   it("says the workshops are free, which the page also says", () => {
     expect(workshopEventSchema(workshop).isAccessibleForFree).toBe(true);
+  });
+
+  // The city used to be hard-coded to Fremont while the function took a
+  // location argument, so an online or out-of-town session would have shipped
+  // markup contradicting the page it sat on.
+  it("takes the city from the workshop rather than assuming Fremont", () => {
+    const elsewhere = workshopEventSchema({
+      ...workshop,
+      location: "Online",
+      locality: "San Jose",
+      region: "CA",
+    });
+    expect(elsewhere.location.address.addressLocality).toBe("San Jose");
   });
 
   it("attributes the bootcamp and the workshops to the one organisation node", () => {

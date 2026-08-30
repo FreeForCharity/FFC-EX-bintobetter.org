@@ -61,12 +61,20 @@ export function CopyEmail({
       <button
         type="button"
         onClick={copy}
-        aria-live="polite"
         className={`inline-flex items-center gap-1.5 rounded-[3px] border ${border} px-2.5 py-1 text-xs font-medium ${strong} transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 ${outline}`}
       >
         {copied ? <Check className="size-3.5" /> : <Copy className="size-3.5" />}
         {copied ? "Copied" : "Copy address"}
       </button>
+
+      {/* The confirmation is announced from here, not from `aria-live` on the
+          button itself. A live region on an interactive control is announced
+          inconsistently across screen readers, and changing a focused button's
+          accessible name mid-interaction is its own confusion. This element is
+          visually hidden and exists only to be read aloud. */}
+      <span role="status" aria-live="polite" className="sr-only">
+        {copied ? `${site.email} copied to the clipboard` : ""}
+      </span>
     </div>
   );
 }
