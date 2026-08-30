@@ -262,6 +262,68 @@ export const impactTimeline = [
   },
 ];
 
+/**
+ * What is coming next, per branch, for the homepage.
+ *
+ * Named per branch because that is how the org described it: someone reading
+ * the homepage should be able to see which programme has something coming up
+ * and what they could contribute to.
+ *
+ * `when` is deliberately a free-text string rather than a date. Neither of
+ * these has a confirmed public date — the hackathon's is genuinely undecided,
+ * and the cleanup's has not been announced — and inventing one to make the
+ * section look finished is the one thing this section must not do. Replace the
+ * string with a real date the moment there is one; nothing else has to change.
+ *
+ * An event with a real date should move to `impactTimeline` once it has
+ * happened, so the history below stays the record of what actually took place.
+ */
+export const upcomingEvents: {
+  branch: string;
+  title: string;
+  when: string;
+  location: string;
+  detail: string;
+}[] = [
+  {
+    branch: "Eco-Filament",
+    title: "Community Cleanup",
+    when: "Date announced soon",
+    location: "Fremont, CA",
+    detail:
+      "A few hours of collecting litter from a local park or creek. Volunteers of any age are welcome; supplies are provided.",
+  },
+  {
+    branch: "Tech to Treasure",
+    title: "Tech to Treasure Hackathon",
+    when: "Date to be confirmed",
+    location: "Tully Community Branch Library, San Jose, CA",
+    detail:
+      "An eight-hour environmental hackathon: teams build something that addresses a sustainability problem, with mentors on hand.",
+  },
+];
+
+/**
+ * The most recent entries from the impact timeline, newest first.
+ *
+ * The homepage used to carry its own hand-written list of three milestones,
+ * which meant every new event had to be added in two places and the homepage
+ * quietly fell months behind the timeline. It now reads from here, so adding an
+ * entry to `impactTimeline` is the only step.
+ *
+ * Awards are excluded: the homepage already gives the CRRA award its own card
+ * beside this list, and repeating it there wastes one of the slots.
+ */
+export function recentImpact(count = 6) {
+  const past = impactTimeline.filter((entry) => entry.category !== "Award");
+  // `slice(-count)` is a trap at the boundary: -0 === 0 in JavaScript, so
+  // `recentImpact(0)` would slice from the start and hand back the entire
+  // timeline — the opposite of what the argument asks for. A negative count
+  // does the same thing from the other direction.
+  if (count <= 0) return [];
+  return past.slice(-count).reverse();
+}
+
 // Legacy list kept for backwards compat
 export const events: { title: string; date?: string; description: string }[] = [
   {

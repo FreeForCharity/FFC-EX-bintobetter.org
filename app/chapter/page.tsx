@@ -10,9 +10,12 @@ import { pageMetadata } from "@/content/site";
 
 export const metadata: Metadata = pageMetadata({
   route: "/chapter",
-  title: "Start a Chapter",
+  title: "Start a Chapter at Your School",
   description:
-    "Bring Bin to Better to your school or community. Apply to become a Chapter Director and lead local collection drives, workshops, and outreach.",
+    "Bring Bin to Better to your school or community. Apply to become a Chapter Director and run local tennis-ball collections, e-waste workshops, and cleanups where you live.",
+  image: "/og/chapter.jpg",
+  imageAlt:
+    "A workshop group seated at picnic tables while an instructor explains a device",
 });
 
 export default function Chapter() {

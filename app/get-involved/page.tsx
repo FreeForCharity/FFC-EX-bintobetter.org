@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { Reveal } from "@/components/motion/Reveal";
 import { FormGate } from "@/components/ui/FormGate";
+import { CopyEmail } from "@/components/ui/CopyEmail";
+import { Mail } from "@/components/ui/icons";
 import { site, MIN_UNSUPERVISED_AGE, pageMetadata } from "@/content/site";
 
 export const metadata: Metadata = pageMetadata({
@@ -16,6 +18,9 @@ export const metadata: Metadata = pageMetadata({
   title: "Get Involved: Volunteer or Donate Materials",
   description:
     "Volunteer, request or donate tennis balls and electronics, partner with us, start a chapter, or join the mailing list for workshop and event updates.",
+  image: "/og/get-involved.jpg",
+  imageAlt:
+    "Volunteers signing in at the check-in table before a community cleanup",
 });
 
 // `gated` marks destinations that collect personal information off-site. Those
@@ -95,10 +100,18 @@ export default function GetInvolved() {
             <Button href="#ways" variant="light">
               Explore Options
             </Button>
-            <Button href={`mailto:${site.email}`} variant="onDark">
+            <Button
+              href={`mailto:${site.email}`}
+              variant="onDark"
+              icon={<Mail className="size-4" />}
+            >
               Contact Us
             </Button>
           </div>
+          {/* The address in plain sight: a mailto: click does nothing visible on
+              a device with no mail client, and a dead-looking button reads as a
+              broken site. */}
+          <CopyEmail tone="dark" className="mt-5" />
         </Reveal>
       </Section>
 
@@ -123,14 +136,24 @@ export default function GetInvolved() {
                       {action.label}
                     </FormGate>
                   ) : action.external || action.href.startsWith("mailto:") ? (
-                    <a
-                      href={action.href}
-                      target={action.external ? "_blank" : undefined}
-                      rel={action.external ? "noopener noreferrer" : undefined}
-                      className="inline-flex items-center rounded-[3px] border border-ink/25 px-4 py-2 text-sm font-medium text-ink transition-colors hover:border-ink hover:bg-ink/[0.03] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
-                    >
-                      {action.label}
-                    </a>
+                    <>
+                      <a
+                        href={action.href}
+                        target={action.external ? "_blank" : undefined}
+                        rel={action.external ? "noopener noreferrer" : undefined}
+                        className="inline-flex items-center gap-2 rounded-[3px] border border-ink/25 px-4 py-2 text-sm font-medium text-ink transition-colors hover:border-ink hover:bg-ink/[0.03] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+                      >
+                        {action.href.startsWith("mailto:") ? (
+                          <Mail className="size-4 shrink-0" aria-hidden="true" />
+                        ) : null}
+                        {action.label}
+                      </a>
+                      {action.href.startsWith("mailto:") ? (
+                        <p className="mt-2 text-xs text-ink/50">
+                          Opens a pre-addressed email to {site.email}
+                        </p>
+                      ) : null}
+                    </>
                   ) : (
                     <Link
                       href={action.href}

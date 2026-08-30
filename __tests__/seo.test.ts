@@ -3,12 +3,28 @@ import { describe, it, expect, vi, afterEach } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
 import sitemap from "@/app/sitemap";
-import { site, isProductionSite, PRODUCTION_URL } from "@/content/site";
+import {
+  site,
+  isProductionSite,
+  PRODUCTION_URL,
+  absoluteUrl,
+  DEFAULT_OG_IMAGE,
+  OG_IMAGE_WIDTH,
+  OG_IMAGE_HEIGHT,
+} from "@/content/site";
 import {
   organizationSchema,
   websiteSchema,
   breadcrumbSchema,
+  bootcampCourseSchema,
+  workshopEventSchema,
+  programServiceSchema,
+  programListSchema,
 } from "@/content/structured-data";
+import {
+  techToTreasureFaq,
+  techToTreasureFaqSchema,
+} from "@/content/tech-to-treasure-faq";
 import { bounceBackFaq, bounceBackFaqSchema } from "@/content/bounce-back-faq";
 
 /**
@@ -136,6 +152,9 @@ describe("seo", () => {
     expect(layout).not.toMatch(/canonical:/);
   });
 
+  // 30s, not the 5s default: this is the first test to import all thirteen page
+  // modules, and on a cold Vite cache that transform alone can outrun the
+  // default and fail a suite that has nothing wrong with it.
   it("every page declares its own canonical, matching its route", async () => {
     expect(Object.keys(PAGES).sort()).toEqual([...pageRoutes()].sort());
 
@@ -143,7 +162,7 @@ describe("seo", () => {
       const { metadata } = await load();
       expect(metadata?.alternates?.canonical, `${route} canonical`).toBe(route);
     }
-  });
+  }, 30_000);
 
   /**
    * Next shallow-merges page metadata over the layout's. `openGraph` lived only
@@ -289,5 +308,190 @@ describe("seo", () => {
     expect(isProductionSite("https://bin2b.vercel.app")).toBe(false);
     expect(isProductionSite("https://b2b-git-preview.vercel.app")).toBe(false);
     expect(isProductionSite(PRODUCTION_URL)).toBe(true);
+  });
+});
+
+/**
+ * Event and Course markup makes claims a crawler can check against the page, so
+ * these assert the shape Google requires *and* that the claims stay tied to
+ * content/events.ts rather than drifting into invention.
+ */
+describe("workshop and bootcamp structured data", () => {
+  const workshop = {
+    date: "June 28, 2026",
+    startDate: "2026-06-28T16:30:00-07:00",
+    endDate: "2026-06-28T18:30:00-07:00",
+    location: "5298 Rancho Del Norte Dr, Fremont, CA 94555",
+    locality: "Fremont",
+    region: "CA",
+    outcome: "Students opened a hard drive and wired up sensors.",
+  };
+
+  it("emits a valid EducationEvent for a workshop", () => {
+    const schema = workshopEventSchema(workshop);
+    expect(schema["@type"]).toBe("EducationEvent");
+    expect(schema.startDate).toBe(workshop.startDate);
+    expect(schema.endDate).toBe(workshop.endDate);
+    expect(schema.description).toBe(workshop.outcome);
+    expect(schema.eventStatus).toBe("https://schema.org/EventScheduled");
+    expect(schema.location.address.addressLocality).toBe(workshop.locality);
+  });
+
+  it("ends every workshop after it starts", () => {
+    const schema = workshopEventSchema(workshop);
+    expect(Date.parse(schema.endDate)).toBeGreaterThan(Date.parse(schema.startDate));
+  });
+
+  it("says the workshops are free, which the page also says", () => {
+    expect(workshopEventSchema(workshop).isAccessibleForFree).toBe(true);
+  });
+
+  // The city used to be hard-coded to Fremont while the function took a
+  // location argument, so an online or out-of-town session would have shipped
+  // markup contradicting the page it sat on.
+  it("takes the city from the workshop rather than assuming Fremont", () => {
+    const elsewhere = workshopEventSchema({
+      ...workshop,
+      location: "Online",
+      locality: "San Jose",
+      region: "CA",
+    });
+    expect(elsewhere.location.address.addressLocality).toBe("San Jose");
+  });
+
+  it("attributes the bootcamp and the workshops to the one organisation node", () => {
+    expect(bootcampCourseSchema.provider).toEqual({ "@id": organizationSchema["@id"] });
+    expect(workshopEventSchema(workshop).organizer).toEqual({
+      "@id": organizationSchema["@id"],
+    });
+  });
+
+  it("publishes a contact point carrying the address the site displays", () => {
+    expect(organizationSchema.contactPoint.email).toBe(site.email);
+  });
+});
+
+/**
+ * Social cards and the assets behind them.
+ *
+ * Every route used to declare /logo.webp as its card, at a size that was not
+ * even that file's size — so a link to the tennis-ball page, the workshops page
+ * and the donate page all previewed identically, and unfurlers laid the preview
+ * out from wrong dimensions. These pin the replacement: a real 1200x630 card
+ * per route, and no route silently pointing at a file that is not there.
+ */
+describe("social cards", () => {
+  const ogDir = path.join(process.cwd(), "public", "og");
+
+  /** Minimal JPEG SOF parser — enough to read a baseline JPEG's dimensions. */
+  function jpegSize(file: string): { width: number; height: number } {
+    const buffer = fs.readFileSync(file);
+    let offset = 2;
+    while (offset < buffer.length) {
+      if (buffer[offset] !== 0xff) break;
+      const marker = buffer[offset + 1];
+      if (marker >= 0xc0 && marker <= 0xcf && ![0xc4, 0xc8, 0xcc].includes(marker)) {
+        return { height: buffer.readUInt16BE(offset + 5), width: buffer.readUInt16BE(offset + 7) };
+      }
+      offset += 2 + buffer.readUInt16BE(offset + 2);
+    }
+    throw new Error(`no SOF marker in ${file}`);
+  }
+
+  it("every generated card is exactly the size the metadata declares", () => {
+    const cards = fs.readdirSync(ogDir);
+    expect(cards.length).toBeGreaterThan(0);
+
+    for (const card of cards) {
+      const { width, height } = jpegSize(path.join(ogDir, card));
+      expect({ card, width, height }).toEqual({
+        card,
+        width: OG_IMAGE_WIDTH,
+        height: OG_IMAGE_HEIGHT,
+      });
+    }
+  });
+
+  it("every page's card file exists in public/", async () => {
+    for (const [route, load] of Object.entries(PAGES)) {
+      const { metadata } = await load();
+      const og = metadata?.openGraph as { images?: { url: string }[] } | undefined;
+      const url = og?.images?.[0]?.url as string;
+
+      const relative = url.replace(site.url, "").replace(/^\//, "");
+      expect(fs.existsSync(path.join(process.cwd(), "public", relative)), `${route} card`).toBe(
+        true
+      );
+    }
+  });
+
+  it("gives the programme pages cards of their own, not the default", async () => {
+    const distinct = new Set<string>();
+    for (const route of ["/bounce-back/", "/tech-to-treasure/", "/eco-filament/"]) {
+      const { metadata } = await PAGES[route]();
+      const og = metadata?.openGraph as { images?: { url: string }[] } | undefined;
+      const url = og?.images?.[0]?.url as string;
+      expect(url).not.toContain(DEFAULT_OG_IMAGE);
+      distinct.add(url);
+    }
+    expect(distinct.size).toBe(3);
+  });
+
+  it("lists a card for each programme page in the sitemap", () => {
+    const entries = new Map(sitemap().map((e) => [e.url, e]));
+    for (const route of ["/bounce-back/", "/tech-to-treasure/", "/eco-filament/"]) {
+      const entry = entries.get(absoluteUrl(route));
+      expect(entry?.images?.length, route).toBeGreaterThan(0);
+    }
+  });
+});
+
+describe("programme structured data", () => {
+  const service = programServiceSchema({
+    name: "Bounce Back",
+    description: "Free repurposed tennis balls for classroom chair legs.",
+    route: "/bounce-back",
+    serviceType: "Material reuse and donation",
+    audience: "Teachers and schools",
+  });
+
+  it("ties each programme to the one organisation node", () => {
+    expect(service.provider).toEqual({ "@id": organizationSchema["@id"] });
+  });
+
+  it("prices the programmes at zero, which is what the pages say", () => {
+    expect(service.offers.price).toBe("0");
+  });
+
+  it("points at the canonical, trailing-slash URL for the page", () => {
+    expect(service.url).toBe(absoluteUrl("/bounce-back/"));
+  });
+
+  it("lists the three programmes in order with resolvable URLs", () => {
+    const list = programListSchema([
+      { title: "A", blurb: "a", href: "/bounce-back" },
+      { title: "B", blurb: "b", href: "/tech-to-treasure" },
+    ]);
+    expect(list.itemListElement.map((i) => i.position)).toEqual([1, 2]);
+    expect(list.itemListElement[0].url).toBe(absoluteUrl("/bounce-back/"));
+  });
+
+  it("the Tech to Treasure FAQ schema matches the questions rendered on the page", () => {
+    const schema = techToTreasureFaqSchema();
+    expect(schema.mainEntity).toHaveLength(techToTreasureFaq.length);
+    expect(techToTreasureFaq.length).toBeGreaterThan(0);
+
+    for (const [i, item] of techToTreasureFaq.entries()) {
+      expect(schema.mainEntity[i].name).toBe(item.question);
+      expect(schema.mainEntity[i].acceptedAnswer.text).toBe(item.answer);
+    }
+
+    // Same guard as the Bounce Back FAQ: the page maps over this array, so the
+    // only way markup and page drift is a question hard-coded into the JSX.
+    const page = fs.readFileSync(
+      path.join(process.cwd(), "app", "tech-to-treasure", "page.tsx"),
+      "utf8"
+    );
+    expect(page).toContain("techToTreasureFaq.map");
   });
 });

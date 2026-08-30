@@ -2,7 +2,7 @@ import { render, screen, within } from "@testing-library/react";
 import { act } from "react";
 import { describe, it, expect } from "vitest";
 import { Nav } from "@/components/layout/Nav";
-import { programLinks } from "@/content/nav";
+import { navLinks, programLinks } from "@/content/nav";
 
 // Every destination is rendered twice — once in the desktop bar and once in the
 // mobile panel — so queries are scoped to the desktop <nav> to stay unambiguous.
@@ -15,6 +15,30 @@ describe("Nav", () => {
     expect(
       within(desktopNav()).getByRole("link", { name: /support us/i })
     ).toHaveAttribute("href", "/donate");
+  });
+
+  /**
+   * The order is the org's, not an implementation detail: Programs, Team, Get
+   * Involved, Partners, with Support Us last. It has been asked for explicitly
+   * once already, so it is pinned here rather than left to whoever next appends
+   * an entry to the array.
+   */
+  it("orders the tabs Programs, Team, Get Involved, Partners", () => {
+    expect(navLinks.map((l) => l.label)).toEqual([
+      "Team",
+      "Get Involved",
+      "Partners",
+    ]);
+
+    render(<Nav />);
+    const labels = within(desktopNav())
+      .getAllByRole("link")
+      .map((link) => link.textContent?.trim())
+      .filter((label): label is string =>
+        ["Team", "Get Involved", "Partners", "Support Us"].includes(label ?? "")
+      );
+
+    expect(labels).toEqual(["Team", "Get Involved", "Partners", "Support Us"]);
   });
 
   it("lists the three programs", () => {

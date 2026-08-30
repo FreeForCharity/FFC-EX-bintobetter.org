@@ -12,9 +12,12 @@ import { pageMetadata } from "@/content/site";
 
 export const metadata: Metadata = pageMetadata({
   route: "/donate",
-  title: "Support Us",
+  title: "Donate & Support Our Reuse Programs",
   description:
-    "Support Bin to Better by donating or registering for community tennis lessons. Contributions fund collection supplies, workshops, and recycling costs.",
+    "Support Bin to Better by donating or registering for community tennis lessons. Contributions pay for collection supplies, workshop materials, and recycling costs.",
+  image: "/og/donate.jpg",
+  imageAlt:
+    "A volunteer carrying a full bag of collected litter down a park path",
 });
 
 // Inline SVG icons — decorative, aria-hidden

@@ -9,18 +9,18 @@
  * here rendered each logo twice on the same page.
  */
 export const partnerLogos: { src: string; name?: string }[] = [
-  { src: "/partners-logos/page-21-xref-82.png" },
-  { src: "/partners-logos/page-21-xref-84.png", name: "Los Gatos Swim and Racquet Club" },
-  { src: "/partners-logos/page-22-xref-87.png", name: "NorCal Tennis Academy" },
-  { src: "/partners-logos/page-22-xref-88.png", name: "Mountain View Tennis" },
-  { src: "/partners-logos/page-23-xref-91.png", name: "Lifetime Activities" },
-  { src: "/partners-logos/page-23-xref-92.png", name: "Kim Grant Tennis Academy" },
-  { src: "/partners-logos/page-23-xref-94.png", name: "Cupertino Hills Swim and Racquet Club" },
-  { src: "/partners-logos/page-24-xref-97.png" },
-  { src: "/partners-logos/page-24-xref-99.png", name: "Kona Kai Swim and Racquet Club" },
-  { src: "/partners-logos/page-25-xref-102.png", name: "Allie's Doggie Day Camp" },
-  { src: "/partners-logos/page-26-xref-105.png", name: "Lucky Buddies Pet Sitting" },
-  { src: "/partners-logos/page-26-xref-106.png", name: "Furrtropolis" },
+  { src: "/partners-logos/page-21-xref-82.webp" },
+  { src: "/partners-logos/page-21-xref-84.webp", name: "Los Gatos Swim and Racquet Club" },
+  { src: "/partners-logos/page-22-xref-87.webp", name: "NorCal Tennis Academy" },
+  { src: "/partners-logos/page-22-xref-88.webp", name: "Mountain View Tennis" },
+  { src: "/partners-logos/page-23-xref-91.webp", name: "Lifetime Activities" },
+  { src: "/partners-logos/page-23-xref-92.webp", name: "Kim Grant Tennis Academy" },
+  { src: "/partners-logos/page-23-xref-94.webp", name: "Cupertino Hills Swim and Racquet Club" },
+  { src: "/partners-logos/page-24-xref-97.webp" },
+  { src: "/partners-logos/page-24-xref-99.webp", name: "Kona Kai Swim and Racquet Club" },
+  { src: "/partners-logos/page-25-xref-102.webp", name: "Allie's Doggie Day Camp" },
+  { src: "/partners-logos/page-26-xref-105.webp", name: "Lucky Buddies Pet Sitting" },
+  { src: "/partners-logos/page-26-xref-106.webp", name: "Furrtropolis" },
 ];
 
 export const whyPartner: string[] = [
@@ -32,7 +32,7 @@ export const whyPartner: string[] = [
 export const corporatePartners: { name: string; logo: string; note: string }[] = [
   {
     name: "Sun Dragon Computers",
-    logo: "/partners-logos/sun-dragon-computers.png",
+    logo: "/partners-logos/sun-dragon-computers.webp",
     note: "Sun Dragon Computers supports Bin to Better's technology reuse work. Contact outreach@bintobetter.org if your organization can provide devices, repair support, mentorship, recycling support, or workshop materials.",
   },
   {

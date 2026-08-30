@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { breadcrumbSchema } from "@/content/structured-data";
+import {
+  breadcrumbSchema,
+  programServiceSchema,
+} from "@/content/structured-data";
 import { bounceBackFaq, bounceBackFaqSchema } from "@/content/bounce-back-faq";
 import Link from "next/link";
 import Image from "next/image";
@@ -8,7 +11,7 @@ import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { Button } from "@/components/ui/Button";
+import { EmailActions } from "@/components/ui/EmailActions";
 import { Reveal } from "@/components/motion/Reveal";
 import { StatReveal } from "@/components/motion/StatReveal";
 import { pageMetadata } from "@/content/site";
@@ -18,6 +21,9 @@ export const metadata: Metadata = pageMetadata({
   title: "Free Tennis Balls for Classroom Chair Legs",
   description:
     "Teachers can request free repurposed tennis balls for chair legs — quieter classrooms, protected floors. Over 74,000 balls repurposed for schools and shelters.",
+  image: "/og/bounce-back.jpg",
+  imageAlt:
+    "A Bin to Better volunteer handing a box of repurposed tennis balls to a teacher",
 });
 
 const whatWeDo = [
@@ -58,7 +64,20 @@ export default function BounceBackPage() {
       <Nav />
 
       <main id="main-content">
-      <JsonLd data={[breadcrumbSchema("Bounce Back Project", "/bounce-back"), bounceBackFaqSchema()]} />
+      <JsonLd
+        data={[
+          breadcrumbSchema("Bounce Back Project", "/bounce-back"),
+          bounceBackFaqSchema(),
+          programServiceSchema({
+            name: "Bounce Back: free repurposed tennis balls",
+            description:
+              "Used tennis balls collected from clubs and academies, cut to fit chair legs, and donated free to schools, animal shelters, and assisted living centers.",
+            route: "/bounce-back",
+            serviceType: "Material reuse and donation",
+            audience: "Teachers, schools, animal shelters, and assisted living centers",
+          }),
+        ]}
+      />
 
       {/* ── Hero ───────────────────────────────────────────── */}
       <Section className="bg-canvas text-paper">
@@ -162,14 +181,21 @@ export default function BounceBackPage() {
             </Reveal>
 
             <Reveal delay={280}>
-              <div className="flex flex-wrap gap-3">
-                <Button href="mailto:outreach@bintobetter.org?subject=Bounce%20Back%20Pickup%20Request" variant="light">
-                  Request a Pickup
-                </Button>
-                <Button href="mailto:outreach@bintobetter.org?subject=Tennis%20Ball%20Recipient%20Request" variant="onDark">
-                  Request Tennis Balls
-                </Button>
-              </div>
+              <EmailActions
+                tone="dark"
+                actions={[
+                  {
+                    label: "Request a Pickup",
+                    subject: "Bounce Back Pickup Request",
+                    variant: "light",
+                  },
+                  {
+                    label: "Request Tennis Balls",
+                    subject: "Tennis Ball Recipient Request",
+                    variant: "onDark",
+                  },
+                ]}
+              />
             </Reveal>
           </div>
 
@@ -233,9 +259,15 @@ export default function BounceBackPage() {
 
         <Reveal delay={320}>
           <div className="mt-12">
-            <Button href="mailto:outreach@bintobetter.org?subject=Tennis%20Ball%20Request%20for%20My%20Classroom">
-              Request Tennis Balls for Your Classroom
-            </Button>
+            <EmailActions
+              actions={[
+                {
+                  label: "Request Tennis Balls for Your Classroom",
+                  subject: "Tennis Ball Request for My Classroom",
+                },
+              ]}
+              note="This opens a pre-addressed email. You can also write to us directly:"
+            />
           </div>
         </Reveal>
       </Section>

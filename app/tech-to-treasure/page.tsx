@@ -1,6 +1,15 @@
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { breadcrumbSchema } from "@/content/structured-data";
+import {
+  breadcrumbSchema,
+  bootcampCourseSchema,
+  workshopEventSchema,
+  programServiceSchema,
+} from "@/content/structured-data";
+import {
+  techToTreasureFaq,
+  techToTreasureFaqSchema,
+} from "@/content/tech-to-treasure-faq";
 import Image from "next/image";
 import { Nav } from "@/components/layout/Nav";
 import { Footer } from "@/components/layout/Footer";
@@ -14,9 +23,12 @@ import { pageMetadata } from "@/content/site";
 
 export const metadata: Metadata = pageMetadata({
   route: "/tech-to-treasure",
-  title: "Tech to Treasure: E-Waste Workshops for Kids",
+  title: "Free E-Waste Workshops for Kids in Fremont, CA",
   description:
-    "Free hands-on workshops where students take apart real devices to learn how they work. Leftover parts are recycled through certified e-waste channels.",
+    "Free hands-on workshops in Fremont where kids take apart real computers, routers, and sensors to see how they work, plus a six-week environmental tech bootcamp. Leftover parts are recycled.",
+  image: "/og/tech-to-treasure.jpg",
+  imageAlt:
+    "Students gathered outside the red barn at a Tech to Treasure workshop in Fremont",
 });
 
 const whatWeDo = [
@@ -40,6 +52,24 @@ const bootcampStats = [
   { value: "10", label: "Challenges tackled" },
 ];
 
+// What the bootcamp produced, as opposed to what it scheduled. Every claim here
+// is one the impact timeline (content/events.ts) or the public projects
+// repository can be checked against.
+const bootcampOutcomes = [
+  {
+    title: "Fifty students finished the full six weeks",
+    desc: "The cohort worked through ten environmental challenges together, in weekly sessions run online and locally.",
+  },
+  {
+    title: "Every project is public",
+    desc: "Final projects from the cohort are published in an open GitHub repository, so the code students wrote can be read, run, and built on by anyone.",
+  },
+  {
+    title: "Mentorship ran the whole way",
+    desc: "Project support continued through all six weeks rather than stopping after a kickoff, which is what carried first-time builders to a finished project.",
+  },
+];
+
 // Google Photos album with the full set of workshop & impact photos.
 const WORKSHOP_ALBUM = "https://photos.app.goo.gl/792VDJk4aGh9V7M86";
 
@@ -55,10 +85,31 @@ const workshopPhotos = [
 // In-person workshops we've hosted. The March 1 session details are our
 // original format; the April 19 and June 28 details come from each session's
 // sign-up form, with the stations built from the topics each form describes.
+//
+// `outcome` and `takeaways` lead each card. The page previously opened every
+// workshop with its logistics — date, age band, group size — which answers a
+// question nobody has about a session that already happened. What a reader
+// (a parent deciding on the next one, a school deciding whether to host)
+// actually wants is what the students walked away with, so that goes first and
+// the logistics are demoted to one line. Outcomes match the impact timeline in
+// content/events.ts; takeaways are the guided prompts the students worked
+// through at the stations below.
 const workshops = [
   {
     date: "March 1, 2026",
+    startDate: "2026-03-01T15:30:00-08:00",
+    endDate: "2026-03-01T17:30:00-08:00",
+    locality: "Fremont",
+    region: "CA",
     location: "Patterson Ranch benches outside the red barn · 5298 Rancho Del Norte Dr, Fremont, CA 94555",
+    outcome:
+      "More than 40 students and family members took apart desktop computers, monitors, and a 3D printer, and left able to point out which part of a machine does what.",
+    takeaways: [
+      "Told memory apart from storage, and said why a computer needs both",
+      "Traced a cable from the power supply to the part it feeds",
+      "Explained what a stepper motor moves on a 3D printer",
+      "Separated the parts that display an image from the parts that control it",
+    ],
     details: [
       { label: "When", value: "March 1 · 3:30 PM – 5:30 PM" },
       { label: "Age Group", value: "8–12 years" },
@@ -116,7 +167,19 @@ const workshops = [
   },
   {
     date: "April 19, 2026",
+    startDate: "2026-04-19T15:30:00-07:00",
+    endDate: "2026-04-19T17:30:00-07:00",
+    locality: "Fremont",
+    region: "CA",
     location: "5298 Rancho Del Norte Dr, Fremont, CA 94555",
+    outcome:
+      "Students worked through circuit boards, motors, routers, and modems — taking each apart, following the signal through it, and putting it back together.",
+    takeaways: [
+      "Found the processor on a bare circuit board and traced a path between components",
+      "Reversed a motor's leads and predicted which way it would turn",
+      "Followed the wiring from a motor back to its driver board",
+      "Worked out which ports on a router carry internet in and which carry it out",
+    ],
     details: [
       { label: "When", value: "April 19 · 3:30 PM – 5:30 PM" },
       { label: "Age Group", value: "Grades 3–8" },
@@ -176,7 +239,19 @@ const workshops = [
   },
   {
     date: "June 28, 2026",
+    startDate: "2026-06-28T16:30:00-07:00",
+    endDate: "2026-06-28T18:30:00-07:00",
+    locality: "Fremont",
+    region: "CA",
     location: "5298 Rancho Del Norte Dr, Fremont, CA 94555",
+    outcome:
+      "Students opened a hard drive, stripped a Chromebook to its motherboard, and wired up sensors — covering how data is stored, how a laptop is built, and how an embedded system reads the world around it.",
+    takeaways: [
+      "Opened a hard drive, found the platter, and compared it to an SSD",
+      "Explained why storage has shrunk while holding more",
+      "Reassembled a Chromebook's layers in the right order",
+      "Sorted sensor-board parts into inputs and outputs, and named a real-world use for each",
+    ],
     details: [
       { label: "When", value: "June 28 · 4:30 PM – 6:30 PM" },
       { label: "Age Group", value: "All ages welcome" },
@@ -242,7 +317,22 @@ export default function TechToTreasurePage() {
       <Nav />
 
       <main id="main-content">
-      <JsonLd data={breadcrumbSchema("Tech to Treasure", "/tech-to-treasure")} />
+      <JsonLd
+        data={[
+          breadcrumbSchema("Tech to Treasure", "/tech-to-treasure"),
+          programServiceSchema({
+            name: "Tech to Treasure: free hands-on e-waste workshops",
+            description:
+              "Free workshops in Fremont where students take apart donated computers, routers, and sensors to learn how they work. Remaining parts are responsibly recycled.",
+            route: "/tech-to-treasure",
+            serviceType: "Electronics reuse education",
+            audience: "Students, families, and schools",
+          }),
+          bootcampCourseSchema,
+          techToTreasureFaqSchema(),
+          ...workshops.map(workshopEventSchema),
+        ]}
+      />
 
       {/* Hero — dark canvas band */}
       <Section className="bg-canvas">
@@ -351,10 +441,23 @@ export default function TechToTreasurePage() {
               together to build real-world solutions for 10 environmental
               challenges, with mentorship and project support across six weeks.
             </p>
-            <p>
-              Dive into the code and view all student projects on GitHub.
-            </p>
           </div>
+        </Reveal>
+
+        <Reveal delay={180}>
+          <h3 className="mt-10 font-mono text-xs font-medium uppercase tracking-[0.12em] text-sage">
+            What came out of it
+          </h3>
+          <ul className="mt-4 grid gap-4 md:grid-cols-3">
+            {bootcampOutcomes.map((outcome) => (
+              <li key={outcome.title} className="border border-ink/10 p-5">
+                <p className="font-semibold text-ink">{outcome.title}</p>
+                <p className="mt-2 text-sm leading-relaxed text-ink/65">
+                  {outcome.desc}
+                </p>
+              </li>
+            ))}
+          </ul>
           <div className="mt-6">
             <Button
               href="https://github.com/achavali33/Bin-to-Better-6-Week-Bootcamp-Final-Projects"
@@ -384,7 +487,8 @@ export default function TechToTreasurePage() {
           <p className="mb-8 max-w-2xl text-base text-paper/60">
             We&apos;ve hosted several in-person workshops for local students, each
             built entirely around repurposed e-waste that&apos;s responsibly
-            recycled afterward. Here&apos;s what each session looked like.
+            recycled afterward. Here&apos;s what students took away from each
+            session, most recent last.
           </p>
         </Reveal>
 
@@ -393,25 +497,47 @@ export default function TechToTreasurePage() {
             <Reveal key={w.date} delay={120 + i * 60}>
               <div className="border border-paper/15 bg-field overflow-hidden">
                 <div className="p-8 md:p-12">
-                  <div className="mb-8">
+                  <div className="mb-6">
                     <p className="font-mono text-xs font-medium uppercase tracking-[0.12em] text-sage mb-4">
-                      Past Event &bull; {w.date} &bull; Fremont, CA
+                      {w.date} &bull; {w.locality}, {w.region}
                     </p>
-                    <p className="text-paper/60 max-w-2xl text-base">
-                      {w.location}
+                    <p className="max-w-3xl text-lg leading-relaxed text-paper sm:text-xl">
+                      {w.outcome}
                     </p>
                   </div>
 
-                  <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-                    {w.details.map((d) => (
-                      <div key={d.label} className="border border-paper/15 bg-canvas p-4">
-                        <div className="font-mono text-xs text-paper/40 uppercase tracking-[0.12em] mb-1">
-                          {d.label === "Group Size" ? "Station Group Size" : d.label}
-                        </div>
-                        <div className="text-sm font-semibold text-paper">{d.value}</div>
-                      </div>
+                  <h4 className="font-mono text-xs font-medium uppercase tracking-[0.12em] text-sage mb-3">
+                    What students walked away with
+                  </h4>
+                  <ul className="mb-8 grid gap-x-8 gap-y-2 sm:grid-cols-2">
+                    {w.takeaways.map((takeaway) => (
+                      <li key={takeaway} className="flex items-start gap-2.5 text-sm text-paper/75">
+                        <svg
+                          aria-hidden="true"
+                          width="16"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          className="mt-[0.2rem] shrink-0 text-court"
+                        >
+                          <polyline points="3 8.5 6.5 12 13 4.5" />
+                        </svg>
+                        <span>{takeaway}</span>
+                      </li>
                     ))}
-                  </div>
+                  </ul>
+
+                  {/* Logistics, kept for anyone sizing up a session of their own
+                      but no longer the first thing on the card. */}
+                  <p className="mb-8 text-sm text-paper/50">
+                    {w.details.map((d) => `${d.label}: ${d.value}`).join(" · ")}
+                    {" · "}
+                    {w.location}
+                  </p>
 
                   <h4 className="font-mono text-xs font-medium uppercase tracking-[0.12em] text-sage mb-4">
                     Stations &amp; Activities
@@ -482,8 +608,40 @@ export default function TechToTreasurePage() {
         </Reveal>
       </Section>
 
-      {/* Get Involved — paper band */}
+      {/* Questions parents ask — paper band.
+          Parents reach this page from questions ("free computer class for kids
+          near me", "is it safe for kids to take apart electronics") that the
+          page answered nowhere in those words. Same pattern as the teacher Q&A
+          on /bounce-back: the visible list and the FAQPage schema are built
+          from one source so they cannot contradict each other. */}
       <Section className="bg-paper">
+        <Reveal>
+          <SectionHeading
+            eyebrow="For Parents & Schools"
+            title="Common Questions"
+            subtitle="What the workshops cost, who they are for, what students actually do, and where the parts end up."
+            tone="light"
+            align="left"
+          />
+        </Reveal>
+
+        <div className="grid gap-x-12 gap-y-8 lg:grid-cols-2">
+          {techToTreasureFaq.map((item, i) => (
+            <Reveal key={item.question} delay={60 + i * 40}>
+              <div>
+                <h3 className="text-lg font-bold leading-snug text-ink">
+                  {item.question}
+                </h3>
+                <p className="mt-2 leading-relaxed text-ink/70">{item.answer}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      {/* Get Involved — field band, so it does not sit paper-on-paper against
+          the questions above it. */}
+      <Section className="bg-field">
         <Reveal>
           <div className="max-w-3xl border border-ink/10 bg-paper p-8">
             <h2 className="font-display text-[clamp(1.5rem,2.5vw,2rem)] font-bold text-ink mb-3 text-balance">

@@ -9,6 +9,8 @@
     "start": "next start",
     "preview": "pnpm exec serve out",
     "lint": "eslint",
+    "og": "node scripts/generate-og-images.mjs",
+    "optimize:images": "node scripts/optimize-images.mjs",
     "test": "vitest run",
     "test:watch": "vitest"
   },
@@ -36,6 +38,7 @@
     "jsdom": "^30.0.1",
     "serve": "^14.2.6",
     "shadcn": "^4.16.1",
+    "sharp": "^0.35.3",
     "tailwindcss": "^4.3.3",
     "typescript": "^5",
     "vitest": "^4.1.10"

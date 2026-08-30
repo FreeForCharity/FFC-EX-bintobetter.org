@@ -17,12 +17,15 @@ export function Button({
   href,
   variant = "primary",
   withArrow = false,
+  icon,
   children,
   className = "",
 }: {
   href: string;
   variant?: "primary" | "secondary" | "onDark" | "light";
   withArrow?: boolean;
+  /** Leading glyph, rendered before the label. Decorative — label carries the meaning. */
+  icon?: ReactNode;
   children: ReactNode;
   className?: string;
 }) {
@@ -31,6 +34,7 @@ export function Button({
   const styles = variantStyles[variant];
   const inner = (
     <>
+      {icon ? <span aria-hidden="true" className="inline-flex shrink-0">{icon}</span> : null}
       <span>{children}</span>
       {withArrow ? (
         <ArrowRight className="size-4 translate-x-0 transition-transform duration-200 ease-[var(--ease-out-hover)] group-hover/btn:translate-x-[3px]" />
