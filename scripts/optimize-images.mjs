@@ -10,11 +10,14 @@
  * Contentful Paint is a ranking signal and a 3.5 MB PNG behind a thumbnail is
  * the most expensive way to fail it.
  *
- * Run with `npm run optimize:images`. It rewrites in place: each source is
+ * Run with `pnpm optimize:images`. It rewrites in place: each source is
  * converted to a .webp sibling and the original is deleted, so re-running it is
  * a no-op. Update the references in content/ and app/ in the same commit — the
  * assets test will not catch a path that points at a file that no longer
  * exists, but the build will.
+ *
+ * `sharp` is a devDependency of this repo rather than something borrowed from
+ * next's optional dependencies, so both scripts run after a plain install.
  *
  * MAX_WIDTH per folder is roughly twice the largest size the image is displayed
  * at, which covers 2x-density screens without paying for 3x nobody can see.

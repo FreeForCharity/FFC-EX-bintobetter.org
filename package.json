@@ -2,11 +2,12 @@
   "name": "b2bsite",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "pnpm@10.34.5",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "preview": "npx serve@latest out",
+    "preview": "pnpm exec serve out",
     "lint": "eslint",
     "og": "node scripts/generate-og-images.mjs",
     "optimize:images": "node scripts/optimize-images.mjs",
@@ -35,13 +36,17 @@
     "eslint": "^9",
     "eslint-config-next": "16.3.0",
     "jsdom": "^30.0.1",
+    "serve": "^14.2.6",
     "shadcn": "^4.16.1",
     "sharp": "^0.35.3",
     "tailwindcss": "^4.3.3",
     "typescript": "^5",
     "vitest": "^4.1.10"
   },
-  "overrides": {
-    "js-yaml": "^4.3.0"
+  "pnpm": {
+    "overrides": {
+      "js-yaml": "^4.3.0",
+      "nanoid@<3.3.18": "^3.3.18"
+    }
   }
 }

@@ -6,7 +6,7 @@
  * identically in Slack, iMessage, LinkedIn and X. A card that does not describe
  * the page it links to is a click nobody makes.
  *
- * Run with `npm run og` after adding or replacing a source photo. The output is
+ * Run with `pnpm og` after adding or replacing a source photo. The output is
  * committed: the site is a static export and generating these at build time
  * would put sharp on the build's critical path for images that change maybe
  * twice a year.

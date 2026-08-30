@@ -92,7 +92,7 @@ export function isProductionSite(url: string = site.url): boolean {
 /**
  * Every social card is 1200x630, the ratio every platform crops toward. They
  * are built from real photographs of the programme they belong to by
- * scripts/generate-og-images.mjs (`npm run og`) and committed under public/og.
+ * scripts/generate-og-images.mjs (`pnpm og`) and committed under public/og.
  *
  * Before this, `image` defaulted to /logo.webp for every route, so a link to
  * the tennis-ball page, the workshops page and the donate page all previewed
