@@ -25,7 +25,7 @@ export const metadata: Metadata = pageMetadata({
   route: "/tech-to-treasure",
   title: "Free E-Waste Workshops for Kids in Fremont, CA",
   description:
-    "Free hands-on workshops in Fremont where kids take apart real computers, routers, and sensors to see how they work, plus a six-week environmental tech bootcamp. Leftover parts are recycled.",
+    "Free hands-on workshops in Fremont where kids take apart real computers, routers, and sensors to see how they work, plus environmental tech bootcamps. Leftover parts are recycled.",
   image: "/og/tech-to-treasure.jpg",
   imageAlt:
     "Students gathered outside the red barn at a Tech to Treasure workshop in Fremont",
@@ -47,9 +47,9 @@ const whatWeDo = [
 ];
 
 const bootcampStats = [
-  { value: "50", label: "Students" },
-  { value: "6", label: "Weeks" },
-  { value: "10", label: "Challenges tackled" },
+  { value: "150", label: "Students" },
+  { value: "2", label: "Bootcamps" },
+  { value: "35+", label: "Sustainability projects" },
 ];
 
 // What the bootcamp produced, as opposed to what it scheduled. Every claim here
@@ -57,16 +57,16 @@ const bootcampStats = [
 // repository can be checked against.
 const bootcampOutcomes = [
   {
-    title: "Fifty students finished the full six weeks",
-    desc: "The cohort worked through ten environmental challenges together, in weekly sessions run online and locally.",
+    title: "150 students across two bootcamps",
+    desc: "Fifty students joined the first bootcamp and 100 joined the second. Each ran six sessions, with consistent attendance throughout.",
   },
   {
-    title: "Every project is public",
-    desc: "Final projects from the cohort are published in an open GitHub repository, so the code students wrote can be read, run, and built on by anyone.",
+    title: "The projects are public",
+    desc: "The first bootcamp built 10+ projects, published in an open GitHub repository so the code students wrote can be read, run, and built on by anyone. The second bootcamp built 25+ sustainability projects, and we will link their repository here once it is ready.",
   },
   {
     title: "Mentorship ran the whole way",
-    desc: "Project support continued through all six weeks rather than stopping after a kickoff, which is what carried first-time builders to a finished project.",
+    desc: "Mentorship continued through every session of both bootcamps rather than stopping after a kickoff, which is what carried first-time builders to a finished project.",
   },
 ];
 
@@ -413,7 +413,7 @@ export default function TechToTreasurePage() {
         <Reveal>
           <SectionHeading
             eyebrow="Environmental Bootcamp"
-            title="6 Weeks. 10 Challenges. Real Impact."
+            title="2 Bootcamps. 35+ Projects. Real Impact."
             align="left"
             tone="light"
           />
@@ -437,9 +437,10 @@ export default function TechToTreasurePage() {
         <Reveal delay={140}>
           <div className="max-w-3xl space-y-4 text-ink/70 leading-relaxed text-base sm:text-lg">
             <p>
-              Our Tech to Treasure Environmental Bootcamp brought students
-              together to build real-world solutions for 10 environmental
-              challenges, with mentorship and project support across six weeks.
+              We have run two Tech to Treasure Environmental Bootcamps so far,
+              bringing 150 students together to build real-world sustainability
+              projects, with consistent attendance and mentorship across six
+              sessions each.
             </p>
           </div>
         </Reveal>

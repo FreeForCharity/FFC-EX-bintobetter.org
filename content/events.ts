@@ -216,7 +216,7 @@ export const impactTimeline = [
     category: "Bootcamp",
     title: "Tech to Treasure Environmental Bootcamp",
     location: "Online and local sessions",
-    result: "Fifty students worked through 10 environmental challenges across a six-week technology bootcamp.",
+    result: "Fifty students completed the first six-session technology bootcamp and built 10+ projects. A second bootcamp brought the total to 150 students and 35+ sustainability projects.",
   },
   {
     date: "April 19, 2026",
