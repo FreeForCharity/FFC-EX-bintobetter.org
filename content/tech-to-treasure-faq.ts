@@ -16,8 +16,8 @@
  *                               through e-waste channels with our recycling
  *                               partners" (What We Do)
  *  - how to hear about one    → the Get Involved block and /get-involved
- *  - the bootcamp             → 50 students, 6 weeks, 10 challenges, and the
- *                               public projects repository
+ *  - the bootcamp             → two bootcamps, 150 students, 35+ projects, and
+ *                               the public projects repository
  *
  * These strings go verbatim into FAQPage schema, so an overclaim here is
  * published in a machine-readable surface as well as a human one. Do not add an
@@ -68,7 +68,7 @@ export const techToTreasureFaq: { question: string; answer: string }[] = [
   {
     question: "What is the Tech to Treasure Environmental Bootcamp?",
     answer:
-      "A six-week program in which fifty students worked through ten environmental challenges, building technology projects with mentorship running the whole way. The cohort's final projects are published in a public GitHub repository, so the code students wrote can be read and built on by anyone.",
+      "We have run two bootcamps, each with six sessions. Fifty students joined the first and 100 joined the second, building 35+ sustainability projects in total with mentorship running the whole way. The first bootcamp's projects are published in a public GitHub repository, so the code students wrote can be read and built on by anyone, and we will link the second bootcamp's repository once it is ready.",
   },
 ];
 

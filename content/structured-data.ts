@@ -147,7 +147,7 @@ export function workshopEventSchema(workshop: {
 }
 
 /**
- * The six-week environmental bootcamp, as a `Course`.
+ * The six-session environmental bootcamp, as a `Course`.
  *
  * Same reasoning as the workshops: it is a real, named, repeatable program with
  * a described outcome, and describing it only in prose left it invisible to the
@@ -158,7 +158,7 @@ export const bootcampCourseSchema = {
   "@type": "Course",
   name: "Tech to Treasure Environmental Bootcamp",
   description:
-    "A six-week bootcamp where students build technology projects against ten environmental challenges, with mentorship throughout. Final projects are published publicly.",
+    "A six-session bootcamp where students build technology projects for environmental challenges, with mentorship throughout. Two bootcamps have reached 150 students, and the first bootcamp's projects are published publicly.",
   provider: { "@id": ORG_ID },
   url: absoluteUrl("/tech-to-treasure/"),
   inLanguage: "en-US",

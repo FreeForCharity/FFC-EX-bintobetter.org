@@ -24,8 +24,15 @@ export const teamGroups: TeamGroup[] = [
         photo: "/members/Lalit Batchu.webp",
       },
       {
+        name: "Rohan Sashank Babbellapati",
+        role: "Co-Founder",
+        school: "American High School",
+        fact: "Helped launch Bin to Better after seeing how many usable tennis balls were discarded.",
+        photo: "/members/Rohan Sashank Babbellapati.webp",
+      },
+      {
         name: "Pradyun Kanuparthi",
-        role: "Co-Founder and Co-President",
+        role: "Co-President",
         school: "Mission San Jose High School; Grade 12",
         fact: "I start for my varsity basketball team.",
         photo: "/members/Pradyun Kanuparthi.webp",
@@ -70,13 +77,6 @@ export const teamGroups: TeamGroup[] = [
         school: "American High School; Grade 10",
         fact: "I have traveled to 15 countries.",
         photo: "/members/Atiksh Jain.webp",
-      },
-      {
-        name: "Cedric Liu",
-        role: "Eco-Filament Officer",
-        school: "Mission San Jose High School; Grade 11",
-        fact: "I like to build stuff",
-        photo: "/members/Cedric Liu.webp",
       },
     ],
   },
@@ -140,60 +140,6 @@ export const teamGroups: TeamGroup[] = [
     ],
   },
   {
-    category: "Leadership",
-    members: [
-      {
-        name: "Yuvraj Dar",
-        role: "Technical Lead",
-        school: "American High School; Grade 12",
-        fact: "I am an Eagle Scout.",
-        photo: "/members/Yuvraj Dar.webp",
-      },
-      {
-        name: "Ashish Swaminathan",
-        role: "Secretary",
-        school: "Mission San Jose High School; Grade 12",
-        fact: "I am an eclectic person, liking academia while also liking sports and leadership.",
-        photo: "/members/Ashish Swaminathan.webp",
-        imagePosition: "center 25%",
-      },
-      {
-        name: "Aarnav Sharma",
-        role: "Technical",
-        school: "Archbishop Mitty High School; Grade 9",
-        fact: "I developed this website",
-        photo: "",
-      },
-    ],
-  },
-  {
-    category: "Fundraising",
-    members: [
-      {
-        name: "Vihaan Sanghvi",
-        role: "Fundraising Director",
-        school: "American High School; Grade 11",
-        fact: "I love traveling",
-        photo: "/members/Vihaan Sanghvi.webp",
-      },
-      {
-        name: "Abhay Shankar",
-        role: "Fundraising Officer",
-        school: "Mission San Jose High School; Grade 12",
-        fact: "I have a labradoodle named Milo",
-        photo: "/members/Abhay Shankar.webp",
-      },
-      {
-        name: "Yuva Chandrachood",
-        role: "Fundraising Officer",
-        school: "American High School; Grade 11",
-        fact: "I am 6 feet 1 inch tall.",
-        photo: "/members/Yuva Chandrachood.webp",
-        imagePosition: "70% 25%",
-      },
-    ],
-  },
-  {
     category: "Outreach",
     members: [
       {
@@ -225,6 +171,60 @@ export const teamGroups: TeamGroup[] = [
         fact: "",
         photo: "/members/Nandini Kumar.webp",
         imagePosition: "center 40%",
+      },
+    ],
+  },
+  {
+    category: "Fundraising",
+    members: [
+      {
+        name: "Vihaan Sanghvi",
+        role: "Fundraising Director",
+        school: "American High School; Grade 11",
+        fact: "I love traveling",
+        photo: "/members/Vihaan Sanghvi.webp",
+      },
+      {
+        name: "Abhay Shankar",
+        role: "Fundraising Officer",
+        school: "Mission San Jose High School; Grade 12",
+        fact: "I have a labradoodle named Milo",
+        photo: "/members/Abhay Shankar.webp",
+      },
+      {
+        name: "Yuva Chandrachood",
+        role: "Fundraising Officer",
+        school: "American High School; Grade 11",
+        fact: "I am 6 feet 1 inch tall.",
+        photo: "/members/Yuva Chandrachood.webp",
+        imagePosition: "70% 25%",
+      },
+    ],
+  },
+  {
+    category: "Leadership",
+    members: [
+      {
+        name: "Yuvraj Dar",
+        role: "Technical Lead",
+        school: "American High School; Grade 12",
+        fact: "I am an Eagle Scout.",
+        photo: "/members/Yuvraj Dar.webp",
+      },
+      {
+        name: "Ashish Swaminathan",
+        role: "Secretary",
+        school: "Mission San Jose High School; Grade 12",
+        fact: "I am an eclectic person, liking academia while also liking sports and leadership.",
+        photo: "/members/Ashish Swaminathan.webp",
+        imagePosition: "center 25%",
+      },
+      {
+        name: "Aarnav Sharma",
+        role: "Technical",
+        school: "Archbishop Mitty High School; Grade 9",
+        fact: "I developed this website",
+        photo: "",
       },
     ],
   },

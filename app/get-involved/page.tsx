@@ -100,17 +100,10 @@ export default function GetInvolved() {
             <Button href="#ways" variant="light">
               Explore Options
             </Button>
-            <Button
-              href={`mailto:${site.email}`}
-              variant="onDark"
-              icon={<Mail className="size-4" />}
-            >
-              Contact Us
-            </Button>
           </div>
           {/* The address in plain sight: a mailto: click does nothing visible on
-              a device with no mail client, and a dead-looking button reads as a
-              broken site. */}
+              a device with no mail client, so the hero shows the address itself
+              rather than a button that looks broken. */}
           <CopyEmail tone="dark" className="mt-5" />
         </Reveal>
       </Section>
