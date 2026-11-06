@@ -116,8 +116,24 @@ export default function Partners() {
 
               {/* Text */}
               <div className="flex-1">
+                {partner.sponsorUrl ? (
+                  <p className="mb-2 font-mono text-xs font-medium uppercase tracking-[0.12em] text-sage">
+                    Sponsor
+                  </p>
+                ) : null}
                 <h3 className="font-display text-2xl font-bold text-ink">
-                  {partner.name}
+                  {partner.sponsorUrl ? (
+                    <a
+                      href={partner.sponsorUrl}
+                      target="_blank"
+                      rel="sponsored noopener noreferrer"
+                      className="underline underline-offset-4 hover:text-canvas transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+                    >
+                      {partner.name}
+                    </a>
+                  ) : (
+                    partner.name
+                  )}
                 </h3>
                 <p className="mt-4 text-sm leading-relaxed text-ink/60 italic">
                   {/* Linkify the contact email only when the note actually
