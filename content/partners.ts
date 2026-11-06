@@ -29,7 +29,19 @@ export const whyPartner: string[] = [
   "Show visible community commitment through collection and reuse programs.",
 ];
 
-export const corporatePartners: { name: string; logo: string; note: string }[] = [
+export const corporatePartners: {
+  name: string;
+  logo: string;
+  note: string;
+  /** Marks a paid relationship: shows a "Sponsor" label and links out with rel="sponsored". */
+  sponsorUrl?: string;
+}[] = [
+  {
+    name: "Anakin.io",
+    logo: "/partners-logos/anakin.webp",
+    note: "Anakin.io proudly sponsors Bin to Better. Anakin.io is a web scraping and data API that gives AI agents and workflows one way to search, interact with, and extract data from the web.",
+    sponsorUrl: "https://anakin.io",
+  },
   {
     name: "Sun Dragon Computers",
     logo: "/partners-logos/sun-dragon-computers.webp",
