@@ -8,7 +8,7 @@ export const programLinks: { label: string; href: string }[] = [
 // content still lives in content/events.ts — restore the route and this entry
 // together when it comes back.
 //
-// Order is the org's: Programs, Team, Get Involved, Partners, with Support Us
+// Order is the org's: Programs, Team, Get Involved, Partners, with Donate
 // rendered after these as the standing call to action. It runs from what we do,
 // through who does it, to how a visitor joins in — Partners sits last because
 // it is the one entry aimed at organisations rather than at the person reading.

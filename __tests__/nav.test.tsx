@@ -9,17 +9,17 @@ import { navLinks, programLinks } from "@/content/nav";
 const desktopNav = () => screen.getByRole("navigation");
 
 describe("Nav", () => {
-  it("renders the brand logo and a Support Us link", () => {
+  it("renders the brand logo and a Donate link", () => {
     render(<Nav />);
     expect(screen.getByAltText(/bin to better/i)).toBeInTheDocument();
     expect(
-      within(desktopNav()).getByRole("link", { name: /support us/i })
+      within(desktopNav()).getByRole("link", { name: /donate/i })
     ).toHaveAttribute("href", "/donate");
   });
 
   /**
    * The order is the org's, not an implementation detail: Programs, Team, Get
-   * Involved, Partners, with Support Us last. It has been asked for explicitly
+   * Involved, Partners, with Donate last. It has been asked for explicitly
    * once already, so it is pinned here rather than left to whoever next appends
    * an entry to the array.
    */
@@ -35,10 +35,10 @@ describe("Nav", () => {
       .getAllByRole("link")
       .map((link) => link.textContent?.trim())
       .filter((label): label is string =>
-        ["Team", "Get Involved", "Partners", "Support Us"].includes(label ?? "")
+        ["Team", "Get Involved", "Partners", "Donate"].includes(label ?? "")
       );
 
-    expect(labels).toEqual(["Team", "Get Involved", "Partners", "Support Us"]);
+    expect(labels).toEqual(["Team", "Get Involved", "Partners", "Donate"]);
   });
 
   it("lists the three programs", () => {
