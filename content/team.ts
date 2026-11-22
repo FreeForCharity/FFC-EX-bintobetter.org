@@ -17,7 +17,7 @@ export const teamGroups: TeamGroup[] = [
     category: "Executives",
     members: [
       {
-        name: "Lalit Batchu",
+        name: "Lalit Sreekar Batchu",
         role: "Co-Founder and Co-President",
         school: "American High School; Grade 12",
         fact: "My full name has 6 words!",

@@ -17,7 +17,7 @@ export const about = {
     "Together they launched Bin to Better to give new purpose to what others might throw away.",
   founders: [
     {
-      name: "Lalit Batchu",
+      name: "Lalit Sreekar Batchu",
       role: "Co-Founder",
       photo: "/members/Lalit Batchu.webp",
     },

@@ -40,7 +40,7 @@ export function Footer() {
               ...navLinks,
               ...programLinks,
               { label: "Awards", href: "/achievements" },
-              { label: "Support Us", href: "/donate" },
+              { label: "Donate", href: "/donate" },
             ].map((l) => (
               <li key={l.href}>
                 <Link
