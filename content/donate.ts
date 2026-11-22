@@ -11,19 +11,19 @@ export const donate = {
   ],
 
   // ── Impact tiers (Bounce Back fundraiser) ───────────────
-  // Rate the org gave: every $1 puts 5 tennis balls on classroom chair legs.
+  // Rate the org gave: every $1 puts 10 tennis balls on classroom chair legs.
   // Keep `balls` in step with `amount` if the rate ever changes.
   impactEyebrow: "Bounce Back Fundraiser",
   impactHeading: "See exactly what your gift does",
   impactIntro:
-    "Every dollar puts five repurposed tennis balls on the chair legs of a school in need: quieter classrooms, protected floors, and one less ball in a landfill.",
-  ballsPerDollar: 5,
+    "Every dollar puts ten repurposed tennis balls on the chair legs of a school in need: quieter classrooms, protected floors, and one less ball in a landfill.",
+  ballsPerDollar: 10,
   tiers: [
-    { amount: 10, balls: 50 },
-    { amount: 25, balls: 125 },
-    { amount: 50, balls: 250, featured: true },
-    { amount: 100, balls: 500 },
-    { amount: 250, balls: 1250 },
+    { amount: 10, balls: 100 },
+    { amount: 25, balls: 250 },
+    { amount: 50, balls: 500, featured: true },
+    { amount: 100, balls: 1000 },
+    { amount: 250, balls: 2500 },
   ] as { amount: number; balls: number; featured?: boolean }[],
   impactNote:
     "Pick any amount on the donation page. Every amount counts, and every gift goes to the same place: more balls on more chairs.",

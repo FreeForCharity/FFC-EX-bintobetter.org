@@ -14,9 +14,9 @@ import { pageMetadata } from "@/content/site";
 
 export const metadata: Metadata = pageMetadata({
   route: "/donate",
-  title: "Donate: Every $1 Puts 5 Tennis Balls in a Classroom",
+  title: "Donate: Every $1 Puts 10 Tennis Balls in a Classroom",
   description:
-    "All Bin to Better events are free. Donate to the Bounce Back fundraiser: $50 puts 250 repurposed tennis balls on classroom chair legs at schools in need.",
+    "All Bin to Better events are free. Donate to the Bounce Back fundraiser: $50 puts 500 repurposed tennis balls on classroom chair legs at schools in need.",
   image: "/og/donate.jpg",
   imageAlt:
     "A volunteer carrying a full bag of collected litter down a park path",
